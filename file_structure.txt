@@ -1,0 +1,6 @@
+src/app:
+favicon.ico
+globals.css
+layout.tsx
+not-found.tsx
+page.tsx

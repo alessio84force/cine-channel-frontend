@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0%" stop-color="#9BA6FF"/>
+      <stop offset="50%" stop-color="#F0A3FF"/>
+      <stop offset="100%" stop-color="#FFC56D"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="#111"/>
+  <rect width="1600" height="1000" fill="url(#g)" opacity="0.25"/>
+  <text x="50%" y="55%" text-anchor="middle" font-size="120" font-family="Inter, system-ui, sans-serif" fill="#fff" opacity="0.9">Cine-Channel</text>
+</svg>
