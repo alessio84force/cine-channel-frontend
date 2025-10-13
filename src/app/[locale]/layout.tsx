@@ -9,19 +9,16 @@ export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
 }
 
-export default function LocaleLayout({
+export default async function LocaleLayout({
   children,
   params,
 }: {
   children: ReactNode
-  params: { locale: string } // <-- non Promise
+  params: Promise<{ locale: string }>
 }) {
-  const { locale } = params
-  if (!(locales as readonly string[]).includes(locale)) {
-    // opzionale: lascia l'handling al not-found del segmento
-  }
+  const { locale } = await params
 
-  // IMPORTANTISSIMO: stessa className del root layout (font + bg + text)
+  // Stessa class del root layout per evitare hydration mismatch
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={`${inter.className} bg-neutral-950 text-white`}>
