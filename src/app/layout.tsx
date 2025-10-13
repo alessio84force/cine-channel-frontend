@@ -5,6 +5,7 @@ import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
 import SkipLink from '@/components/SkipLink'
 import LangSetter from '@/components/LangSetter'
+import SplashIntro from '@/components/SplashIntro'
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' })
 
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es" suppressHydrationWarning>
       <body className={inter.className}>
         <LangSetter />
+        <SplashIntro /> {/* ← overlay con la stella + heartbeat (una volta per sessione) */}
         <SkipLink href="#content">Saltar al contenido</SkipLink>
         <NavBar />
         <main id="content" className="min-h-dvh">{children}</main>

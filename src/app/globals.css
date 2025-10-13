@@ -59,3 +59,14 @@ html, body { height: 100%; }
 :root { color-scheme: dark; }
 html, body { min-height: 100%; }
 body { @apply bg-neutral-950 text-white; } /* sfondo nero + testo bianco sempre */
+
+/* === Splash Intro (opzionale: solo per fallback animazioni) === */
+@keyframes splash-pop {
+  0%   { transform: scale(0.80); opacity: 0; }
+  60%  { transform: scale(1.10); opacity: 1; }
+  100% { transform: scale(1.00); opacity: 1; }
+}
+@keyframes splash-out {
+  0%   { transform: scale(1.00); opacity: 1; }
+  100% { transform: scale(0.20); opacity: 0; }
+}
