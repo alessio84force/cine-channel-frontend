@@ -3,14 +3,23 @@
 import { useEffect, useRef, useState } from 'react'
 import StarLogo from '@/components/StarLogo'
 
-type Phase = 'hidden' | 'in' | 'hold' | 'out'
+type Phase = 'grow' | 'hold' | 'shrink' | 'hidden'
 
 export default function SplashIntro() {
-  const [visible, setVisible] = useState(false)
-  const [phase, setPhase] = useState<Phase>('hidden')
+  const [phase, setPhase] = useState<Phase>('grow')
+  const [visible, setVisible] = useState(true)
   const audioStarted = useRef(false)
-  const timeouts = useRef<number[]>([])
+  const timers = useRef<number[]>([])
 
+  // === Parametri facili da regolare ===
+  const GROW_MS   = 900   // da piccola a grande
+  const HOLD_MS   = 1400  // tempo a grandezza massima
+  const SHRINK_MS = 900   // rimpicciolimento+fade
+  const START_S   = 0.35  // scala iniziale (piccola)
+  const PEAK_S    = 1.9   // scala massima (grande)
+  const END_S     = 0.18  // scala finale (molto piccola mentre svanisce)
+
+  // Heartbeat migliorato (doppio colpo x2 ondate)
   const playHeartbeat = async () => {
     if (audioStarted.current) return
     audioStarted.current = true
@@ -18,71 +27,88 @@ export default function SplashIntro() {
       const AudioCtx = window.AudioContext || (window as any).webkitAudioContext
       const ctx = new AudioCtx()
 
-      const makeThump = (when: number) => {
+      const thump = (when: number) => {
         const osc = ctx.createOscillator()
         const gain = ctx.createGain()
-        const filter = ctx.createBiquadFilter()
+        const lp = ctx.createBiquadFilter()
         osc.type = 'sine'
         osc.frequency.setValueAtTime(55, when)
-        filter.type = 'lowpass'
-        filter.frequency.setValueAtTime(180, when)
+        lp.type = 'lowpass'
+        lp.frequency.setValueAtTime(200, when)
         gain.gain.setValueAtTime(0.0001, when)
-        osc.connect(filter); filter.connect(gain); gain.connect(ctx.destination)
+        osc.connect(lp); lp.connect(gain); gain.connect(ctx.destination)
         gain.gain.exponentialRampToValueAtTime(0.95, when + 0.02)
         gain.gain.exponentialRampToValueAtTime(0.0001, when + 0.24)
-        osc.frequency.linearRampToValueAtTime(44, when + 0.20)
+        osc.frequency.linearRampToValueAtTime(45, when + 0.20)
         osc.start(when); osc.stop(when + 0.30)
       }
 
       const now = ctx.currentTime + 0.02
-      makeThump(now)
-      makeThump(now + 0.28)
-      setTimeout(() => { try { ctx.close() } catch {} }, 1200)
-    } catch {}
+      // onda 1 (inizio grow)
+      thump(now)
+      thump(now + 0.28)
+      // onda 2 (a metà hold)
+      thump(now + 1.0)
+      thump(now + 1.28)
+
+      // chiudi dopo ~2.2s
+      setTimeout(() => { try { ctx.close() } catch {} }, 2200)
+    } catch {
+      // riproveremo al primo click/tap
+    }
   }
 
   useEffect(() => {
     if (typeof window === 'undefined') return
     const KEY = 'cineSplashDone'
-    if (sessionStorage.getItem(KEY) === '1') return
-    setVisible(true)
-    setPhase('in')
-    timeouts.current.push(window.setTimeout(() => setPhase('hold'), 450))
-    timeouts.current.push(window.setTimeout(() => setPhase('out'), 1300))
-    timeouts.current.push(window.setTimeout(() => {
+    if (sessionStorage.getItem(KEY) === '1') {
       setVisible(false)
-      sessionStorage.setItem(KEY, '1')
-    }, 2100))
+      return
+    }
+
+    // sequenza temporale: grow -> hold -> shrink -> hidden
+    timers.current.push(window.setTimeout(() => setPhase('hold'),   GROW_MS))
+    timers.current.push(window.setTimeout(() => setPhase('shrink'), GROW_MS + HOLD_MS))
+    timers.current.push(window.setTimeout(() => {
+      setPhase('hidden'); setVisible(false); sessionStorage.setItem(KEY, '1')
+    }, GROW_MS + HOLD_MS + SHRINK_MS))
+
+    // audio subito, retry al primo tap/click se bloccato
     playHeartbeat()
-    const onInteract = () => playHeartbeat()
-    window.addEventListener('pointerdown', onInteract, { once: true })
+    const onTap = () => playHeartbeat()
+    window.addEventListener('pointerdown', onTap, { once: true })
     return () => {
-      timeouts.current.forEach(clearTimeout)
-      window.removeEventListener('pointerdown', onInteract)
+      timers.current.forEach(t => clearTimeout(t))
+      window.removeEventListener('pointerdown', onTap)
     }
   }, [])
 
   if (!visible) return null
 
-  // Scala iniziale PIÙ GRANDE e shrink deciso in uscita
+  // stile in base alla fase
   const style: React.CSSProperties = {
-    transition: 'transform 700ms ease, opacity 550ms ease',
+    transition: `transform ${phase==='grow'?GROW_MS:phase==='hold'?200:SHRINK_MS}ms ease, opacity ${SHRINK_MS}ms ease`,
     transform:
-      phase === 'in'   ? 'scale(1.8)' :   // entra MOLTO grande
-      phase === 'hold' ? 'scale(1.6)' :   // resta enorme un attimo
-      phase === 'out'  ? 'scale(0.18)' :  // shrink forte e dissolve
-                         'scale(1.8)',
-    opacity: phase === 'out' ? 0 : 1,
+      phase === 'grow'   ? `scale(${PEAK_S})`   : // finisce la crescita a PEAK_S
+      phase === 'hold'   ? `scale(${PEAK_S})`   :
+      phase === 'shrink' ? `scale(${END_S})`    :
+                           `scale(${START_S})`,
+    opacity: phase === 'shrink' ? 0 : 1,
+    willChange: 'transform, opacity',
   }
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black">
-      <div className="relative splash-box splash-willchange" style={style} aria-label="Intro Cine-Channel">
-        {/* Stella a schermo intero: forziamo l'SVG a 100% */}
+      <div
+        className="relative splash-box splash-willchange"
+        style={{ transform: `scale(${START_S})`, ...style }}
+        aria-label="Intro Cine-Channel"
+      >
+        {/* Stella enorme, svg full-size */}
         <div className="splash-star">
           <StarLogo />
         </div>
-        {/* Titolo enorme sopra */}
+        {/* Titolo centrale */}
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <span className="splash-title font-extrabold tracking-widest">CINE-CHANNEL</span>
         </div>
