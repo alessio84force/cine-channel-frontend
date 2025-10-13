@@ -6,13 +6,13 @@ import StarLogo from '@/components/StarLogo'
 type Phase = 'pre' | 'grow' | 'hold' | 'shrink' | 'hidden'
 
 export default function SplashIntro() {
-  const [phase, setPhase] = useState<Phase>('pre')   // <<< parte "piccola"
+  const [phase, setPhase] = useState<Phase>('pre')
   const [visible, setVisible] = useState(true)
   const audioTag = useRef<HTMLAudioElement | null>(null)
   const timers = useRef<number[]>([])
   const triedWebAudio = useRef(false)
 
-  // === Durate & scale ===
+  // Tempi & scale (versione veloce che avevamo)
   const GROW_MS   = 700
   const HOLD_MS   = 500
   const SHRINK_MS = 700
@@ -20,7 +20,6 @@ export default function SplashIntro() {
   const PEAK_S    = 1.9
   const END_S     = 0.18
 
-  // Fallback WebAudio se l'MP3 non parte
   const playWebAudio = async () => {
     if (triedWebAudio.current) return
     triedWebAudio.current = true
@@ -44,7 +43,7 @@ export default function SplashIntro() {
       }
       const now = ctx.currentTime + 0.02
       thump(now); thump(now + 0.28)
-      thump(now + 1.00); thump(now + 1.28)
+      thump(now + 0.80); thump(now + 1.06) // sincronizzato col HOLD più corto
       setTimeout(() => { try { ctx.close() } catch {} }, 2200)
     } catch {}
   }
@@ -56,30 +55,22 @@ export default function SplashIntro() {
       el.currentTime = 0
       el.volume = 0.9
       await el.play()
-    } catch {
-      // riproveremo al primo tap/click
-    }
+    } catch {}
   }
 
   useEffect(() => {
     if (typeof window === 'undefined') return
     const KEY = 'cineSplashDone'
-    if (sessionStorage.getItem(KEY) === '1') {
-      setVisible(false)
-      return
-    }
+    if (sessionStorage.getItem(KEY) === '1') { setVisible(false); return }
 
-    // 1) Primo tick: passa da 'pre' a 'grow' così la transizione parte da START_S
+    // trigger sequenza da piccolo → grande → piccolo
     timers.current.push(window.setTimeout(() => setPhase('grow'), 20))
-
-    // 2) Sequenza temporale
     timers.current.push(window.setTimeout(() => setPhase('hold'),   20 + GROW_MS))
     timers.current.push(window.setTimeout(() => setPhase('shrink'), 20 + GROW_MS + HOLD_MS))
     timers.current.push(window.setTimeout(() => {
       setPhase('hidden'); setVisible(false); sessionStorage.setItem(KEY, '1')
     }, 20 + GROW_MS + HOLD_MS + SHRINK_MS))
 
-    // Audio: prova subito, retry al primo tap/click
     tryPlayAudio()
     const onTap = () => tryPlayAudio()
     window.addEventListener('pointerdown', onTap, { once: true })
@@ -91,21 +82,15 @@ export default function SplashIntro() {
 
   if (!visible) return null
 
-  // Stile in base alla fase: 'pre' = START_S senza transizione
   const style: React.CSSProperties = (() => {
-    if (phase === 'pre') {
-      return { transform: `scale(${START_S})`, opacity: 1 } // niente transition qui
-    }
-    const duration =
-      phase === 'grow' ? GROW_MS :
-      phase === 'hold' ? 200 :
-      SHRINK_MS
+    if (phase === 'pre') return { transform: `scale(${START_S})`, opacity: 1 }
+    const duration = phase === 'grow' ? GROW_MS : phase === 'hold' ? 200 : SHRINK_MS
     return {
       transition: `transform ${duration}ms ease, opacity ${SHRINK_MS}ms ease`,
       transform:
-        phase === 'grow'   ? `scale(${PEAK_S})`   :
-        phase === 'hold'   ? `scale(${PEAK_S})`   :
-        phase === 'shrink' ? `scale(${END_S})`    :
+        phase === 'grow'   ? `scale(${PEAK_S})` :
+        phase === 'hold'   ? `scale(${PEAK_S})` :
+        phase === 'shrink' ? `scale(${END_S})`  :
                              `scale(${START_S})`,
       opacity: phase === 'shrink' ? 0 : 1,
       willChange: 'transform, opacity',
@@ -114,24 +99,18 @@ export default function SplashIntro() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black">
-      {/* MP3 opzionale: metti un file in /public/audio/heartbeat.mp3 */}
-      <audio
-        ref={audioTag}
-        src="/audio/heartbeat.mp3"
-        preload="auto"
-        playsInline
-        style={{ display: 'none' }}
-      />
-      <div
-        className="relative splash-box splash-willchange"
-        style={style}
-        aria-label="Intro Cine-Channel"
-      >
-        <div className="splash-star text-brand">
+      {/* MP3 opzionale in /public/audio/heartbeat.mp3 */}
+      <audio ref={audioTag} src="/audio/heartbeat.mp3" preload="auto" playsInline style={{ display: 'none' }} />
+      <div className="relative splash-box splash-willchange" style={style} aria-label="Intro Cine-Channel">
+        {/* Stella: sotto (z-10) */}
+        <div className="splash-star text-brand z-10">
           <StarLogo />
         </div>
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <span className="splash-title text-brand font-extrabold tracking-widest">CINE-CHANNEL</span>
+        {/* Titolo: SOPRA TUTTO (z-20), bianco + outline forte per visibilità */}
+        <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
+          <span className="splash-title text-white title-outline font-extrabold tracking-widest">
+            CINE-CHANNEL
+          </span>
         </div>
       </div>
     </div>
