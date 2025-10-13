@@ -1,81 +1,103 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import StarLogo from '@/components/StarLogo'
 
 type Phase = 'hidden' | 'in' | 'hold' | 'out'
 
+/**
+ * Splash fullscreen:
+ * - mostra overlay nero fullscreen
+ * - stella enorme (70vmin) con "CINE-CHANNEL"
+ * - anima in -> hold -> out
+ * - heartbeat: WebAudio con filtro + doppio "thump", retry al primo click/tap
+ * - una sola volta per sessione (sessionStorage 'cineSplashDone' = '1')
+ */
 export default function SplashIntro() {
-  const [show, setShow] = useState(false)
+  const [visible, setVisible] = useState(false)
   const [phase, setPhase] = useState<Phase>('hidden')
-  const audioPlayed = useRef(false)
+  const audioStarted = useRef(false)
+  const timeouts = useRef<number[]>([])
 
-  // --- Heartbeat sintetico via Web Audio (no file necessario) ---
+  // Heartbeat con suono più "cinematografico"
   const playHeartbeat = async () => {
-    if (audioPlayed.current) return
-    audioPlayed.current = true
+    if (audioStarted.current) return
+    audioStarted.current = true
     try {
       const AudioCtx = window.AudioContext || (window as any).webkitAudioContext
       const ctx = new AudioCtx()
-      const gain = ctx.createGain()
-      gain.gain.value = 0
-      gain.connect(ctx.destination)
 
-      const osc = ctx.createOscillator()
-      osc.type = 'sine'
-      osc.frequency.value = 60 // Hz (basso)
-      osc.connect(gain)
-      osc.start()
+      const makeThump = (when: number) => {
+        const osc = ctx.createOscillator()
+        const gain = ctx.createGain()
+        const filter = ctx.createBiquadFilter()
 
-      const now = ctx.currentTime
-      const thump = (t: number) => {
-        // inviluppo veloce: attacco rapido, decadimento breve → "boom"
-        gain.gain.cancelScheduledValues(t)
-        gain.gain.setValueAtTime(0.0001, t)
-        gain.gain.exponentialRampToValueAtTime(0.9, t + 0.02)
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.18)
+        // catena: osc -> filtro lowpass -> gain -> out
+        osc.type = 'sine'
+        osc.frequency.setValueAtTime(55, when) // basso
+        filter.type = 'lowpass'
+        filter.frequency.setValueAtTime(180, when)
+        gain.gain.setValueAtTime(0.0001, when)
+
+        osc.connect(filter)
+        filter.connect(gain)
+        gain.connect(ctx.destination)
+
+        // inviluppo "boom"
+        gain.gain.exponentialRampToValueAtTime(0.9, when + 0.02)
+        gain.gain.exponentialRampToValueAtTime(0.0001, when + 0.22)
+
+        // leggero pitch drop per punch
+        osc.frequency.linearRampToValueAtTime(48, when + 0.18)
+
+        osc.start(when)
+        osc.stop(when + 0.28)
+        osc.onended = () => {
+          try { osc.disconnect(); filter.disconnect(); gain.disconnect() } catch {}
+        }
       }
 
-      // doppio colpo: tum-tum
-      thump(now + 0.02)
-      thump(now + 0.26)
+      const now = ctx.currentTime + 0.02
+      makeThump(now)           // tum
+      makeThump(now + 0.26)    // tum
 
-      // stop dopo ~0.6s
-      osc.stop(now + 0.7)
-      osc.onended = () => ctx.close()
+      // chiudi dopo ~1s
+      setTimeout(() => { try { ctx.close() } catch {} }, 1000)
     } catch {
-      // Se fallisce (permessi audio): silenziosamente ignora
+      // ignoriamo se bloccato dal browser: riproveremo su interazione
     }
   }
 
-  // Mostra una sola volta per sessione
   useEffect(() => {
     if (typeof window === 'undefined') return
-    const has = sessionStorage.getItem('cineSplashDone') === '1'
-    if (has) return
+    const KEY = 'cineSplashDone'
+    const once = sessionStorage.getItem(KEY) === '1'
+    if (once) return
 
-    setShow(true)
+    setVisible(true)
     setPhase('in')
-    const t1 = setTimeout(() => setPhase('hold'), 500)
-    const t2 = setTimeout(() => setPhase('out'), 1100)
-    const t3 = setTimeout(() => {
-      setShow(false)
-      sessionStorage.setItem('cineSplashDone', '1')
-    }, 1800)
 
-    // prova a suonare subito; se il browser blocca, riprova al primo click/tap
+    // sequenza animazioni
+    timeouts.current.push(window.setTimeout(() => setPhase('hold'), 500))
+    timeouts.current.push(window.setTimeout(() => setPhase('out'), 1300))
+    timeouts.current.push(window.setTimeout(() => {
+      setVisible(false)
+      sessionStorage.setItem(KEY, '1')
+    }, 2000))
+
+    // tenta subito il suono + retry al primo tap/click
     playHeartbeat()
     const onInteract = () => playHeartbeat()
     window.addEventListener('pointerdown', onInteract, { once: true })
     return () => {
-      clearTimeout(t1); clearTimeout(t2); clearTimeout(t3)
+      timeouts.current.forEach(t => clearTimeout(t))
       window.removeEventListener('pointerdown', onInteract)
     }
   }, [])
 
-  if (!show) return null
+  if (!visible) return null
 
-  // Stili per le fasi (usiamo transition per evitare mismatch SSR)
+  // calcola stile di transizione fasi
   const style: React.CSSProperties = {
     transition: 'transform 600ms ease, opacity 500ms ease',
     animation: phase === 'in' ? 'splash-pop 450ms ease-out' as any : undefined,
@@ -84,18 +106,21 @@ export default function SplashIntro() {
       phase === 'hold'? 'scale(1.0)' :
       phase === 'out' ? 'scale(0.2)' : 'scale(1.0)',
     opacity:
-      phase === 'in'  ? 1 :
-      phase === 'hold'? 1 :
       phase === 'out' ? 0 : 1,
-    willChange: 'transform, opacity',
   }
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black">
-      <div style={style} aria-label="Intro Cine-Channel">
-        {/* Stella grande: usa il tuo StarLogo */}
-        <div className="w-[180px] h-[180px] md:w-[220px] md:h-[220px]">
+      <div className="splash-box splash-willchange" style={style} aria-label="Intro Cine-Channel">
+        {/* Stella enorme */}
+        <div className="w-full h-full flex items-center justify-center">
           <StarLogo />
+        </div>
+        {/* Titolo sopra la stella */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <span className="splash-title font-extrabold tracking-widest">
+            CINE-CHANNEL
+          </span>
         </div>
       </div>
     </div>

@@ -70,3 +70,21 @@ body { @apply bg-neutral-950 text-white; } /* sfondo nero + testo bianco sempre 
   0%   { transform: scale(1.00); opacity: 1; }
   100% { transform: scale(0.20); opacity: 0; }
 }
+
+/* ==== Splash Intro (full screen) ==== */
+@keyframes splash-pop {
+  0%   { transform: scale(0.85); opacity: 0; }
+  60%  { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1.00); opacity: 1; }
+}
+@keyframes splash-out {
+  0%   { transform: scale(1.00); opacity: 1; }
+  100% { transform: scale(0.18); opacity: 0; }
+}
+
+/* anti-jank per font durante l'animazione */
+.splash-willchange { will-change: transform, opacity; }
+
+/* dimensione star e titolo responsive basate sul lato minore dello schermo */
+.splash-box { width: 70vmin; height: 70vmin; }
+.splash-title { font-size: clamp(18px, 5vmin, 48px); letter-spacing: .08em; }
