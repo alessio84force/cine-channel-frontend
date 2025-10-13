@@ -1,26 +1,32 @@
-import type { ReactNode } from 'react';
-import { notFound } from 'next/navigation';
+import type { ReactNode } from 'react'
+import { Inter } from 'next/font/google'
 
-const locales = ['en','es','fr'] as const;
+const inter = Inter({ subsets: ['latin'], display: 'swap' })
+
+const locales = ['en','es','fr'] as const
 
 export async function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+  return locales.map((locale) => ({ locale }))
 }
 
-export default async function LocaleLayout({
+export default function LocaleLayout({
   children,
   params,
 }: {
-  children: ReactNode;
-  params: Promise<{ locale: string }>;
+  children: ReactNode
+  params: { locale: string } // <-- non Promise
 }) {
-  const { locale } = await params;
-  if (!locales.includes(locale as any)) notFound();
+  const { locale } = params
+  if (!(locales as readonly string[]).includes(locale)) {
+    // opzionale: lascia l'handling al not-found del segmento
+  }
 
+  // IMPORTANTISSIMO: stessa className del root layout (font + bg + text)
   return (
-    <html lang={locale}>
-      {/* stesse classi del body del root layout */}
-      <body className="bg-neutral-950 text-white">{children}</body>
+    <html lang={locale} suppressHydrationWarning>
+      <body className={`${inter.className} bg-neutral-950 text-white`}>
+        {children}
+      </body>
     </html>
-  );
+  )
 }
