@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
 import SkipLink from '@/components/SkipLink'
+import LangSetter from '@/components/LangSetter'
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' })
 
@@ -34,9 +35,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" suppressHydrationWarning>
-      {/* Lasciamo SOLO la classe del font (Inter) sul body:
-         sfondo/colore testo vengono da globals.css, quindi non si perdono */}
       <body className={inter.className}>
+        <LangSetter />
         <SkipLink href="#content">Saltar al contenido</SkipLink>
         <NavBar />
         <main id="content" className="min-h-dvh">{children}</main>
