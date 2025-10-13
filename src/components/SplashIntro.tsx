@@ -8,25 +8,25 @@ type Phase = 'grow' | 'hold' | 'shrink' | 'hidden'
 export default function SplashIntro() {
   const [phase, setPhase] = useState<Phase>('grow')
   const [visible, setVisible] = useState(true)
-  const audioStarted = useRef(false)
+  const audioTag = useRef<HTMLAudioElement | null>(null)
   const timers = useRef<number[]>([])
+  const triedWebAudio = useRef(false)
 
-  // === Parametri facili da regolare ===
-  const GROW_MS   = 900   // da piccola a grande
-  const HOLD_MS   = 1400  // tempo a grandezza massima
-  const SHRINK_MS = 900   // rimpicciolimento+fade
-  const START_S   = 0.35  // scala iniziale (piccola)
-  const PEAK_S    = 1.9   // scala massima (grande)
-  const END_S     = 0.18  // scala finale (molto piccola mentre svanisce)
+  // === Durate & scale (puoi regolarle) ===
+  const GROW_MS   = 900
+  const HOLD_MS   = 1400
+  const SHRINK_MS = 900
+  const START_S   = 0.35
+  const PEAK_S    = 1.9
+  const END_S     = 0.18
 
-  // Heartbeat migliorato (doppio colpo x2 ondate)
-  const playHeartbeat = async () => {
-    if (audioStarted.current) return
-    audioStarted.current = true
+  // Fallback WebAudio se l'MP3 non parte
+  const playWebAudio = async () => {
+    if (triedWebAudio.current) return
+    triedWebAudio.current = true
     try {
-      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext
+      const AudioCtx = (window as any).AudioContext || (window as any).webkitAudioContext
       const ctx = new AudioCtx()
-
       const thump = (when: number) => {
         const osc = ctx.createOscillator()
         const gain = ctx.createGain()
@@ -42,19 +42,23 @@ export default function SplashIntro() {
         osc.frequency.linearRampToValueAtTime(45, when + 0.20)
         osc.start(when); osc.stop(when + 0.30)
       }
-
       const now = ctx.currentTime + 0.02
-      // onda 1 (inizio grow)
-      thump(now)
-      thump(now + 0.28)
-      // onda 2 (a metà hold)
-      thump(now + 1.0)
-      thump(now + 1.28)
-
-      // chiudi dopo ~2.2s
+      thump(now); thump(now + 0.28)
+      thump(now + 1.00); thump(now + 1.28)
       setTimeout(() => { try { ctx.close() } catch {} }, 2200)
+    } catch {}
+  }
+
+  // Prova a suonare l'<audio>, altrimenti fallback
+  const tryPlayAudio = async () => {
+    const el = audioTag.current
+    if (!el) return playWebAudio()
+    try {
+      el.currentTime = 0
+      el.volume = 0.9
+      await el.play()
     } catch {
-      // riproveremo al primo click/tap
+      // verrà riprovato su interazione utente
     }
   }
 
@@ -66,16 +70,15 @@ export default function SplashIntro() {
       return
     }
 
-    // sequenza temporale: grow -> hold -> shrink -> hidden
     timers.current.push(window.setTimeout(() => setPhase('hold'),   GROW_MS))
     timers.current.push(window.setTimeout(() => setPhase('shrink'), GROW_MS + HOLD_MS))
     timers.current.push(window.setTimeout(() => {
       setPhase('hidden'); setVisible(false); sessionStorage.setItem(KEY, '1')
     }, GROW_MS + HOLD_MS + SHRINK_MS))
 
-    // audio subito, retry al primo tap/click se bloccato
-    playHeartbeat()
-    const onTap = () => playHeartbeat()
+    // tenta subito di riprodurre; se bloccato, riprova al primo tap/click
+    tryPlayAudio()
+    const onTap = () => tryPlayAudio()
     window.addEventListener('pointerdown', onTap, { once: true })
     return () => {
       timers.current.forEach(t => clearTimeout(t))
@@ -85,11 +88,10 @@ export default function SplashIntro() {
 
   if (!visible) return null
 
-  // stile in base alla fase
   const style: React.CSSProperties = {
     transition: `transform ${phase==='grow'?GROW_MS:phase==='hold'?200:SHRINK_MS}ms ease, opacity ${SHRINK_MS}ms ease`,
     transform:
-      phase === 'grow'   ? `scale(${PEAK_S})`   : // finisce la crescita a PEAK_S
+      phase === 'grow'   ? `scale(${PEAK_S})`   :
       phase === 'hold'   ? `scale(${PEAK_S})`   :
       phase === 'shrink' ? `scale(${END_S})`    :
                            `scale(${START_S})`,
@@ -99,16 +101,22 @@ export default function SplashIntro() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black">
+      {/* Audio MP3: metti il file in /public/audio/heartbeat.mp3 per un suono deciso */}
+      <audio
+        ref={audioTag}
+        src="/audio/heartbeat.mp3"
+        preload="auto"
+        playsInline
+        style={{ display: 'none' }}
+      />
       <div
         className="relative splash-box splash-willchange"
         style={{ transform: `scale(${START_S})`, ...style }}
         aria-label="Intro Cine-Channel"
       >
-        {/* Stella enorme, svg full-size */}
         <div className="splash-star">
           <StarLogo />
         </div>
-        {/* Titolo centrale */}
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <span className="splash-title font-extrabold tracking-widest">CINE-CHANNEL</span>
         </div>
