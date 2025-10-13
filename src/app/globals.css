@@ -88,3 +88,9 @@ body { @apply bg-neutral-950 text-white; } /* sfondo nero + testo bianco sempre 
 /* dimensione star e titolo responsive basate sul lato minore dello schermo */
 .splash-box { width: 70vmin; height: 70vmin; }
 .splash-title { font-size: clamp(18px, 5vmin, 48px); letter-spacing: .08em; }
+
+/* ==== GIANT STAR ==== */
+.splash-box { width: 95vmin; height: 95vmin; }            /* quasi tutto lo schermo */
+.splash-star, .splash-star svg { width: 100%; height: 100%; display: block; }
+/* Titolo più grande */
+.splash-title { font-size: clamp(24px, 8vmin, 96px); letter-spacing: .10em; }
