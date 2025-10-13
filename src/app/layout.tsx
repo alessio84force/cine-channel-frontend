@@ -1,11 +1,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-
-// COMPONENTES UI
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
-// (Opcional) Accesibilidad
 import SkipLink from '@/components/SkipLink'
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' })
@@ -37,11 +34,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className={`${inter.className} bg-neutral-950 text-white`}>
+      {/* Lasciamo SOLO la classe del font (Inter) sul body:
+         sfondo/colore testo vengono da globals.css, quindi non si perdono */}
+      <body className={inter.className}>
         <SkipLink href="#content">Saltar al contenido</SkipLink>
-        <NavBar />            {/* ← logo estrella y selector idiomas suelen vivir aquí */}
-        <main id="content">{children}</main>
-        <Footer />            {/* ← legales / contacto / cookies */}
+        <NavBar />
+        <main id="content" className="min-h-dvh">{children}</main>
+        <Footer />
       </body>
     </html>
   )
