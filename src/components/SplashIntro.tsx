@@ -127,11 +127,11 @@ export default function SplashIntro() {
         style={style}
         aria-label="Intro Cine-Channel"
       >
-        <div className="splash-star splash-star-color">
+        <div className="splash-star text-brand">
           <StarLogo />
         </div>
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <span className="splash-title font-extrabold tracking-widest">CINE-CHANNEL</span>
+          <span className="splash-title text-brand font-extrabold tracking-widest">CINE-CHANNEL</span>
         </div>
       </div>
     </div>
