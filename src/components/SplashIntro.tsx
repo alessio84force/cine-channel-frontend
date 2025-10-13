@@ -114,7 +114,7 @@ export default function SplashIntro() {
         style={{ transform: `scale(${START_S})`, ...style }}
         aria-label="Intro Cine-Channel"
       >
-        <div className="splash-star">
+        <div className="splash-star splash-star-color">
           <StarLogo />
         </div>
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
