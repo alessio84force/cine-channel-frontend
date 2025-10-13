@@ -13,9 +13,9 @@ export default function SplashIntro() {
   const triedWebAudio = useRef(false)
 
   // === Durate & scale ===
-  const GROW_MS   = 900
-  const HOLD_MS   = 1400
-  const SHRINK_MS = 900
+  const GROW_MS   = 700
+  const HOLD_MS   = 500
+  const SHRINK_MS = 700
   const START_S   = 0.35
   const PEAK_S    = 1.9
   const END_S     = 0.18
