@@ -123,3 +123,17 @@ body { @apply bg-neutral-950 text-white; } /* sfondo nero + testo bianco sempre 
     1px 0 3px #000,
     -1px 0 3px #000;
 }
+
+/* ========== Brand Gold ========== */
+.gold-text {
+  background: linear-gradient(135deg, #7f5d00 0%, #b67e10 18%, #f5d76e 45%, #d4af37 58%, #8e6b07 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.gold-soft-glow {
+  text-shadow:
+    0 0 6px rgba(244, 208, 63, 0.25),
+    0 0 14px rgba(212, 175, 55, 0.20);
+}
+/* Outline già presente per contrasto su video/immagini */

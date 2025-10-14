@@ -1,4 +1,5 @@
 'use client'
+import Wordmark from '@/components/Wordmark'
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -53,7 +54,7 @@ export default function HeroVideo() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 h-full flex flex-col justify-end pb-12">
-        <h1 className="text-5xl md:text-6xl font-extrabold tracking-widest">{t.h1}</h1>
+        <div className="title-outline"><Wordmark size="lg" /></div>
         <p className="mt-3 text-lg md:text-xl text-white/85 max-w-3xl">{t.sub}</p>
 
         <div className="mt-6 flex items-center gap-3">

@@ -1,4 +1,5 @@
 'use client'
+import Wordmark from '@/components/Wordmark'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 import Link from 'next/link'
@@ -28,8 +29,7 @@ export default function NavBar() {
       <div className="mx-auto max-w-6xl px-4 h-14 flex items-center gap-4">
         {/* Brand: stella + nome, link alla home locale */}
         <Link href={`/${locale}`} prefetch className="flex items-center gap-2 text-brand" aria-label={t.home}>
-          <StarLogo className="w-6 h-6" />
-          <span className="tracking-wide">{t.home}</span>
+          <Wordmark size="sm" />
         </Link>
 
         <nav className="ml-auto flex items-center gap-2">
