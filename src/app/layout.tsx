@@ -7,6 +7,7 @@ import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
 import CookieBanner from '@/components/CookieBanner'
 import AnalyticsOnConsent from '@/components/AnalyticsOnConsent'
+import SplashIntro from '@/components/SplashIntro'
 import SEOInjector from '@/components/SEOInjector'
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' })
@@ -42,6 +43,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SkipLink />
         <CookieBanner />
         <AnalyticsOnConsent />
+        {/* Splash overlay: stella crescente */}
+        <SplashIntro />
         <SEOInjector />
 
         <NavBar />
