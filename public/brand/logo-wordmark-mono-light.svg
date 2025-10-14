@@ -1,0 +1,7 @@
+<svg viewBox="0 0 720 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cine-Channel">
+  <g transform="translate(20,20)">
+    <path d="M60 0 L74 34 L112 39 L86 61 L92 100 L60 80 L28 100 L34 61 L8 39 L46 34 Z" fill="#ffffff"/>
+  </g>
+  <text x="140" y="105" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-weight="900" font-size="84"
+        fill="#ffffff" letter-spacing="6">CINE-CHANNEL</text>
+</svg>

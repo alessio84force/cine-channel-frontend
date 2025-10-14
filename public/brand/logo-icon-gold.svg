@@ -1,0 +1,13 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cine-Channel">
+  <defs>
+    <linearGradient id="goldGrad" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#7f5d00"/>
+      <stop offset="18%" stop-color="#b67e10"/>
+      <stop offset="45%" stop-color="#f5d76e"/>
+      <stop offset="58%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#8e6b07"/>
+    </linearGradient>
+  </defs>
+  <path d="M50 6 L61.8 34.5 L92 38.2 L68 58.5 L74.5 88.5 L50 72 L25.5 88.5 L32 58.5 L8 38.2 L38.2 34.5 Z"
+        fill="url(#goldGrad)" stroke="#c89b2b" stroke-width="1.2"/>
+</svg>
