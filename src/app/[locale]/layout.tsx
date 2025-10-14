@@ -7,8 +7,8 @@ export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
 }
 
-export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
-  const { locale } = params
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Metadata {
+  const { locale } = await params
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
   return {
     alternates: {
