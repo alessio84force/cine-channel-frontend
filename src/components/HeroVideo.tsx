@@ -1,4 +1,5 @@
 'use client'
+import RotatingBackdrop from '@/components/RotatingBackdrop'
 import Wordmark from '@/components/Wordmark'
 
 import Link from 'next/link'
@@ -34,22 +35,17 @@ export default function HeroVideo() {
 
   return (
     <section className="relative w-full h-[72vh] min-h-[480px] overflow-hidden">
-      {!reduce ? (
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster={poster}
-        >
-          <source src={webm} type="video/webm" />
-          <source src={mp4}  type="video/mp4" />
-          <img src={poster} alt="" className="w-full h-full object-cover" />
-        </video>
-      ) : (
-        <img src={poster} alt="" className="absolute inset-0 w-full h-full object-cover" />
-      )}
+      {/* Backdrop a rotazione (4 foto) */}
+<RotatingBackdrop
+  images={[
+    '/images/immaginecine1.jpeg',
+    '/images/immaginecine2.jpeg',
+    '/images/immaginecine3.jpeg',
+    '/images/immagine2.jpeg',
+  ]}
+  intervalMs={4000}
+  fadeMs={900}
+/>
 
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
