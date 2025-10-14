@@ -41,7 +41,7 @@ export default function HeroVideo() {
     '/images/immaginecine1.jpeg',
     '/images/immaginecine2.jpeg',
     '/images/immaginecine3.jpeg',
-    '/images/immagine2.jpeg',
+    '/images/immaginepod3.jpeg',
   ]}
   intervalMs={4000}
   fadeMs={900}
