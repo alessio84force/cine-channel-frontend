@@ -1,12 +1,12 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+
+import SkipLink from '@/components/SkipLink'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
-import SkipLink from '@/components/SkipLink'
+import CookieBanner from '@/components/CookieBanner'
 import AnalyticsOnConsent from '@/components/AnalyticsOnConsent'
-import LangSetter from '@/components/LangSetter'
-import SplashIntro from '@/components/SplashIntro'
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' })
 
@@ -25,25 +25,27 @@ export const metadata: Metadata = {
     siteName,
     title: siteName,
     description: siteDesc,
-    images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'Cine-Channel' }],
+    images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'Cine-Channel' }]
   },
   twitter: { card: 'summary_large_image', title: siteName, description: siteDesc, images: ['/og.jpg'] },
   icons: {
     icon: [{ url: '/favicon.ico' }, { url: '/icon.svg', type: 'image/svg+xml' }],
-    apple: [{ url: '/apple-touch-icon.png' }],
-  },
+    apple: [{ url: '/apple-touch-icon.png' }]
+  }
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className={inter.className}>
-        <LangSetter />
+      <body className={`${inter.className} bg-neutral-950 text-white`}>
+        <SkipLink />
+        <CookieBanner />
         <AnalyticsOnConsent />
-        <SplashIntro /> {/* ← overlay con la stella + heartbeat (una volta per sessione) */}
-        <SkipLink href="#content">Saltar al contenido</SkipLink>
+
         <NavBar />
-        <main id="content" className="min-h-dvh">{children}</main>
+
+        <main id="content">{children}</main>
+
         <Footer />
       </body>
     </html>
