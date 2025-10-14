@@ -112,3 +112,14 @@ body { @apply bg-neutral-950 text-white; } /* sfondo nero + testo bianco sempre 
     1px 0 2px #000,
     -1px 0 2px #000;
 }
+
+/* Testo leggibile su overlay scuri/chiari */
+.title-outline {
+  text-shadow:
+    0 0 2px #000,
+    0 0 4px #000,
+    0 1px 3px #000,
+    0 -1px 3px #000,
+    1px 0 3px #000,
+    -1px 0 3px #000;
+}
