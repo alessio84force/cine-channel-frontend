@@ -39,3 +39,23 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Backups e report locali
+*.bak
+*.bak.*
+*.safe.*
+repo-structure.txt
+app-structure.txt
+debug-cine-channel.txt
+cookies.txt
+
+# Archivi di backup pesanti
+rescue-*.tgz
+backup-*.tgz
+stripe.tar.gz
+
+# Next & deps
+.next/
+node_modules/
+
+# Files di sistema
+.DS_Store
