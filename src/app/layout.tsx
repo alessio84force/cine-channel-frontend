@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
 import SkipLink from '@/components/SkipLink'
+import AnalyticsOnConsent from '@/components/AnalyticsOnConsent'
 import LangSetter from '@/components/LangSetter'
 import SplashIntro from '@/components/SplashIntro'
 
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es" suppressHydrationWarning>
       <body className={inter.className}>
         <LangSetter />
+        <AnalyticsOnConsent />
         <SplashIntro /> {/* ← overlay con la stella + heartbeat (una volta per sessione) */}
         <SkipLink href="#content">Saltar al contenido</SkipLink>
         <NavBar />
