@@ -1,4 +1,5 @@
 'use client'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -32,6 +33,7 @@ export default function NavBar() {
         </Link>
 
         <nav className="ml-auto flex items-center gap-2">
+          <LanguageSwitcher />
           <Link
             href={`/${locale}/explore`}
             prefetch
