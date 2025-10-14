@@ -1,8 +1,6 @@
 import type { ReactNode } from 'react'
-import { Inter } from 'next/font/google'
 import type { Metadata } from 'next'
 
-const inter = Inter({ subsets: ['latin'], display: 'swap' })
 const locales = ['en','es','fr'] as const
 
 export async function generateStaticParams() {
@@ -26,17 +24,9 @@ export function generateMetadata({ params }: { params: { locale: string } }): Me
 
 export default function LocaleLayout({
   children,
-  params,
 }: {
   children: ReactNode
-  params: { locale: string }
 }) {
-  const { locale } = params
-  return (
-    <html lang={locale} suppressHydrationWarning>
-      <body className={`${inter.className} bg-neutral-950 text-white`}>
-        {children}
-      </body>
-    </html>
-  )
+  // NIENTE <html>/<body> qui! Lasciamo gestire tutto al root layout.
+  return children
 }
