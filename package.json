@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "dev:lite": "NEXT_DISABLE_TURBOPACK=1 CHOKIDAR_USEPOLLING=false WATCHPACK_POLLING=false NEXT_TELEMETRY_DISABLED=1 next dev -p 3000",
+    "build:analyze": "ANALYZE=1 next build",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint",
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
-    "start": "next start",
-    "lint": "eslint"
+    "start": "next start"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.910.0",
