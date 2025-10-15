@@ -9,13 +9,16 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.910.0",
+    "@aws-sdk/s3-request-presigner": "^3.910.0",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
     "next": "15.5.4",
     "next-intl": "^4.3.10",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "stripe": "^19.1.0"
+    "stripe": "^19.1.0",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
