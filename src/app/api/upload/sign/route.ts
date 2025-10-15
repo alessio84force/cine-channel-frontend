@@ -4,8 +4,23 @@ import { createSignedPutUrl } from '@/lib/storage'
 
 export const runtime = 'nodejs' // firma via aws-sdk; edge non necessario qui
 
+
+// ----- rate limit base (dev) -----
+const bucket = new Map<string,{count:number, reset:number}>()
+function rateOk(ip:string, limit=20, windowMs=60_000){
+  const now = Date.now()
+  const b = bucket.get(ip) || { count:0, reset: now + windowMs }
+  if (now > b.reset) { b.count = 0; b.reset = now + windowMs }
+  b.count++
+  bucket.set(ip, b)
+  return { ok: b.count <= limit, remaining: Math.max(0, limit - b.count), reset: b.reset }
+}
+
 export async function POST(req: Request) {
   try {
+    const ip = (req.headers.get('x-forwarded-for')||'').split(',')[0] || 'local'
+    const rl = rateOk(ip)
+    if (!rl.ok) return NextResponse.json({ error:'Too Many Requests' }, { status: 429 })
     const body = await req.json()
     const { filename, contentType, contentLength } = body || {}
     if (!filename || !contentType || typeof contentLength !== 'number') {
