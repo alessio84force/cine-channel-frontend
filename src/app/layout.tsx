@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Suspense } from 'react'
 
 import SkipLink from '@/components/SkipLink'
 import NavBar from '@/components/NavBar'
@@ -41,13 +42,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es" suppressHydrationWarning>
       <body className={`${inter.className} bg-neutral-950 text-white`}>
         <SkipLink />
+        <Suspense fallback={null}>
         <CookieBanner />
+      </Suspense>
         <AnalyticsOnConsent />
         {/* Splash overlay: stella crescente */}
         <SplashIntro />
         <SEOInjector />
 
+        <Suspense fallback={null}>
         <NavBar />
+      </Suspense>
 
         <main id="content">{children}</main>
 
