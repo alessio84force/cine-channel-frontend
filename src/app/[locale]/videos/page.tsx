@@ -4,7 +4,8 @@ import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'
 
-export default async function VideosPage() {
+type Params = { params: Promise<{ locale: string }> };
+export default async function VideosPage({ params }: Params) {
   const vids = await listVideos()
   return (
     <main className="max-w-5xl mx-auto px-6 py-10">
@@ -35,7 +36,7 @@ export default async function VideosPage() {
       </div>
 
       <div className="mt-8">
-        <Link href="/es/upload" className="rounded-full px-4 py-2 bg-white text-neutral-900">Subir otro</Link>
+        <Link href={`/${(await params).locale}/upload`} className="rounded-full px-4 py-2 bg-white text-neutral-900">Subir otro</Link>
       </div>
     </main>
   )

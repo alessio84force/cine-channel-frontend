@@ -11,7 +11,7 @@ export default async function CancelOnboarding() {
         </h1>
         <p className="text-white/80">Nessun addebito è stato effettuato. Puoi riprovare quando vuoi.</p>
         <div className="mt-6">
-          <Link href="/es/creator/onboarding" className="rounded-full px-5 py-2 bg-white/10 hover:bg-white/20 ring-1 ring-white/10 transition">
+          <Link href={`/${(await params).locale}/creator/onboarding`} className="rounded-full px-5 py-2 bg-white/10 hover:bg-white/20 ring-1 ring-white/10 transition">
             Torna all’onboarding
           </Link>
         </div>

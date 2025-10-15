@@ -1,6 +1,9 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation';
 
+const pathnameLocale = (p:string)=>{const seg=(p||'/es').split('/')[1];return ['es','en','fr'].includes(seg)?seg:'es'};
 export default function CookieBanner() {
   const [show, setShow] = useState(false);
   useEffect(() => {
@@ -21,15 +24,15 @@ export default function CookieBanner() {
         <p className="text-sm">
           Usamos solo cookies <b>estrictamente necesarias</b> para el funcionamiento (p. ej. flujo de alta del canal). 
           No instalamos cookies de marketing/analítica sin tu consentimiento.
-          Consulta nuestra <a className="underline" href="/es/legal/cookies">Política de Cookies</a>.
+          Consulta nuestra <Link className="underline" href={`/${locale}/legal/cookies`}>Política de Cookies</Link>.
         </p>
         <div className="mt-3 flex gap-2">
           <button onClick={acceptEssential} className="rounded-full px-4 py-2 bg-neutral-900 text-white hover:opacity-90 text-sm">
             Vale
           </button>
-          <a href="/es/legal/cookies" className="rounded-full px-4 py-2 ring-1 ring-neutral-900/20 text-sm">
+          <Link href={`/${locale}/legal/cookies`} className="rounded-full px-4 py-2 ring-1 ring-neutral-900/20 text-sm">
             Más información
-          </a>
+          </Link>
         </div>
       </div>
     </div>

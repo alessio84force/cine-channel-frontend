@@ -10,6 +10,7 @@ function useQueryState() {
   const router = useRouter();
   const pathname = usePathname();
   const sp = useSearchParams();
+  const locale = pathnameLocale(usePathname()||'/es');
   const set = (patch: Record<string, string|undefined>) => {
     const params = new URLSearchParams(sp?.toString());
     Object.entries(patch).forEach(([k,v]) => {
@@ -69,7 +70,7 @@ export default function ExploreClient() {
 
       {/* Chips categoría */}
       <div className="mt-4 flex flex-wrap gap-2">
-        <Link href="/es/explore" className={`px-3 py-1.5 rounded-full ring-1 ring-white/10 ${!cat ? 'bg-white text-neutral-900' : 'bg-white/5 hover:bg-white/10'}`}>Todos</Link>
+        <Link href={`/${locale}/explore`} className={`px-3 py-1.5 rounded-full ring-1 ring-white/10 ${!cat ? 'bg-white text-neutral-900' : 'bg-white/5 hover:bg-white/10'}`}>Todos</Link>
         {(['gamers','streamers','videobloggers','cineastas'] as Cat[]).map((c)=>(
           <Link key={c} href={`/es/explore?cat=${c}`} className={`px-3 py-1.5 rounded-full ring-1 ring-white/10 ${cat===c ? 'bg-white text-neutral-900' : 'bg-white/5 hover:bg-white/10'}`}>
             {c[0].toUpperCase()+c.slice(1)}

@@ -21,10 +21,10 @@ export default async function SuccessOnboarding({
         <p className="mt-2 text-white/70">Ora puoi completare il payout onboarding e creare il tuo canale.</p>
 
         <div className="mt-6 flex items-center justify-center gap-3">
-          <Link href="/es" className="rounded-full px-5 py-2 bg-red-600 hover:bg-red-500 active:bg-red-700 transition shadow">
+          <Link href={`/${(await params).locale}`} className="rounded-full px-5 py-2 bg-red-600 hover:bg-red-500 active:bg-red-700 transition shadow">
             Torna alla home
           </Link>
-          <Link href="/es/creator/onboarding" className="rounded-full px-5 py-2 bg-white/10 hover:bg-white/20 ring-1 ring-white/10 transition">
+          <Link href={`/${(await params).locale}/creator/onboarding`} className="rounded-full px-5 py-2 bg-white/10 hover:bg-white/20 ring-1 ring-white/10 transition">
             Torna all’onboarding
           </Link>
         </div>

@@ -15,12 +15,12 @@ export default function USLanding() {
           You set the monthly price (min €2.50). We handle the rest.
         </p>
         <div className="mt-6 flex justify-center gap-3">
-          <a href="/en/creator/onboarding" className="rounded-full px-4 py-2 bg-white text-neutral-900 hover:opacity-90">
+          <Link href="/en/creator/onboarding" className="rounded-full px-4 py-2 bg-white text-neutral-900 hover:opacity-90">
             Create your channel
-          </a>
-          <a href="/en/explore" className="rounded-full px-4 py-2 ring-1 ring-white/10 hover:bg-white/10">
+          </Link>
+          <Link href="/en/explore" className="rounded-full px-4 py-2 ring-1 ring-white/10 hover:bg-white/10">
             Explore channels
-          </a>
+          </Link>
         </div>
       </section>
 
