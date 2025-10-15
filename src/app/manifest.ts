@@ -10,8 +10,9 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: '#000000',
     icons: [
       { src: '/brand/logo-icon-gold.svg', sizes: 'any', type: 'image/svg+xml' },
-      { src: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png', purpose: 'any' },
-      // (opz) aggiungeremo PNG 512/192/maskable quando esportiamo
+      { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' },
+      { src: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
     ],
   }
 }
