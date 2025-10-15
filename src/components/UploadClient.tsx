@@ -39,6 +39,12 @@ export default function UploadClient() {
     if (!resp.ok) { setStatus('error'); return }
 
     setProgress(100)
+    // 3) registra metadati lato server
+    await fetch('/api/upload/register', {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json' },
+      body: JSON.stringify({ key: new URL(url).pathname.replace(/^\//,''), filename: file.name, size: file.size, contentType: file.type || 'application/octet-stream' })
+    })
     setStatus('done')
   }
 
