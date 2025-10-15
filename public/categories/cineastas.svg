@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+  <defs><linearGradient id="c1" x1="0" x2="1"><stop offset="0%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#f43f5e"/></linearGradient></defs>
+  <rect width="1200" height="520" fill="url(#c1)"/>
+  <g transform="translate(600,260)">
+    <g opacity="0.14"><circle r="230" fill="#fff"/></g>
+    <g opacity="0.06"><circle r="170" fill="#fff"/></g>
+    <!-- clapperboard -->
+    <rect x="-170" y="-60" width="340" height="160" rx="12" fill="rgba(0,0,0,.28)"/>
+    <rect x="-170" y="-110" width="340" height="60" rx="10" fill="rgba(0,0,0,.35)"/>
+    <g fill="#fff" opacity=".9" transform="translate(-160,-108)">
+      <rect x="0" y="0" width="60" height="20"/><rect x="80" y="0" width="60" height="20"/><rect x="160" y="0" width="60" height="20"/><rect x="240" y="0" width="60" height="20"/>
+    </g>
+  </g>
+</svg>

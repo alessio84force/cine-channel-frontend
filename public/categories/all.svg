@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+  <defs><linearGradient id="a1" x1="0" x2="1"><stop offset="0%" stop-color="#6366f1"/><stop offset="50%" stop-color="#f472b6"/><stop offset="100%" stop-color="#f59e0b"/></linearGradient></defs>
+  <rect width="1200" height="520" fill="url(#a1)"/>
+  <g transform="translate(600,260)">
+    <g opacity="0.12"><circle r="240" fill="#fff"/></g>
+    <g opacity="0.06"><circle r="180" fill="#fff"/></g>
+    <!-- stella del brand -->
+    <polygon points="0,-110 22,-20 110,-20 40,30 65,115 0,70 -65,115 -40,30 -110,-20 -22,-20" fill="rgba(0,0,0,.35)"/>
+  </g>
+</svg>
