@@ -14,7 +14,7 @@ export default function UploadClient() {
     setProgress(0)
 
     // 1) chiedi Signed URL
-    const res = await fetch('/api/upload/sign', {
+    const res = await fetch('/api/upload/sign', { headers: { 'authorization': `Bearer ${process.env.NEXT_PUBLIC_UPLOAD_SIGN_SECRET || ''}` },
       method: 'POST',
       headers: { 'Content-Type':'application/json' },
       body: JSON.stringify({
