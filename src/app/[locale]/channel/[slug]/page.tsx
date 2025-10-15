@@ -5,8 +5,7 @@ import ChannelOwnerToolbar from '@/components/ChannelOwnerToolbar';
 
 type Params = { params: { locale: string; slug: string } };
 
-export async function generateMetadata({ params }: Params) {
-  const { slug } = params;
+export async function generateMetadata({ params }: Params) { const { slug } = await params;
   const map = await readPublicMap();
   const pub = map[slug];
   const title = pub?.name || slug.replace(/-/g,' ');
@@ -16,8 +15,7 @@ export async function generateMetadata({ params }: Params) {
   };
 }
 
-export default async function ChannelPage({ params }: Params) {
-  const { locale, slug } = params;
+export default async function ChannelPage({ params }: Params) { const { locale, slug } = await params;
   const pub = await getPublicBySlug(slug);
   const fallback = SAMPLE_ITEMS.find(i =>
     i.title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') === slug
