@@ -1,3 +1,4 @@
+import Link from "next/link";
 export const metadata = {
   title: 'Cine-Channel for Creators & Fans (US)',
   description: 'Launch your channel in minutes. Unlimited uploads. You set the price (min €2.50).'

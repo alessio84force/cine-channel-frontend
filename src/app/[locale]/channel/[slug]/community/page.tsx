@@ -1,6 +1,6 @@
 export const dynamic = 'force-dynamic';
 
-export default function ChannelCommunity() {
+export default async function ChannelCommunity() {
   return (
     <main id="content" className="px-6 py-6 max-w-3xl">
       <h2 className="text-xl font-bold">Comunidad</h2>

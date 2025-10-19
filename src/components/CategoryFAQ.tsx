@@ -1,4 +1,4 @@
-'use client';
+"use client";
 const data: Record<string, {q:string;a:string}[]> = {
   gamers: [
     { q: '¿Qué juegos se aceptan?', a: 'Cualquier título legalmente distribuido. Respeta las licencias.' },

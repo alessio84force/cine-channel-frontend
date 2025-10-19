@@ -1,5 +1,4 @@
-'use client'
-
+"use client";
 import { useEffect, useMemo, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import SEOJsonLd from '@/components/SEOJsonLd'
@@ -33,9 +32,9 @@ export default function SEOInjector() {
     async function run() {
       if (!isChannel || !slug) { setChannel(null); return }
       try {
-        const res = await fetch(`/api/channel/public?slug=${encodeURIComponent(slug)}`, { cache: 'no-store' })
+        const res = fetch(`/api/channel/public?slug=${encodeURIComponent(slug)}`, { cache: 'no-store' })
         if (!res.ok) return
-        const data = await res.json()
+        const data = res.json()
         if (cancelled) return
         // accetta { channel: {...} } o simile, con fallback
         const ch = data?.channel || data

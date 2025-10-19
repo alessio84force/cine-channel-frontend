@@ -5,6 +5,6 @@ export const metadata = {
   description: 'Busca canales por título y categoría.'
 };
 
-export default function SearchPage() {
+export default async function SearchPage() {
   return <SearchClient />;
 }

@@ -1,10 +1,8 @@
-import CreatorOnboardingClient from '@/components/CreatorOnboardingClient';
+import CreatorOnboardingClient from '@/components/CreatorOnboardingClient'
+import { L } from '@/lib/ui'
 
-export const metadata = {
-  title: 'Crear canal · Cine-Channel',
-  description: 'Configura tu canal y completa el pago único de 9,99 €.'
-};
-
-export default async function CreatorOnboardingPage({ params }: { params: Promise<{ locale: string }> }) {
-  return <CreatorOnboardingClient locale={(await params).locale} />;
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const loc: L = (locale === 'en' || locale === 'fr') ? (locale as L) : 'es'
+  return <CreatorOnboardingClient locale={loc} />
 }

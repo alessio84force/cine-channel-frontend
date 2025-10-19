@@ -1,4 +1,4 @@
-'use client';
+"use client";
 export default function Error({ error, reset }: { error: Error & { digest?: string }, reset: () => void }) {
   return (
     <main className="min-h-[70dvh] grid place-items-center bg-neutral-950 text-white px-6">

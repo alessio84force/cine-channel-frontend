@@ -1,5 +1,6 @@
-'use client'
+"use client";
 
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Wordmark from '@/components/Wordmark'
@@ -9,19 +10,19 @@ const LOCALES = new Set(['es','en','fr'])
 function useLocaleFromPathname() {
   const pathname = usePathname() || '/'
   const seg = pathname.split('/').filter(Boolean)[0] || 'es'
-  return LOCALES.has(seg) ? seg : 'es'
+  return (LOCALES.has(seg) ? seg : 'es') as 'es'|'en'|'fr'
 }
 
 export default function NavBar() {
   const locale = useLocaleFromPathname()
 
-  const LABELS: Record<string,{explore:string; create:string}> = {
-    es: { explore:'Explorar', create:'Crear canal' },
-    en: { explore:'Explore',  create:'Create channel' },
-    fr: { explore:'Explorer', create:'Créer une chaîne' },
+  const LABELS: Record<'es'|'en'|'fr',{explore:string; create:string}> = {
+    es: { explore:'Explorar',  create:'Crear canal' },
+    en: { explore:'Explore',   create:'Create channel' },
+    fr: { explore:'Explorer',  create:'Créer une chaîne' },
   }
 
-  const t = LABELS[locale] || LABELS.es
+  const t = LABELS[locale]
 
   return (
     <header className="sticky top-0 z-40 bg-neutral-950/80 backdrop-blur supports-[backdrop-filter]:bg-neutral-950/60">
@@ -47,6 +48,10 @@ export default function NavBar() {
         >
           {t.create}
         </Link>
+
+        <div className="ml-2">
+          <LanguageSwitcher />
+        </div>
       </nav>
     </header>
   )

@@ -1,5 +1,4 @@
-'use client'
-
+"use client";
 import { useRef, useState } from 'react'
 
 export default function UploadClient() {
@@ -14,7 +13,7 @@ export default function UploadClient() {
     setProgress(0)
 
     // 1) chiedi Signed URL
-    const res = await fetch('/api/upload/sign', { headers: { 'authorization': `Bearer ${process.env.NEXT_PUBLIC_UPLOAD_SIGN_SECRET || ''}` },
+    const res = fetch('/api/upload/sign', { headers: { 'authorization': `Bearer ${process.env.NEXT_PUBLIC_UPLOAD_SIGN_SECRET || ''}` },
       method: 'POST',
       headers: { 'Content-Type':'application/json' },
       body: JSON.stringify({
@@ -24,13 +23,13 @@ export default function UploadClient() {
       })
     })
     if (!res.ok) { setStatus('error'); return }
-    const { url, headers } = await res.json()
+    const { url, headers } = res.json()
 
     // 2) PUT diretto verso storage (con progress)
     setStatus('uploading')
     abortRef.current = new AbortController()
 
-    const resp = await fetch(url, {
+    const resp = fetch(url, {
       method: 'PUT',
       headers,
       body: file,
@@ -40,7 +39,7 @@ export default function UploadClient() {
 
     setProgress(100)
     // 3) registra metadati lato server
-    await fetch('/api/upload/register', {
+    fetch('/api/upload/register', {
       method: 'POST',
       headers: { 'Content-Type':'application/json' },
       body: JSON.stringify({ key: new URL(url).pathname.replace(/^\//,''), filename: file.name, size: file.size, contentType: file.type || 'application/octet-stream' })

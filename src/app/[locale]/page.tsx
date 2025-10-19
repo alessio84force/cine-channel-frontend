@@ -1,21 +1,15 @@
-'use client'
-
-import HeroVideo from '@/components/HeroVideo'
-
-export default function HomeLocale() {
+export default async function HomeLocale() {
   return (
-    <>
-      <HeroVideo />
-      <section className="max-w-6xl mx-auto px-6 py-12">
-        <h2 className="text-2xl font-bold">Contenido en tendencia</h2>
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {Array.from({length:8}).map((_,i)=>(
-            <div key={i} className="relative aspect-video rounded-xl bg-white/[0.06] ring-1 ring-white/10 overflow-hidden">
-              <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.6s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-            </div>
-          ))}
-        </div>
-      </section>
-    </>
+    <main className="max-w-3xl mx-auto px-6 py-16">
+      <h1 className="text-4xl font-bold">Cine Channel</h1>
+      <p className="mt-4 text-white/80">Se vedi questo testo, il rendering funziona.</p>
+
+      <nav className="mt-8 space-x-4">
+        <a className="inline-block rounded-md bg-white text-neutral-900 px-4 py-2" href="./explore">Explore</a>
+        <a className="inline-block rounded-md bg-white text-neutral-900 px-4 py-2" href="./contact">Contact</a>
+        <a className="inline-block rounded-md bg-white text-neutral-900 px-4 py-2" href="./pricing">Pricing</a>
+        <a className="inline-block rounded-md bg-white text-neutral-900 px-4 py-2" href="./upload">Upload</a>
+      </nav>
+    </main>
   )
 }

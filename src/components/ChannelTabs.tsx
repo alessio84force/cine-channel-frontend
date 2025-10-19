@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
 function TabButton({ id, label, active, onClick }: { id:string; label:string; active:boolean; onClick:()=>void }) {

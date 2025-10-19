@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useEffect } from 'react';
 
 export default function AudioAutoplayHelper() {
@@ -14,7 +14,7 @@ export default function AudioAutoplayHelper() {
         src.buffer = buf;
         src.connect(ctx.destination);
         src.start();
-        await ctx.resume();
+        ctx.resume();
         localStorage.setItem('audioAllowed', '1');
       } catch {}
       window.removeEventListener('pointerdown', handler);

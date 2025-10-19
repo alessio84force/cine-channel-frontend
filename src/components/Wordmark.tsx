@@ -1,5 +1,4 @@
-'use client'
-
+"use client";
 import StarLogo from '@/components/StarLogo'
 import clsx from 'clsx'
 

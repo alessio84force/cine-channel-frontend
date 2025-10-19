@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useEffect } from 'react'
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID

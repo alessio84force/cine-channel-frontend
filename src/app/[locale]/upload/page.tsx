@@ -1,5 +1,4 @@
-'use client'
-
+"use client";
 import UploadClient from '@/components/UploadClient'
 import { usePathname } from 'next/navigation'
 

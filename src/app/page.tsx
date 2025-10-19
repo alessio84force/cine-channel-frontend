@@ -1,5 +1,8 @@
-import { redirect } from 'next/navigation';
+import { redirect } from 'next/navigation'
 
-export default function Root() {
-  redirect('/es');
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+
+export default function RootRedirect() {
+  redirect('/es')
 }

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useEffect, useState } from 'react';
 
 export default function AudioToggle() {
@@ -19,7 +19,7 @@ export default function AudioToggle() {
       src.buffer = buf;
       src.connect(ctx.destination);
       src.start();
-      await ctx.resume();
+      ctx.resume();
     } catch {}
   };
 
@@ -28,7 +28,7 @@ export default function AudioToggle() {
     setEnabled(next);
     if (next) {
       localStorage.setItem('audioAllowed', '1');
-      await primeAudio();
+      primeAudio();
     } else {
       localStorage.removeItem('audioAllowed');
     }

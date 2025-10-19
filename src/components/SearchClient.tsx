@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useMemo, useState, useEffect } from 'react';
 import { SAMPLE_ITEMS, slugify } from '@/lib/data';
 import ChannelCard from '@/components/ChannelCard';

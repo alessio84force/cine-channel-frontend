@@ -1,51 +1,43 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
-const LOCALES = ['es','en','fr'] as const
+const LOCALES = ['es', 'en', 'fr'] as const
 type L = typeof LOCALES[number]
 
-function splitLocale(pathname: string): { locale: L; rest: string } {
-  const clean = (pathname || '/').replace(/\/+$/, '') || '/'
-  const parts = clean.split('/').filter(Boolean) // ["es","..."]
-  const maybe = parts[0]
-  const isLocale = (LOCALES as readonly string[]).includes(maybe || '')
-  const locale = (isLocale ? maybe : 'es') as L
-  const rest = '/' + (isLocale ? parts.slice(1) : parts).join('/')
-  return { locale, rest: rest === '/' ? '' : rest }
+function swapLocale(pathname: string, target: L) {
+  const parts = pathname.split('/').filter(Boolean)
+  if (parts.length === 0) return `/${target}`
+  if (LOCALES.includes(parts[0] as L)) parts[0] = target
+  else parts.unshift(target)
+  return '/' + parts.join('/')
 }
 
 export default function LanguageSwitcher() {
-  const pathname = usePathname() || '/'
-  const search = useSearchParams()
-  const { locale: current, rest } = splitLocale(pathname)
-  const qs = search?.toString()
-  const suffix = qs && qs.length ? `?${qs}` : ''
+  const pathname = usePathname() || '/es'
+  const current = (() => {
+    const seg = pathname.split('/').filter(Boolean)[0]
+    return (LOCALES.includes(seg as L) ? (seg as L) : 'es') as L
+  })()
 
   return (
-    <nav aria-label="Language switcher" className="flex items-center gap-1">
-      {LOCALES.map((loc) => {
-        const href = `/${loc}${rest}${suffix}`
-        const active = loc === current
+    <div className="inline-flex gap-1 rounded-md bg-white/5 ring-1 ring-white/10 p-1">
+      {LOCALES.map((l) => {
+        const active = l === current
         return (
           <Link
-            key={loc}
-            href={href}
-            prefetch
-            lang={loc}
-            hrefLang={loc}
-            aria-current={active ? 'page' : undefined}
-            className={
-              active
-                ? 'rounded-full px-2.5 py-1 text-xs font-medium bg-white text-neutral-900'
-                : 'rounded-full px-2.5 py-1 text-xs font-medium bg-white/5 ring-1 ring-white/10 hover:bg-white/10'
-            }
+            key={l}
+            href={swapLocale(pathname, l)}
+            className={[
+              'px-2 py-1 rounded-md text-xs uppercase tracking-wide',
+              active ? 'bg-white text-neutral-900' : 'text-white/80 hover:bg-white/10'
+            ].join(' ')}
           >
-            {loc.toUpperCase()}
+            {l}
           </Link>
         )
       })}
-    </nav>
+    </div>
   )
 }

@@ -1,6 +1,6 @@
 export const dynamic = 'force-dynamic';
 
-export default function ChannelAbout() {
+export default async function ChannelAbout() {
   return (
     <main id="content" className="px-6 py-6 max-w-3xl">
       <h2 className="text-xl font-bold">Sobre el canal</h2>

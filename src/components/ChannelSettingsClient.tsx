@@ -1,4 +1,6 @@
-'use client';
+"use client";
+import { UI } from '@/lib/ui';
+import { useLocale } from '@/lib/locale-client';
 import { useEffect, useMemo, useState } from 'react';
 
 type Category = 'gamers'|'streamers'|'videobloggers'|'cineastas';
@@ -28,8 +30,8 @@ export default function ChannelSettingsClient({ locale, slug }: { locale: string
     let aborted = false;
     (async () => {
       try {
-        const r = await fetch('/api/creator/draft', { cache: 'no-store' });
-        const j = await r.json();
+        const r = fetch('/api/creator/draft', { cache: 'no-store' });
+        const j = r.json();
         if (!aborted && j?.draft) {
           const d = j.draft;
           if (d.name) setName(d.name);
@@ -52,7 +54,7 @@ export default function ChannelSettingsClient({ locale, slug }: { locale: string
   async function save() {
     setSaving(true); setSaved(false); setErr(null);
     try {
-      const r = await fetch('/api/creator/draft', {
+      const r = fetch('/api/creator/draft', {
         method:'POST',
         headers: {'content-type':'application/json'},
         body: JSON.stringify({
@@ -150,7 +152,7 @@ export default function ChannelSettingsClient({ locale, slug }: { locale: string
         {err && <span className="text-red-400 text-sm">{err}</span>}
 
         <div className="flex-1" />
-        <a href={`/${locale}/channel/${slug}`} className="rounded-full px-4 py-2 bg-white/5 ring-1 ring-white/10 hover:bg-white/10">Ver canal</a>
+        <a href={`/${locale}/channel/${slug}`} className="rounded-full px-4 py-2 bg-white/5 ring-1 ring-white/10 hover:bg-white/10">{UI[locale].viewChannel}</a>
       </div>
     </main>
   );
