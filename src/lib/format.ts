@@ -1,4 +1,4 @@
-export function formatDate(locale: 'es'|'en'|'fr', v: string | Date): string {
+export function formatDate(locale: 'es'|'en'|'fr'|'it'|'de'|'pt', v: string | Date): string {
   try {
     const d = (typeof v === 'string') ? new Date(v) : v
     if (Number.isNaN(+d)) return ''
@@ -7,7 +7,7 @@ export function formatDate(locale: 'es'|'en'|'fr', v: string | Date): string {
   } catch { return '' }
 }
 
-export function formatViews(locale: 'es'|'en'|'fr', n: number): string {
+export function formatViews(locale: 'es'|'en'|'fr'|'it'|'de'|'pt', n: number): string {
   try {
     return new Intl.NumberFormat(locale === 'en' ? 'en-US' : locale === 'fr' ? 'fr-FR' : 'es-ES', {
       notation: 'compact',

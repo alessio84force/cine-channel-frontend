@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 
 function useLocale() {
   const seg = (usePathname() || '/').split('/').filter(Boolean)[0]
-  return ['es','en','fr'].includes(seg) ? seg : 'es'
+  return ['es','en','fr','it','de','pt'].includes(seg) ? seg : 'es'
 }
 
 export default function UploadDemoPage() {

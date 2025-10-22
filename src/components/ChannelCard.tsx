@@ -21,7 +21,7 @@ export default function ChannelCard({
   date?: string | Date
   views?: number
 }) {
-  const locale = (useLocale() as 'es'|'en'|'fr') || 'es'
+  const locale = (useLocale() as 'es'|'en'|'fr','it','de','pt') || 'es'
   const when = date ? formatDate(locale, date) : ''
   const v = typeof views === 'number' ? formatViews(locale, views) : ''
   const viewsLabel = locale === 'en' ? 'views' : locale === 'fr' ? 'vues' : 'vistas'

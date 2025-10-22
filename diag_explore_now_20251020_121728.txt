@@ -1,0 +1,415 @@
+## BRANCH & STATUS
+fix/safe-point
+R  middleware.ts -> middleware.backup.ts
+ M src/app/[locale]/channel/[slug]/page.tsx
+ M src/app/[locale]/creator/onboarding/page.tsx
+ M src/app/[locale]/explore/page.tsx
+ M src/app/[locale]/layout.tsx
+ M src/app/layout.tsx
+ M src/components/NavBar.tsx
+?? .data/
+?? diag_explore_20251020_120322.txt
+?? diag_explore_20251020_120431.txt
+?? diag_explore_now_20251020_121728.txt
+?? middleware.ts
+?? src/app/[locale]/creator/onboarding/actions.ts
+?? src/app/[locale]/creator/onboarding/ui/
+?? src/components/SafeNavBar.tsx
+?? src/components/SplashGateClient.tsx
+?? src/lib/channel-store.ts
+
+## FILES: explore + channel page + store
+---- src/app/[locale]/explore/page.tsx ----
+     1	import Link from "next/link"
+     2	import { getAllChannels } from "@/lib/channel-store"
+     3	
+     4	export const dynamic = "force-dynamic"
+     5	
+     6	function fmt(n: number | undefined) {
+     7	  const v = typeof n === 'number' ? n : 0
+     8	  return new Intl.NumberFormat('es-ES', { notation: 'compact', maximumFractionDigits: 1 }).format(v)
+     9	}
+    10	
+    11	function Card({ locale, ch }: { locale: string, ch: any }) {
+    12	  const href = `/${locale}/channel/${ch.slug}`
+    13	  return (
+    14	    <div className="rounded-xl overflow-hidden ring-1 ring-white/10 bg-white/5">
+    15	      {/* Cover */}
+    16	      <div className="aspect-[16/9] bg-white/5">
+    17	        {ch.coverUrl ? (
+    18	          // eslint-disable-next-line @next/next/no-img-element
+    19	          <img src={ch.coverUrl} alt={ch.name} className="w-full h-full object-cover" />
+    20	        ) : (
+    21	          <div className="w-full h-full grid place-items-center text-white/60 text-5xl">📺</div>
+    22	        )}
+    23	      </div>
+    24	
+    25	      {/* Body */}
+    26	      <div className="p-4">
+    27	        <h3 className="text-lg font-semibold line-clamp-1">{ch.name}</h3>
+    28	        <p className="mt-1 text-white/70 text-sm line-clamp-2">{ch.description || "Sin descripción"}</p>
+    29	
+    30	        {/* Metrics */}
+    31	        <div className="mt-3 flex items-center gap-4 text-white/70 text-sm">
+    32	          <span>{fmt(ch.viewCount)} vistas</span>
+    33	          <span>•</span>
+    34	          <span>{fmt(ch.subscriberCount)} suscriptores</span>
+    35	        </div>
+    36	
+    37	        <div className="mt-4 flex items-center gap-2">
+    38	          <Link
+    39	            href={href}
+    40	            className="rounded-md bg-white text-neutral-900 px-3 py-1.5 hover:opacity-90"
+    41	          >
+    42	            Ver canal
+    43	          </Link>
+    44	          <Link
+    45	            href={`${href}?subscribe=1`}
+    46	            className="rounded-md ring-1 ring-white/20 px-3 py-1.5 hover:bg-white/10"
+    47	          >
+    48	            Suscribirse
+    49	          </Link>
+    50	        </div>
+    51	      </div>
+    52	    </div>
+    53	  )
+    54	}
+    55	
+    56	export default async function ExplorePage({ params }: { params: Promise<{ locale: string }>}) {
+    57	  const { locale } = await params
+    58	  const channels = await getAllChannels()
+    59	
+    60	  return (
+    61	    <main className="max-w-6xl mx-auto px-6 py-10">
+    62	      <h1 className="text-3xl font-bold">Explorar</h1>
+    63	
+    64	      {channels.length === 0 ? (
+    65	        <div className="mt-10 text-white/70">
+    66	          No hay canales todavía.{" "}
+    67	          <Link href={`/${locale}/creator/onboarding`} className="underline">
+    68	            Crea el primero
+    69	          </Link>
+    70	          .
+    71	        </div>
+    72	      ) : (
+    73	        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    74	          {channels.map((ch) => (
+    75	            <Card key={ch.id} locale={locale} ch={ch} />
+    76	          ))}
+    77	        </div>
+    78	      )}
+    79	    </main>
+    80	  )
+    81	}
+
+---- src/app/[locale]/channel/[slug]/page.tsx ----
+     1	import { notFound } from 'next/navigation'
+     2	import { getChannelBySlug } from '@/lib/channel-store'
+     3	import Link from 'next/link'
+     4	
+     5	export const dynamic = 'force-dynamic'
+     6	
+     7	export default async function ChannelPage({ params, searchParams }: {
+     8	  params: Promise<{ locale: string; slug: string }>,
+     9	  searchParams?: Promise<Record<string,string>>
+    10	}) {
+    11	  const { locale, slug } = await params
+    12	  const sp = await (searchParams ?? Promise.resolve({}))
+    13	  const channel = await getChannelBySlug(slug)
+    14	  if (!channel) return notFound()
+    15	
+    16	  const showSubscribedHint = sp?.subscribe === '1'
+    17	
+    18	  return (
+    19	    <main className="max-w-5xl mx-auto px-6 py-10">
+    20	      <header className="flex items-center gap-4">
+    21	        <div className="h-16 w-16 rounded-full bg-white/10 grid place-items-center text-xl font-bold">
+    22	          {channel.name.slice(0,1).toUpperCase()}
+    23	        </div>
+    24	        <div>
+    25	          <h1 className="text-3xl font-bold">{channel.name}</h1>
+    26	          <p className="text-white/70">{channel.description || 'Sin descripción'}</p>
+    27	
+    28	          <div className="mt-2 text-white/70 text-sm flex items-center gap-3">
+    29	            <span>{new Intl.NumberFormat('es-ES', {notation:'compact', maximumFractionDigits:1}).format(channel.viewCount ?? 0)} vistas</span>
+    30	            <span>•</span>
+    31	            <span>{new Intl.NumberFormat('es-ES', {notation:'compact', maximumFractionDigits:1}).format(channel.subscriberCount ?? 0)} suscriptores</span>
+    32	          </div>
+    33	        </div>
+    34	      </header>
+    35	
+    36	      {showSubscribedHint && (
+    37	        <div className="mt-6 rounded-md bg-emerald-500/15 ring-1 ring-emerald-400/30 px-4 py-3 text-emerald-300">
+    38	          ¡Suscripción preparada! (placeholder)
+    39	        </div>
+    40	      )}
+    41	
+    42	      <div className="mt-6">
+    43	        <Link
+    44	          href={`/${locale}/channel/${channel.slug}?subscribe=1`}
+    45	          className="rounded-md bg-white text-neutral-900 px-4 py-2 hover:opacity-90"
+    46	        >
+    47	          Suscribirse
+    48	        </Link>
+    49	      </div>
+    50	
+    51	      <section className="mt-10">
+    52	        <h2 className="text-xl font-semibold">Vídeos</h2>
+    53	        <p className="text-white/60 mt-2">Aquí aparecerán los vídeos subidos a este canal.</p>
+    54	      </section>
+    55	    </main>
+    56	  )
+    57	}
+
+---- src/lib/channel-store.ts ----
+     1	import { promises as fs } from 'fs'
+     2	import path from 'path'
+     3	
+     4	const DATA = path.join(process.cwd(), '.data')
+     5	const FILE = path.join(DATA, 'channels.json')
+     6	
+     7	export type Channel = {
+     8	  id: string
+     9	  slug: string
+    10	  name: string
+    11	  description?: string
+    12	  language: string
+    13	  createdAt: string
+    14	  owner?: { email?: string }
+    15	  coverUrl?: string
+    16	  avatarUrl?: string
+    17	  viewCount?: number
+    18	  subscriberCount?: number
+    19	}
+    20	
+    21	async function ensure() {
+    22	  try { await fs.mkdir(DATA, { recursive: true }) } catch {}
+    23	  try { await fs.access(FILE) } catch { await fs.writeFile(FILE, '[]', 'utf-8') }
+    24	}
+    25	
+    26	export async function getAllChannels(): Promise<Channel[]> {
+    27	  await ensure()
+    28	  const raw = await fs.readFile(FILE, 'utf-8')
+    29	  let list: Channel[] = []
+    30	  try { list = JSON.parse(raw) } catch { list = [] }
+    31	  // backfill campi mancanti per vecchi canali
+    32	  return list.map(c => ({
+    33	    viewCount: 0,
+    34	    subscriberCount: 0,
+    35	    ...c,
+    36	  }))
+    37	}
+    38	
+    39	export async function getChannelBySlug(slug: string) {
+    40	  const all = await getAllChannels()
+    41	  return all.find(c => c.slug === slug) ?? null
+    42	}
+    43	
+    44	export async function addChannel(input: Omit<Channel,'id'|'createdAt'|'slug'|'viewCount'|'subscriberCount'> & { slug?: string }) {
+    45	  const all = await getAllChannels()
+    46	  const slug = (input.slug ?? input.name)
+    47	    .toLowerCase()
+    48	    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    49	    .replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'')
+    50	  if (all.some(c => c.slug === slug)) throw new Error('SLUG_TAKEN')
+    51	  const ch: Channel = {
+    52	    id: crypto.randomUUID(),
+    53	    slug,
+    54	    name: input.name,
+    55	    description: input.description ?? '',
+    56	    language: input.language,
+    57	    createdAt: new Date().toISOString(),
+    58	    owner: input.owner,
+    59	    coverUrl: input.coverUrl,
+    60	    avatarUrl: input.avatarUrl,
+    61	    viewCount: 0,
+    62	    subscriberCount: 0,
+    63	  }
+    64	  all.push(ch)
+    65	  await fs.writeFile(FILE, JSON.stringify(all, null, 2), 'utf-8')
+    66	  return ch
+    67	}
+
+---- src/app/api/channel/public/route.ts ----
+     1	import { NextResponse } from 'next/server';
+     2	import { getPublicBySlug, upsertPublicChannel, type PublicChannel } from '@/lib/publicStore';
+     3	import { SAMPLE_ITEMS } from '@/lib/data';
+     4	
+     5	export const runtime = 'nodejs';
+     6	export const dynamic = 'force-dynamic';
+     7	
+     8	export async function GET(req: Request) {
+     9	  const { searchParams } = new URL(req.url);
+    10	  const slug = searchParams.get('slug') || '';
+    11	  if (!slug) return NextResponse.json({ error: 'slug required' }, { status: 400 });
+    12	
+    13	  const pub = await getPublicBySlug(slug);
+    14	  if (pub) return NextResponse.json(pub);
+    15	
+    16	  // fallback: cerca nei SAMPLE_ITEMS (solo demo)
+    17	  const fromSample = SAMPLE_ITEMS.find(i =>
+    18	    i.title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') === slug
+    19	  );
+    20	  if (fromSample) {
+    21	    const demo: PublicChannel = {
+    22	      slug,
+    23	      name: fromSample.title,
+    24	      category: fromSample.category,
+    25	      description: 'Canal de demostración en Cine-Channel.',
+    26	      priceMonthly: 2.5,
+    27	      avatarUrl: '/icon.svg',
+    28	      bannerUrl: fromSample.thumb,
+    29	      views: fromSample.views
+    30	    };
+    31	    return NextResponse.json(demo);
+    32	  }
+    33	
+    34	  return NextResponse.json({ error: 'not found' }, { status: 404 });
+    35	}
+    36	
+    37	export async function POST(req: Request) {
+    38	  try {
+    39	    const body = await req.json();
+    40	    const { slug, name, category } = body || {};
+    41	    if (!slug || !name || !category) {
+    42	      return NextResponse.json({ error: 'slug, name, category are required' }, { status: 400 });
+    43	    }
+    44	    const saved = await upsertPublicChannel({
+    45	      slug,
+    46	      name,
+    47	      category,
+    48	      description: body.description ?? '',
+    49	      priceMonthly: typeof body.priceMonthly === 'number' ? body.priceMonthly : undefined,
+    50	      avatarUrl: body.avatarUrl || '/icon.svg',
+    51	      bannerUrl: body.bannerUrl || '/categories/tutti.jpeg',
+    52	    });
+    53	    return NextResponse.json({ ok: true, channel: saved });
+    54	  } catch (e) {
+    55	    return NextResponse.json({ error: 'invalid json' }, { status: 400 });
+    56	  }
+    57	}
+
+---- middleware.ts ----
+     1	import type { NextRequest } from 'next/server'
+     2	import { NextResponse } from 'next/server'
+     3	
+     4	export function middleware(req: NextRequest) {
+     5	  const { pathname } = req.nextUrl
+     6	
+     7	  // Escludi asset, build, file statici e webhooks critici
+     8	  if (
+     9	    pathname.startsWith('/_next') ||
+    10	    pathname.startsWith('/favicon') ||
+    11	    pathname.startsWith('/assets') ||
+    12	    pathname.startsWith('/api/stripe/webhook') ||
+    13	    pathname.startsWith('/api/stream/webhook') ||
+    14	    pathname === '/manifest.webmanifest' ||
+    15	    pathname === '/robots.txt' ||
+    16	    pathname === '/sitemap.xml'
+    17	  ) {
+    18	    return NextResponse.next()
+    19	  }
+    20	
+    21	  // Redirect base: "/" -> "/es"
+    22	  if (pathname === '/') {
+    23	    const url = req.nextUrl.clone()
+    24	    url.pathname = '/es'
+    25	    return NextResponse.redirect(url)
+    26	  }
+    27	
+    28	  // Altrimenti lascia passare TUTTO senza leggere auth/cookie custom
+    29	  return NextResponse.next()
+    30	}
+    31	
+    32	// Applica il middleware solo dove serve, evitando file statici
+    33	export const config = {
+    34	  matcher: [
+    35	    // tutto tranne _next, file con estensione e alcune api
+    36	    '/((?!_next/|.*\\..*|api/stripe/webhook|api/stream/webhook).*)',
+    37	  ],
+    38	}
+
+---- src/components/NavBar.tsx ----
+     1	"use client";
+     2	
+     3	import Link from "next/link";
+     4	import { usePathname } from "next/navigation";
+     5	import Wordmark from "@/components/Wordmark";
+     6	
+     7	const LOCALES = new Set(["es","en","fr"]);
+     8	
+     9	function swapLocale(path: string, next: string) {
+    10	  if (!path.startsWith("/")) path = "/" + path;
+    11	  const parts = path.split("/");
+    12	  if (LOCALES.has(parts[1])) {
+    13	    parts[1] = next;
+    14	    return parts.join("/") || `/${next}`;
+    15	  }
+    16	  return `/${next}${path === "/" ? "" : path}`;
+    17	}
+    18	
+    19	function LanguageSwitcher() {
+    20	  const pathname = usePathname() || "/es";
+    21	  return (
+    22	    <div className="flex items-center gap-1 text-sm">
+    23	      {["es","en","fr"].map((loc) => (
+    24	        <Link
+    25	          key={loc}
+    26	          href={swapLocale(pathname, loc)}
+    27	          className="px-2 py-1 rounded hover:bg-white/10 data-[active=true]:bg-white text-white data-[active=true]:text-neutral-900"
+    28	          data-active={pathname.split("/")[1] === loc}
+    29	        >
+    30	          {loc.toUpperCase()}
+    31	        </Link>
+    32	      ))}
+    33	    </div>
+    34	  );
+    35	}
+    36	
+    37	export default function NavBar() {
+    38	  const pathname = usePathname() || "/es";
+    39	  const locale = LOCALES.has(pathname.split("/")[1]) ? pathname.split("/")[1] : "es";
+    40	
+    41	  return (
+    42	    <nav className="h-12 px-3 flex items-center justify-between border-b border-white/10">
+    43	      {/* Logo oro inline, piccolissimo, link a Home */}
+    44	      <Link href={`/${locale}`} aria-label="Home" className="inline-flex items-center whitespace-nowrap">
+    45	        <span className="text-brand inline-flex items-center leading-none">
+    46	          {/* Se Wordmark supporta className, useremo le altezze qui sotto */}
+    47	          {/* @ts-expect-error: il componente potrebbe non tipizzare className */}
+    48	          <Wordmark className="h-5 sm:h-6 w-auto block" />
+    49	        </span>
+    50	      </Link>
+    51	
+    52	      <div className="flex items-center gap-3">
+    53	        <Link href={`/${locale}/explore`} className="text-white/80 hover:text-white">
+    54	          Explorar
+    55	        </Link>
+    56	        <Link
+    57	          href={`/${locale}/creator/onboarding`}
+    58	          className="rounded-md bg-white text-neutral-900 px-3 py-1.5 hover:opacity-90"
+    59	        >
+    60	          Crear canal
+    61	        </Link>
+    62	        <LanguageSwitcher />
+    63	      </div>
+    64	    </nav>
+    65	  );
+    66	}
+
+## channels.json (primi 120)
+     1	[]
+
+channels.length = 0
+
+## GREP explorer/channel link nel codice
+src/app/[locale]/not-found.tsx:18:          {t.explore}
+src/app/sitemap.ts:14:      { url: `${base}/${l}/explore`, lastModified: now, changeFrequency: 'daily', priority: 0.7 },
+src/app/[locale]/channel/[slug]/page.tsx:44:          href={`/${locale}/channel/${channel.slug}?subscribe=1`}
+src/app/[locale]/channel/[slug]/layout.tsx:25:  const base = `/${locale}/channel/${slug}`;
+src/app/[locale]/creator/onboarding/actions.ts:14:    redirect(`/${language}/channel/${ch.slug}`)
+src/app/[locale]/explore/page.tsx:12:  const href = `/${locale}/channel/${ch.slug}`
+
+==== FINE ====
+Output: diag_explore_now_20251020_121728.txt
+]633;D;0]633;P;Cwd=/workspaces/cine-channel-frontend[?2004h]633;A[0;32m@alessio84force [0m➜ [1;34m/workspaces/cine-channel-frontend [0;36m([1;31mfix/safe-point[0;36m) [0m$ ]633;B[K]633;A[0;32m@alessio84force [0m➜ [1;34m/workspaces/cine-channel-frontend [0;36m([1;31mfix/safe-point[0;36m) [0m$ ]633;B[K]633;A[0;32m@alessio84force [0m➜ [1;34m/workspaces/cine-channel-frontend [0;36m([1;31mfix/safe-point[0;36m) [0m$ ]633;B[?2004l[?2004h[?2004l

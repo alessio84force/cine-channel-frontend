@@ -137,3 +137,153 @@ body { @apply bg-neutral-950 text-white; } /* sfondo nero + testo bianco sempre 
     0 0 14px rgba(212, 175, 55, 0.20);
 }
 /* Outline già presente per contrasto su video/immagini */
+
+/* --- HERO: wordmark più grande --- */
+.hero-wordmark { width: clamp(720px, 52vw, 2000px); }
+@media (min-width: 1024px) {
+  .hero-wordmark { width: clamp(1000px, 48vw, 2200px); }
+}
+
+/* --- HERO: rotazione/crossfade --- */
+@keyframes heroFade {
+  0%   { opacity: 0 }
+  5%   { opacity: 1 }
+  25%  { opacity: 1 }
+  30%  { opacity: 0 }
+  100% { opacity: 0 }
+}
+
+/* Tutte le immagini partono nascoste e ruotano */
+.hero-frame {
+  opacity: 0;
+  animation: heroFade 24s infinite;
+  /* sotto al testo */
+  z-index: 0;
+  filter: brightness(0.8);
+}
+
+/* Stagger sulle 4 immagini */
+.hero-frame:nth-of-type(1) { animation-delay: 0s;  }
+.hero-frame:nth-of-type(2) { animation-delay: 6s;  }
+.hero-frame:nth-of-type(3) { animation-delay: 12s; }
+.hero-frame:nth-of-type(4) { animation-delay: 18s; }
+
+/* === HERO (versione background-image) ======================= */
+.hero-stage { background:#000; }
+
+/* frame fullbleed */
+.hero-bg{
+  position:absolute; inset:0;
+  background-size:cover; background-position:center;
+  filter:brightness(0.82);
+  opacity:0; animation:heroFade 20s infinite both;
+}
+
+/* crossfade scaglionato */
+.hero-bg:nth-of-type(1){ animation-delay: 0s }
+.hero-bg:nth-of-type(2){ animation-delay: 5s }
+.hero-bg:nth-of-type(3){ animation-delay:10s }
+.hero-bg:nth-of-type(4){ animation-delay:15s }
+
+/* il primo è SUBITO visibile per evitare schermo nero iniziale */
+.hero-bg:first-of-type{ opacity:1 }
+
+/* curva: ogni slide visibile per ~20% del ciclo, poi fade out */
+@keyframes heroFade{
+  0%   { opacity:0 }
+  3%   { opacity:1 }  /* fade-in rapido */
+  22%  { opacity:1 }  /* on-screen */
+  27%  { opacity:0 }  /* fade-out */
+  100% { opacity:0 }
+}
+
+/* Wordmark davvero grande e centrato */
+.hero-wordmark{
+  width: clamp(900px, 72vw, 2600px);   /* <<< PIÙ GRANDE */
+  max-width: 96vw;
+}
+@media (max-width: 1280px){ .hero-wordmark{ width: clamp(700px, 76vw, 1800px); } }
+@media (max-width: 768px){  .hero-wordmark{ width: clamp(360px, 86vw, 980px); }  }
+
+/* HERO ROTATING BACKDROP */
+.hero-stack{position:relative;min-height:min(82vh,800px)}
+.hero-frame{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.82);opacity:0;animation:heroFade 24s infinite}
+.hero-frame:nth-child(1){animation-delay:0s}
+.hero-frame:nth-child(2){animation-delay:6s}
+.hero-frame:nth-child(3){animation-delay:12s}
+.hero-frame:nth-child(4){animation-delay:18s}
+@keyframes heroFade{0%,20%{opacity:1}25%,95%{opacity:0}100%{opacity:1}}
+.hero-overlay{position:absolute;inset:0;background:radial-gradient(90% 60% at 50% 40%, rgba(0,0,0,0) 0%, rgba(0,0,0,.45) 60%, rgba(0,0,0,.72) 100%)}
+
+.hero-center{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;padding:4rem 1.25rem}
+.hero-wordmark{width:min(96vw,4200px);min-height:min(82vh,820px)}
+.hero-frame{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.82);opacity:0;animation:heroFade 24s infinite}
+.hero-frame:nth-child(1){animation-delay:0s}
+.hero-frame:nth-child(2){animation-delay:6s}
+.hero-frame:nth-child(3){animation-delay:12s}
+.hero-frame:nth-child(4){animation-delay:18s}
+@keyframes heroFade{0%,20%{opacity:1}25%,95%{opacity:0}100%{opacity:1}}
+.hero-overlay{position:absolute;inset:0;background:radial-gradient(90% 60% at 50% 40%, rgba(0,0,0,0) 0%, rgba(0,0,0,.45) 60%, rgba(0,0,0,.72) 100%)}
+
+.hero-center{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;padding:4rem 1.25rem}
+.hero-wordmark{width:min(92vw,1800px)}             /* <<< PIÙ GRANDE */
+@media (min-width:1024px){ .hero-wordmark{width:min(92vw,2000px)} } /* <<< ANCORA PIÙ GRANDE SU DESKTOP */
+
+/* HERO ROTATING BACKDROP BEGIN */
+.hero-stack{position:relative;min-height:min(90vh,900px);overflow:hidden;background:#000}
+.hero-frame{position:absolute;inset:0;opacity:0;transition:opacity .9s ease;will-change:opacity;contain:paint}
+.hero-frame.active{opacity:1}
+.hero-img{object-fit:cover;filter:brightness(.88);transform:translateZ(0);backface-visibility:hidden}
+.hero-overlay{position:absolute;inset:0;background:
+  radial-gradient(90% 60% at 50% 40%, rgba(0,0,0,0) 0%, rgba(0,0,0,.38) 55%, rgba(0,0,0,.78) 100%)}
+.hero-center{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;height:100%;padding:4rem 1.25rem;text-align:center}
+.hero-wordmark{width:min(96vw,2800px)} /* <<< MOLTO più grande */
+@media (max-width:480px){ .hero-wordmark{width:min(96vw,1200px)} } /* extra boost per il wordmark (pulito) */
+.hero-center .hero-wordmark svg {
+  filter: drop-shadow(0 0 22px rgba(0,0,0,.55));
+}
+
+/* supersize del wordmark in home, resta centrato */
+.hero-center .hero-wordmark{
+  width: min(96vw, 4800px);
+}
+@media (max-width: 480px){
+  .hero-center .hero-wordmark{
+    width: min(96vw, 1200px);
+  }
+}
+
+/* WORDMARK SIZE & LAYERS */
+.hero-images{ position:absolute; inset:0; z-index:0; }
+.hero-center{ position:relative; z-index:10; display:grid; place-items:center; min-height:40vh; }
+.hero-center .hero-wordmark svg{ width:min(96vw, 4800px); height:auto; display:block; }
+@media (max-width:480px){
+  .hero-center .hero-wordmark svg{ width:min(96vw, 1400px); }
+}
+
+/* WORDMARK RESPONSIVE */
+.hero-wordmark{
+  position: relative;
+  z-index: 20;
+  margin: 0 auto;
+  width: clamp(320px, 40vw, 1200px); /* mobile -> desktop */
+}
+@media (min-width: 1280px){
+  .hero-wordmark{ width: clamp(480px, 36vw, 1200px); }
+}
+
+/* WORDMARK RESPONSIVE */
+.hero-wordmark{
+  position: relative;
+  z-index: 20;
+  margin: 0 auto;
+  width: clamp(360px, 38vw, 1200px);
+}
+@media (min-width: 1280px){
+  .hero-wordmark{ width: clamp(540px, 34vw, 1200px); }
+}
+
+/* NAV LOGO */
+.nav-wordmark{ width: clamp(120px, 14vw, 220px); display:block }
+.nav-logo-link{ opacity:0.95; transition:opacity .2s ease }
+.nav-logo-link:hover{ opacity:1 }

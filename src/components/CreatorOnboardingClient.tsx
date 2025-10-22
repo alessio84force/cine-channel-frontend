@@ -1,6 +1,10 @@
+import { usePathname } from 'next/navigation'
 "use client"
+import { usePathname } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { UI, L } from '@/lib/ui'
+import { usePathname } from 'next/navigation'
 
 type Category = 'gamers'|'streamers'|'videobloggers'|'cineastas';
 

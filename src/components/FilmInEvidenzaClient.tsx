@@ -3,7 +3,7 @@
 import { useLocale } from '@/lib/locale-client'
 
 export default function FilmInEvidenzaClient() {
-  const loc = (useLocale() as 'es'|'en'|'fr') || 'es'
+  const loc = (useLocale() as 'es'|'en'|'fr','it','de','pt') || 'es'
   return (
     <main className="p-10 text-center">
       <h1 className="text-3xl font-bold">

@@ -1,11 +1,17 @@
 import type { ReactNode } from 'react'
+import NavBar from '@/components/NavBar'
+import Footer from '@/components/Footer'
 
-export default function LocaleLayout({ children }: { children: ReactNode }) {
+export const dynamic = 'force-dynamic'
+
+export default async function LocaleLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="es">
-      <body className="min-h-screen bg-neutral-950 text-white antialiased">
+    <>
+      <NavBar />
+      <section>
         {children}
-      </body>
-    </html>
+      </section>
+      <Footer />
+    </>
   )
 }

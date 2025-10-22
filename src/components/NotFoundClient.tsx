@@ -1,11 +1,15 @@
+import { usePathname } from 'next/navigation'
+"use client";
+import { usePathname } from 'next/navigation'
 'use client'
+import { usePathname } from 'next/navigation'
 
 import Link from 'next/link'
 import { useLocale } from '@/lib/locale-client'
 import { UI } from '@/lib/ui'
 
 export default function NotFound() {
-  const loc = (useLocale() as 'es' | 'en' | 'fr') || 'es'
+  const loc = (useLocale() as 'es' | 'en' | 'fr','it','de','pt') || 'es'
   const t = UI[loc]
   const msg =
     loc === 'en'

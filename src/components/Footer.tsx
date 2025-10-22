@@ -1,45 +1,29 @@
 "use client";
+import Link from "next/link";
+import { UI, type L } from "@/lib/ui";
 
-import Link from 'next/link'
-import { useLocale } from '@/lib/locale-client'
-import { UI, L } from '@/lib/ui'
+const LOCALES = new Set<L>(["es","en","fr","it","de","pt"]);
+const getLocale = (pathname: string): L => {
+  const seg = (pathname.split("/")[1] || "es") as L;
+  return (LOCALES.has(seg) ? seg : "es") as L;
+};
+const withLocale = (loc: L, sub: string) => `/${loc}${sub.startsWith('/')?sub:'/'+sub}`;
 
 export default function Footer() {
-  const loc = (useLocale() as L) || 'es'
-  const T = UI[loc]
+  const pathname = typeof window !== "undefined" ? window.location.pathname : "/es";
+  const locale = getLocale(pathname);
+  const t = UI[locale];
 
   return (
-    <footer className="mt-16 border-t border-white/10">
-      <div className="max-w-6xl mx-auto px-6 py-10">
-        {/* top: legal lists */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div>
-            <h3 className="text-sm font-semibold text-white/80">{T.legal.title}</h3>
-            <ul className="mt-3 space-y-2">
-              {T.legal.items.map((it: any) => (
-                <li key={it.slug}>
-                  <Link className="text-white/70 hover:text-white" href={`/${loc}/legal/${it.slug}`}>
-                    {it.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div />
-          <div className="sm:text-right">
-            <Link href="mailto:support@cine-channel.com" className="text-white/80 hover:text-white">
-              {T.support}
-            </Link>
-          </div>
-        </div>
-
-        {/* bottom: centered brand + rights */}
-        <div className="mt-10 flex items-center justify-center">
-          <div className="text-white/80 text-sm">
-            <span className="font-semibold tracking-wide">{T.brand}</span><sup>®</sup> — {T.rights}
-          </div>
-        </div>
+    <footer className="mt-16 border-t border-white/10 py-8 text-sm text-white/60">
+      <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row md:items-center gap-4 md:gap-0 md:justify-between">
+        <div>© {UI[locale].brand} — {t.footer.rights}</div>
+        <nav className="flex gap-4">
+          <Link href={withLocale(locale, '/legal/privacy')}>{t.footer.privacy}</Link>
+          <Link href={withLocale(locale, '/legal/terms')}>{t.footer.terms}</Link>
+          <Link href={withLocale(locale, '/contact')}>{t.footer.contact}</Link>
+        </nav>
       </div>
     </footer>
-  )
+  );
 }

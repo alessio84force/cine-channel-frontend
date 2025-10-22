@@ -1,8 +1,8 @@
 import { NextResponse, NextRequest } from 'next/server';
 
-const locales = ['es','en','fr','en-us'] as const;
+const locales = ['es','en','fr','it','de','pt','en-us'] as const;
 
-function mapCountryToLocale(country?: string): 'es'|'en'|'fr'|'en-us' {
+function mapCountryToLocale(country?: string): 'es'|'en'|'fr','it','de','pt'|'en-us' {
   const c = (country || '').toUpperCase();
   if (c === 'ES') return 'es';
   if (c === 'FR') return 'fr';
@@ -10,7 +10,7 @@ function mapCountryToLocale(country?: string): 'es'|'en'|'fr'|'en-us' {
   return 'en';
 }
 
-function fallbackFromAcceptLanguage(header?: string): 'es'|'en'|'fr'|'en-us' {
+function fallbackFromAcceptLanguage(header?: string): 'es'|'en'|'fr','it','de','pt'|'en-us' {
   const h = (header || '').toLowerCase();
   if (h.startsWith('es')) return 'es';
   if (h.startsWith('fr')) return 'fr';

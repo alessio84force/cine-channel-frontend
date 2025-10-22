@@ -1,0 +1,257 @@
+@import "tailwindcss";
+
+html, body { height: 100%; }
+
+/* === Splash Intro (stile Netflix) === */
+@keyframes starPop {
+  0%   { transform: scale(0);   opacity: 0.9; }
+  50%  { transform: scale(1.15); opacity: 1; }
+  70%  { transform: scale(1.0); }
+  100% { transform: scale(0);   opacity: 0; }
+}
+@keyframes textInOut {
+  0%   { transform: scale(0.9); opacity: 0; }
+  20%  { transform: scale(1);   opacity: 1; }
+  70%  { transform: scale(1);   opacity: 1; }
+  100% { transform: scale(0);   opacity: 0; }
+}
+@keyframes fadeBlack {
+  0%   { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+.animate-starPop   { animation: starPop 2.2s ease-in-out forwards; }
+.animate-textInOut { animation: textInOut 2.2s ease-in-out forwards; }
+.animate-fadeBlack { animation: fadeBlack 2.2s ease-in-out forwards; }
+
+/* Accessibilità: rispetta prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-starPop, .animate-textInOut, .animate-fadeBlack { animation: none !important; }
+}
+
+/* === Splash Intro (fix stacking + fade wrapper) === */
+@keyframes starPop {
+  0%   { transform: scale(0);   opacity: 0.9; }
+  50%  { transform: scale(1.15); opacity: 1; }
+  70%  { transform: scale(1.0); }
+  100% { transform: scale(0);   opacity: 0; }
+}
+@keyframes textInOut {
+  0%   { transform: scale(0.9); opacity: 0; }
+  20%  { transform: scale(1);   opacity: 1; }
+  70%  { transform: scale(1);   opacity: 1; }
+  100% { transform: scale(0);   opacity: 0; }
+}
+@keyframes splashFade {
+  0%   { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+.animate-starPop   { animation: starPop 2.2s ease-in-out forwards; }
+.animate-textInOut { animation: textInOut 2.2s ease-in-out forwards; }
+.animate-splashFade{ animation: splashFade 2.2s ease-in-out forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-starPop, .animate-textInOut, .animate-splashFade { animation: none !important; }
+}
+
+/* ==== Base app theme (robusto contro mismatch) ==== */
+:root { color-scheme: dark; }
+html, body { min-height: 100%; }
+body { @apply bg-neutral-950 text-white; } /* sfondo nero + testo bianco sempre */
+
+/* === Splash Intro (opzionale: solo per fallback animazioni) === */
+@keyframes splash-pop {
+  0%   { transform: scale(0.80); opacity: 0; }
+  60%  { transform: scale(1.10); opacity: 1; }
+  100% { transform: scale(1.00); opacity: 1; }
+}
+@keyframes splash-out {
+  0%   { transform: scale(1.00); opacity: 1; }
+  100% { transform: scale(0.20); opacity: 0; }
+}
+
+/* ==== Splash Intro (full screen) ==== */
+@keyframes splash-pop {
+  0%   { transform: scale(0.85); opacity: 0; }
+  60%  { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1.00); opacity: 1; }
+}
+@keyframes splash-out {
+  0%   { transform: scale(1.00); opacity: 1; }
+  100% { transform: scale(0.18); opacity: 0; }
+}
+
+/* anti-jank per font durante l'animazione */
+.splash-willchange { will-change: transform, opacity; }
+
+/* dimensione star e titolo responsive basate sul lato minore dello schermo */
+.splash-box { width: 70vmin; height: 70vmin; }
+.splash-title { font-size: clamp(18px, 5vmin, 48px); letter-spacing: .08em; }
+
+/* ==== GIANT STAR ==== */
+.splash-box { width: 95vmin; height: 95vmin; }            /* quasi tutto lo schermo */
+.splash-star, .splash-star svg { width: 100%; height: 100%; display: block; }
+/* Titolo più grande */
+.splash-title { font-size: clamp(24px, 8vmin, 96px); letter-spacing: .10em; }
+
+/* Colore dorato sobrio per la stella (puoi cambiare il valore) */
+.splash-star-color { color: #d4af37; }
+
+/* === Brand color unificato === */
+:root { --brand: #d4af37; }              /* oro sobrio: cambia qui il valore se vuoi */
+.text-brand { color: var(--brand); }      /* applica il colore a testo e SVG (via currentColor) */
+
+/* === Visibilità titolo splash su sfondo scuro === */
+.title-outline {
+  text-shadow:
+    0 0 1px #000,
+    0 0 2px #000,
+    0 1px 2px #000,
+    0 -1px 2px #000,
+    1px 0 2px #000,
+    -1px 0 2px #000;
+}
+
+/* Testo leggibile su overlay scuri/chiari */
+.title-outline {
+  text-shadow:
+    0 0 2px #000,
+    0 0 4px #000,
+    0 1px 3px #000,
+    0 -1px 3px #000,
+    1px 0 3px #000,
+    -1px 0 3px #000;
+}
+
+/* ========== Brand Gold ========== */
+.gold-text {
+  background: linear-gradient(135deg, #7f5d00 0%, #b67e10 18%, #f5d76e 45%, #d4af37 58%, #8e6b07 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.gold-soft-glow {
+  text-shadow:
+    0 0 6px rgba(244, 208, 63, 0.25),
+    0 0 14px rgba(212, 175, 55, 0.20);
+}
+/* Outline già presente per contrasto su video/immagini */
+
+/* --- HERO: wordmark più grande --- */
+.hero-wordmark { width: clamp(720px, 52vw, 2000px); }
+@media (min-width: 1024px) {
+  .hero-wordmark { width: clamp(1000px, 48vw, 2200px); }
+}
+
+/* --- HERO: rotazione/crossfade --- */
+@keyframes heroFade {
+  0%   { opacity: 0 }
+  5%   { opacity: 1 }
+  25%  { opacity: 1 }
+  30%  { opacity: 0 }
+  100% { opacity: 0 }
+}
+
+/* Tutte le immagini partono nascoste e ruotano */
+.hero-frame {
+  opacity: 0;
+  animation: heroFade 24s infinite;
+  /* sotto al testo */
+  z-index: 0;
+  filter: brightness(0.8);
+}
+
+/* Stagger sulle 4 immagini */
+.hero-frame:nth-of-type(1) { animation-delay: 0s;  }
+.hero-frame:nth-of-type(2) { animation-delay: 6s;  }
+.hero-frame:nth-of-type(3) { animation-delay: 12s; }
+.hero-frame:nth-of-type(4) { animation-delay: 18s; }
+
+/* === HERO (versione background-image) ======================= */
+.hero-stage { background:#000; }
+
+/* frame fullbleed */
+.hero-bg{
+  position:absolute; inset:0;
+  background-size:cover; background-position:center;
+  filter:brightness(0.82);
+  opacity:0; animation:heroFade 20s infinite both;
+}
+
+/* crossfade scaglionato */
+.hero-bg:nth-of-type(1){ animation-delay: 0s }
+.hero-bg:nth-of-type(2){ animation-delay: 5s }
+.hero-bg:nth-of-type(3){ animation-delay:10s }
+.hero-bg:nth-of-type(4){ animation-delay:15s }
+
+/* il primo è SUBITO visibile per evitare schermo nero iniziale */
+.hero-bg:first-of-type{ opacity:1 }
+
+/* curva: ogni slide visibile per ~20% del ciclo, poi fade out */
+@keyframes heroFade{
+  0%   { opacity:0 }
+  3%   { opacity:1 }  /* fade-in rapido */
+  22%  { opacity:1 }  /* on-screen */
+  27%  { opacity:0 }  /* fade-out */
+  100% { opacity:0 }
+}
+
+/* Wordmark davvero grande e centrato */
+.hero-wordmark{
+  width: clamp(900px, 72vw, 2600px);   /* <<< PIÙ GRANDE */
+  max-width: 96vw;
+}
+@media (max-width: 1280px){ .hero-wordmark{ width: clamp(700px, 76vw, 1800px); } }
+@media (max-width: 768px){  .hero-wordmark{ width: clamp(360px, 86vw, 980px); }  }
+
+/* HERO ROTATING BACKDROP */
+.hero-stack{position:relative;min-height:min(82vh,800px)}
+.hero-frame{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.82);opacity:0;animation:heroFade 24s infinite}
+.hero-frame:nth-child(1){animation-delay:0s}
+.hero-frame:nth-child(2){animation-delay:6s}
+.hero-frame:nth-child(3){animation-delay:12s}
+.hero-frame:nth-child(4){animation-delay:18s}
+@keyframes heroFade{0%,20%{opacity:1}25%,95%{opacity:0}100%{opacity:1}}
+.hero-overlay{position:absolute;inset:0;background:radial-gradient(90% 60% at 50% 40%, rgba(0,0,0,0) 0%, rgba(0,0,0,.45) 60%, rgba(0,0,0,.72) 100%)}
+
+.hero-center{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;padding:4rem 1.25rem}
+.hero-wordmark{width:min(96vw,4200px);min-height:min(82vh,820px)}
+.hero-frame{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.82);opacity:0;animation:heroFade 24s infinite}
+.hero-frame:nth-child(1){animation-delay:0s}
+.hero-frame:nth-child(2){animation-delay:6s}
+.hero-frame:nth-child(3){animation-delay:12s}
+.hero-frame:nth-child(4){animation-delay:18s}
+@keyframes heroFade{0%,20%{opacity:1}25%,95%{opacity:0}100%{opacity:1}}
+.hero-overlay{position:absolute;inset:0;background:radial-gradient(90% 60% at 50% 40%, rgba(0,0,0,0) 0%, rgba(0,0,0,.45) 60%, rgba(0,0,0,.72) 100%)}
+
+.hero-center{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;padding:4rem 1.25rem}
+.hero-wordmark{width:min(92vw,1800px)}             /* <<< PIÙ GRANDE */
+@media (min-width:1024px){ .hero-wordmark{width:min(92vw,2000px)} } /* <<< ANCORA PIÙ GRANDE SU DESKTOP */
+
+/* HERO ROTATING BACKDROP BEGIN */
+.hero-stack{position:relative;min-height:min(90vh,900px);overflow:hidden;background:#000}
+.hero-frame{position:absolute;inset:0;opacity:0;transition:opacity .9s ease;will-change:opacity;contain:paint}
+.hero-frame.active{opacity:1}
+.hero-img{object-fit:cover;filter:brightness(.88);transform:translateZ(0);backface-visibility:hidden}
+.hero-overlay{position:absolute;inset:0;background:
+  radial-gradient(90% 60% at 50% 40%, rgba(0,0,0,0) 0%, rgba(0,0,0,.38) 55%, rgba(0,0,0,.78) 100%)}
+.hero-center{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;height:100%;padding:4rem 1.25rem;text-align:center}
+.hero-wordmark{width:min(96vw,2800px)} /* <<< MOLTO più grande */
+@media (max-width:480px){ .hero-wordmark{width:min(96vw,1200px)} } }
+/* HERO ROTATING BACKDROP END */
+
+/* extra boost per il wordmark */
+.hero-center .hero-wordmark svg {
+  filter: drop-shadow(0 0 22px rgba(0,0,0,.55));
+}
+
+/* supersize del wordmark in home, resta centrato */
+.hero-center .hero-wordmark{
+  width: min(96vw, 4200px);
+}
+@media (max-width: 480px){
+  .hero-center .hero-wordmark{
+    width: min(96vw, 1200px);
+  }
+}

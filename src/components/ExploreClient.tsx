@@ -5,7 +5,7 @@ import ChannelCard from '@/components/ChannelCard'
 import { SAMPLE_ITEMS, slugify } from '@/lib/data'
 
 export default function ExploreClient() {
-  const locale = (useLocale() as 'es'|'en'|'fr') || 'es'
+  const locale = (useLocale() as 'es'|'en'|'fr','it','de','pt') || 'es'
   const items = useMemo(() => SAMPLE_ITEMS, [])
 
   return (

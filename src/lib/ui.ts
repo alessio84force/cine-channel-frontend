@@ -1,98 +1,46 @@
 // src/lib/ui.ts
-export type L = 'es'|'en'|'fr'
+export type L = 'es'|'en'|'fr'|'it'|'de'|'pt'
 
-export const UI: Record<L, any> = {
+export const UI: Record<L, {
+  brand: string
+  trending: string
+  nav: { explore: string, create: string }
+  footer: { rights: string, privacy: string, contact: string, terms: string }
+}> = {
   es: {
     brand: 'CINE-CHANNEL',
-    rights: 'Todos los derechos reservados.',
     trending: 'Contenido en tendencia',
-    explore_title: 'Explorar canales',
-    create_channel: 'Crear canal',
-    explore: 'Explorar',
-    support: 'Soporte',
-    legal: {
-      title: 'Legal',
-      items: [
-        { slug: 'privacidad', label: 'Privacidad' },
-        { slug: 'cookies', label: 'Cookies' },
-        { slug: 'aviso-legal', label: 'Aviso legal' },
-        { slug: 'copyright', label: 'Copyright' },
-        { slug: 'dsa', label: 'DSA' },
-        { slug: 'reportar', label: 'Reportar' },
-      ]
-    },
-    views: 'vistas',
-    onboarding: {
-      title: 'Crea tu canal',
-      name: 'Nombre del canal',
-      slug: 'URL (slug)',
-      category: 'Categoría',
-      description: 'Descripción',
-      price: 'Precio mensual (€)',
-      continue: 'Continuar',
-      cancel: 'Cancelar'
-    }
+    nav: { explore: 'Explorar', create: 'Crear canal' },
+    footer: { rights: 'Todos los derechos reservados.', privacy: 'Privacidad', contact: 'Contacto', terms: 'Términos' },
   },
   en: {
     brand: 'CINE-CHANNEL',
-    rights: 'All rights reserved.',
     trending: 'Trending content',
-    explore_title: 'Explore channels',
-    create_channel: 'Create channel',
-    explore: 'Explore',
-    support: 'Support',
-    legal: {
-      title: 'Legal',
-      items: [
-        { slug: 'privacy', label: 'Privacy' },
-        { slug: 'cookies', label: 'Cookies' },
-        { slug: 'legal-notice', label: 'Legal notice' },
-        { slug: 'copyright', label: 'Copyright' },
-        { slug: 'dsa', label: 'DSA' },
-        { slug: 'report', label: 'Report' },
-      ]
-    },
-    views: 'views',
-    onboarding: {
-      title: 'Create your channel',
-      name: 'Channel name',
-      slug: 'URL (slug)',
-      category: 'Category',
-      description: 'Description',
-      price: 'Monthly price (€)',
-      continue: 'Continue',
-      cancel: 'Cancel'
-    }
+    nav: { explore: 'Explore', create: 'Create channel' },
+    footer: { rights: 'All rights reserved.', privacy: 'Privacy', contact: 'Contact', terms: 'Terms' },
   },
   fr: {
     brand: 'CINE-CHANNEL',
-    rights: 'Tous droits réservés.',
     trending: 'Contenu tendance',
-    explore_title: 'Explorer les chaînes',
-    create_channel: 'Créer une chaîne',
-    explore: 'Explorer',
-    support: 'Support',
-    legal: {
-      title: 'Mentions légales',
-      items: [
-        { slug: 'confidentialite', label: 'Confidentialité' },
-        { slug: 'cookies', label: 'Cookies' },
-        { slug: 'mentions-legales', label: 'Mentions légales' },
-        { slug: 'copyright', label: 'Copyright' },
-        { slug: 'dsa', label: 'DSA' },
-        { slug: 'signaler', label: 'Signaler' },
-      ]
-    },
-    views: 'vues',
-    onboarding: {
-      title: 'Crée ta chaîne',
-      name: 'Nom de la chaîne',
-      slug: 'URL (slug)',
-      category: 'Catégorie',
-      description: 'Description',
-      price: 'Prix mensuel (€)',
-      continue: 'Continuer',
-      cancel: 'Annuler'
-    }
-  }
+    nav: { explore: 'Explorer', create: 'Créer une chaîne' },
+    footer: { rights: 'Tous droits réservés.', privacy: 'Confidentialité', contact: 'Contact', terms: 'Conditions' },
+  },
+  it: {
+    brand: 'CINE-CHANNEL',
+    trending: 'Contenuti in tendenza',
+    nav: { explore: 'Esplora', create: 'Crea canale' },
+    footer: { rights: 'Tutti i diritti riservati.', privacy: 'Privacy', contact: 'Contatti', terms: 'Termini' },
+  },
+  de: {
+    brand: 'CINE-CHANNEL',
+    trending: 'Trend-Inhalte',
+    nav: { explore: 'Entdecken', create: 'Kanal erstellen' },
+    footer: { rights: 'Alle Rechte vorbehalten.', privacy: 'Datenschutz', contact: 'Kontakt', terms: 'Nutzungsbedingungen' },
+  },
+  pt: {
+    brand: 'CINE-CHANNEL',
+    trending: 'Conteúdo em alta',
+    nav: { explore: 'Explorar', create: 'Criar canal' },
+    footer: { rights: 'Todos os direitos reservados.', privacy: 'Privacidade', contact: 'Contato', terms: 'Termos' },
+  },
 }

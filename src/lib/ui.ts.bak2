@@ -1,0 +1,120 @@
+// Rebuilt from backup by scripts/rebuild_ui_from_backup.js
+export type L = 'es'|'en'|'fr'|'it'|'de'|'pt'
+
+export const UI: Record<L, any> = {
+  es: {
+    brand: 'CINE-CHANNEL',
+    rights: 'Todos los derechos reservados.',
+    trending: 'Contenido en tendencia',
+    explore_title: 'Explorar canales',
+    create_channel: 'Crear canal',
+    explore: 'Explorar',
+    support: 'Soporte',
+    legal: {
+      title: 'Legal',
+      items: [
+        { slug: 'privacidad', label: 'Privacidad' },
+        { slug: 'cookies', label: 'Cookies' },
+        { slug: 'aviso-legal', label: 'Aviso legal' },
+        { slug: 'copyright', label: 'Copyright' },
+        { slug: 'dsa', label: 'DSA' },
+        { slug: 'reportar', label: 'Reportar' },
+      ]
+    },
+  en: {
+    brand: 'CINE-CHANNEL',
+    rights: 'All rights reserved.',
+    trending: 'Trending content',
+    explore_title: 'Explore channels',
+    create_channel: 'Create channel',
+    explore: 'Explore',
+    support: 'Support',
+    legal: {
+      title: 'Legal',
+      items: [
+        { slug: 'privacy', label: 'Privacy' },
+        { slug: 'cookies', label: 'Cookies' },
+        { slug: 'legal-notice', label: 'Legal notice' },
+        { slug: 'copyright', label: 'Copyright' },
+        { slug: 'dsa', label: 'DSA' },
+        { slug: 'report', label: 'Report' },
+      ]
+    },
+  fr: {
+    brand: 'CINE-CHANNEL',
+    rights: 'Tous droits réservés.',
+    trending: 'Contenu tendance',
+    explore_title: 'Explorer les chaînes',
+    create_channel: 'Créer une chaîne',
+    explore: 'Explorer',
+    support: 'Support',
+    legal: {
+      title: 'Mentions légales',
+      items: [
+        { slug: 'confidentialite', label: 'Confidentialité' },
+        { slug: 'cookies', label: 'Cookies' },
+        { slug: 'mentions-legales', label: 'Mentions légales' },
+        { slug: 'copyright', label: 'Copyright' },
+        { slug: 'dsa', label: 'DSA' },
+        { slug: 'signaler', label: 'Signaler' },
+      ]
+    },
+  it: {
+    brand: 'CINE-CHANNEL',
+    rights: 'All rights reserved.',
+    trending: 'Trending content',
+    explore_title: 'Explore channels',
+    create_channel: 'Create channel',
+    explore: 'Explore',
+    support: 'Support',
+    legal: {
+      title: 'Legal',
+      items: [
+        { slug: 'privacy', label: 'Privacy' },
+        { slug: 'cookies', label: 'Cookies' },
+        { slug: 'legal-notice', label: 'Legal notice' },
+        { slug: 'copyright', label: 'Copyright' },
+        { slug: 'dsa', label: 'DSA' },
+        { slug: 'report', label: 'Report' },
+      ]
+    },
+  de: {
+    brand: 'CINE-CHANNEL',
+    rights: 'All rights reserved.',
+    trending: 'Trending content',
+    explore_title: 'Explore channels',
+    create_channel: 'Create channel',
+    explore: 'Explore',
+    support: 'Support',
+    legal: {
+      title: 'Legal',
+      items: [
+        { slug: 'privacy', label: 'Privacy' },
+        { slug: 'cookies', label: 'Cookies' },
+        { slug: 'legal-notice', label: 'Legal notice' },
+        { slug: 'copyright', label: 'Copyright' },
+        { slug: 'dsa', label: 'DSA' },
+        { slug: 'report', label: 'Report' },
+      ]
+    },
+  pt: {
+    brand: 'CINE-CHANNEL',
+    rights: 'All rights reserved.',
+    trending: 'Trending content',
+    explore_title: 'Explore channels',
+    create_channel: 'Create channel',
+    explore: 'Explore',
+    support: 'Support',
+    legal: {
+      title: 'Legal',
+      items: [
+        { slug: 'privacy', label: 'Privacy' },
+        { slug: 'cookies', label: 'Cookies' },
+        { slug: 'legal-notice', label: 'Legal notice' },
+        { slug: 'copyright', label: 'Copyright' },
+        { slug: 'dsa', label: 'DSA' },
+        { slug: 'report', label: 'Report' },
+      ]
+    },
+}
+// end

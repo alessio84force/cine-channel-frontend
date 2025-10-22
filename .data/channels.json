@@ -1,0 +1,36 @@
+[
+  {
+    "viewCount": 45000,
+    "subscriberCount": 1200,
+    "id": "seed-1",
+    "slug": "cine-clasico",
+    "name": "Cine Clásico",
+    "description": "Joyas del cine de los años 40–70",
+    "language": "es",
+    "createdAt": "2025-10-01T00:00:00.000Z",
+    "coverUrl": "https://picsum.photos/seed/cine1/800/450",
+    "avatarUrl": ""
+  },
+  {
+    "viewCount": 275000,
+    "subscriberCount": 9800,
+    "id": "seed-2",
+    "slug": "trailers-estrenos",
+    "name": "Tráilers y Estrenos",
+    "description": "Los avances más esperados",
+    "language": "es",
+    "createdAt": "2025-10-01T00:00:00.000Z",
+    "coverUrl": "https://picsum.photos/seed/cine2/800/450",
+    "avatarUrl": ""
+  },
+  {
+    "id": "0c2c3fc6-7534-484b-bcb9-c404f8eb7c23",
+    "slug": "debug-channel-153241",
+    "name": "Debug Channel 153241",
+    "description": "prueba",
+    "language": "es",
+    "createdAt": "2025-10-20T15:32:41.655Z",
+    "viewCount": 0,
+    "subscriberCount": 0
+  }
+]
