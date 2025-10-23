@@ -1,8 +1,6 @@
 import React from 'react';
 
-type Props = { className?: string };
-
-export default function Wordmark({ className = '' }: Props) {
+export default function Wordmark({ className = '' }: { className?: string }) {
   return (
     <svg
       className={className}
@@ -22,12 +20,10 @@ export default function Wordmark({ className = '' }: Props) {
           <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="#000" floodOpacity="0.55" />
         </filter>
       </defs>
-
       <g filter="url(#wm-shadow)">
-        <path
-          fill="url(#wm-gold)"
-          d="M95 20 L112 78 L172 78 L124 110 L140 168 L95 132 L50 168 L66 110 L18 78 L78 78 Z"
-        />
+        {/* Stella */}
+        <path fill="url(#wm-gold)" d="M95 20 L112 78 L172 78 L124 110 L140 168 L95 132 L50 168 L66 110 L18 78 L78 78 Z" />
+        {/* Testo */}
         <text
           x="210" y="140"
           fontFamily="Cinzel, 'Trajan Pro', serif"
