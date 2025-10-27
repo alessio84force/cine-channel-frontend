@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-type L = 'es'|'en'|'fr'|'it'|'de'|'pt'
+import type { L } from "@/lib/ui";
 
 const TITLES: Record<L, Record<string,string>> = {
   es: { privacy: 'Política de Privacidad', terms: 'Términos y Condiciones', cookies: 'Política de Cookies' },

@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap");
 @import "tailwindcss";
 
 html, body { height: 100%; }
@@ -87,13 +88,13 @@ body { @apply bg-neutral-950 text-white; } /* sfondo nero + testo bianco sempre 
 
 /* dimensione star e titolo responsive basate sul lato minore dello schermo */
 .splash-box { width: 70vmin; height: 70vmin; }
-.splash-title { font-size: clamp(18px, 5vmin, 48px); letter-spacing: .08em; }
+.splash-title { font-size: clamp(1.8rem, 2.2vw, 2.6rem); letter-spacing: .08em; }
 
 /* ==== GIANT STAR ==== */
 .splash-box { width: 95vmin; height: 95vmin; }            /* quasi tutto lo schermo */
 .splash-star, .splash-star svg { width: 100%; height: 100%; display: block; }
 /* Titolo più grande */
-.splash-title { font-size: clamp(24px, 8vmin, 96px); letter-spacing: .10em; }
+.splash-title { font-size: clamp(1.8rem, 2.2vw, 2.6rem); letter-spacing: .10em; }
 
 /* Colore dorato sobrio per la stella (puoi cambiare il valore) */
 .splash-star-color { color: #d4af37; }
@@ -235,3 +236,245 @@ body { @apply bg-neutral-950 text-white; } /* sfondo nero + testo bianco sempre 
 .nav-wordmark{ width: clamp(120px, 14vw, 220px); display:block }
 .nav-logo-link{ opacity:.95; transition:opacity .2s ease }
 .nav-logo-link:hover{ opacity:1 }
+.hero-wordmark svg, .nav-wordmark svg { overflow: visible; }
+/* === HERO WORDMARK SLIGHTLY BIGGER (override) === */
+.hero-wordmark{ width: clamp(360px, 40vw, 1300px); }
+@media (min-width:1280px){
+  .hero-wordmark{ width: clamp(560px, 36vw, 1300px); }
+}
+
+/* === TAGLINE "BOOM" EFFECT === */
+.tagline-boom{
+  white-space: nowrap;
+  position: relative;
+  display: inline-block;
+  font-weight: 800;
+  letter-spacing: .01em;
+  /* Oro: gradient + clip su testo */
+  background: linear-gradient(180deg,#fff6db 0%, #f6da7b 25%, #d4af37 55%, #8c6a10 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  /* Bordo testo (outline) + glow per impatto */
+  -webkit-text-stroke: 2px rgba(32,22,4,.55);
+  text-shadow:
+    0 0 6px rgba(250,220,120,.75),
+    0 0 18px rgba(212,175,55,.6),
+    0 2px 0 rgba(36,24,6,.5);
+
+  /* Animazioni */
+  animation: boomIn .6s cubic-bezier(.2,1,.2,1)  both,
+             glowPulse 2.8s ease-in-out 1.2s infinite,
+             shimmer 3.6s linear 1.6s infinite;
+}
+
+/* Effetto bagliore morbido dietro (alone) */
+.tagline-boom::after{
+  content:"";
+  position:absolute; inset:-6px -12px;
+  background: radial-gradient(60% 60% at 50% 50%, rgba(255,230,120,.18), rgba(0,0,0,0) 70%);
+  filter: blur(6px);
+  z-index:-1;
+  pointer-events:none;
+}
+
+/* Pop-in con leggero overshoot */
+@keyframes boomIn{
+  0%{ transform: translateY(6px) scale(.96); opacity: 0; filter: blur(2px); }
+  60%{ transform: translateY(-1px) scale(1.035); opacity: 1; filter: blur(0); }
+  100%{ transform: translateY(0) scale(1); }
+}
+
+/* Pulsazione del glow */
+@keyframes glowPulse{
+  0%,100%{ text-shadow:
+    0 0 6px rgba(250,220,120,.40),
+    0 0 18px rgba(212,175,55,.30),
+    0 2px 0 rgba(36,24,6,.5); }
+  50%{ text-shadow:
+    0 0 10px rgba(250,220,120,.70),
+    0 0 26px rgba(212,175,55,.55),
+    0 3px 0 rgba(36,24,6,.6); }
+}
+
+/* Shimmer diagonale sottile */
+@keyframes shimmer{
+  0%{ background-position: 0% 0%; }
+  100%{ background-position: 0% 180%; }
+}
+/* Rendi il gradiente “mobile” per lo shimmer */
+.tagline-boom{
+  white-space: nowrap;
+  background-size: 100% 200%;
+}
+
+/* === TAGLINE "BOOM" EFFECT === */
+.tagline-boom{
+  white-space: nowrap;
+  position: relative;
+  display: inline-block;
+  font-weight: 800;
+  letter-spacing: .01em;
+  /* Oro: gradient + clip su testo */
+  background: linear-gradient(180deg,#fff6db 0%, #f6da7b 25%, #d4af37 55%, #8c6a10 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  /* Bordo testo (outline) + glow per impatto */
+  -webkit-text-stroke: 1px rgba(32,22,4,.55);
+  text-shadow:
+    0 0 6px rgba(250,220,120,.45),
+    0 0 18px rgba(212,175,55,.35),
+    0 2px 0 rgba(36,24,6,.5);
+
+  /* Animazioni */
+  animation: boomIn .6s cubic-bezier(.2,1,.2,1)  both,
+             glowPulse 2.8s ease-in-out 1.2s infinite,
+             shimmer 3.6s linear 1.6s infinite;
+}
+
+/* Effetto bagliore morbido dietro (alone) */
+.tagline-boom::after{
+  content:"";
+  position:absolute; inset:-6px -12px;
+  background: radial-gradient(60% 60% at 50% 50%, rgba(255,230,120,.18), rgba(0,0,0,0) 70%);
+  filter: blur(6px);
+  z-index:-1;
+  pointer-events:none;
+}
+
+/* Pop-in con leggero overshoot */
+@keyframes boomIn{
+  0%{ transform: translateY(6px) scale(.96); opacity: 0; filter: blur(2px); }
+  60%{ transform: translateY(-1px) scale(1.035); opacity: 1; filter: blur(0); }
+  100%{ transform: translateY(0) scale(1); }
+}
+
+/* Pulsazione del glow */
+@keyframes glowPulse{
+  0%,100%{ text-shadow:
+    0 0 6px rgba(250,220,120,.40),
+    0 0 18px rgba(212,175,55,.30),
+    0 2px 0 rgba(36,24,6,.5); }
+  50%{ text-shadow:
+    0 0 10px rgba(250,220,120,.70),
+    0 0 26px rgba(212,175,55,.55),
+    0 3px 0 rgba(36,24,6,.6); }
+}
+
+/* Shimmer diagonale sottile */
+@keyframes shimmer{
+  0%{ background-position: 0% 0%; }
+  100%{ background-position: 0% 180%; }
+}
+/* Rendi il gradiente “mobile” per lo shimmer */
+.tagline-boom{
+  white-space: nowrap;
+  background-size: 100% 200%;
+}
+/* === TAGLINE SIZE OVERRIDE === */
+.tagline-boom{
+  white-space: nowrap;
+  font-size: clamp(1.8rem, 2.2vw, 2.6rem);
+  line-height: 1.15;
+}
+@media (min-width: 768px){
+  .tagline-boom{
+  white-space: nowrap; font-size: clamp(1.8rem, 2.2vw, 2.6rem); }
+}
+@media (min-width: 1280px){
+  .tagline-boom{
+  white-space: nowrap; font-size: clamp(1.8rem, 2.2vw, 2.6rem); }
+}
+
+/* === Arabic font & RTL helpers === */
+
+html[dir="rtl"] body { font-family: 'Cairo', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Naskh Arabic', sans-serif; }
+html[dir="rtl"] .text-left { text-align: right; }
+html[dir="rtl"] .text-right { text-align: left; }
+/* inverti frecce/icona se usi caret specifici (opzionale) */
+
+/* === RTL Arabic display tweaks === */
+html[dir="rtl"] body {
+  font-family: 'Cairo', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Naskh Arabic', sans-serif;
+}
+
+/* Se l'hero usa una classe "wordmark" o l'h1 grande, migliora interlinea/kerning per evitare collisioni con le stelle */
+html[dir="rtl"] .wordmark,
+html[dir="rtl"] h1.wordmark,
+html[dir="rtl"] .hero-wordmark {
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+}
+
+/* Se le stelle sono <span class="star"> dentro la wordmark */
+html[dir="rtl"] .wordmark .star,
+html[dir="rtl"] h1.wordmark .star,
+html[dir="rtl"] .hero-wordmark .star {
+  position: relative;
+  top: .15em;               /* abbassa leggermente la stellina */
+  margin-inline: .2em;      /* spazio per non toccare le lettere */
+  display: inline-block;
+}
+
+/* === RTL Arabic wordmark tweaks === */
+html[dir="rtl"] [data-wordmark] {
+  line-height: 1.35;
+  letter-spacing: 0.03em; /* un filo di tracking per isolare i segni */
+}
+html[dir="rtl"] [data-wordmark] .star {
+  position: relative;
+  top: .12em;             /* abbassa leggermente le stelle */
+  margin-inline: .25em;   /* spazio su entrambi i lati */
+  display: inline-block;
+}
+
+/* versione grande (hero) */
+html[dir="rtl"] .hero-wordmark {
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+}
+html[dir="rtl"] .hero-wordmark .star {
+  top: .18em;
+  margin-inline: .3em;
+}
+
+/* === RTL Arabic wordmark tweaks === */
+html[dir="rtl"] [data-wordmark] { line-height: 1.35; letter-spacing: 0.03em; }
+html[dir="rtl"] [data-wordmark] .star { position: relative; top: .12em; margin-inline: .25em; display: inline-block; }
+html[dir="rtl"] .hero-wordmark { line-height: 1.25; letter-spacing: 0.04em; }
+html[dir="rtl"] .hero-wordmark .star { top: .18em; margin-inline: .3em; }
+
+/* === Wordmark styles === */
+.wordmark{
+  font-weight:700; letter-spacing:.04em;
+  background:linear-gradient(90deg,#fff,#e5e5e5);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.wordmark .dash{opacity:.75; margin:0 .15em}
+.wordmark .star{color:#f6c945; text-shadow:0 0 12px rgba(246,201,69,.35); margin:0 .15em}
+.hero-wordmark{ font-size:clamp(28px,6vw,56px); letter-spacing:.06em; }
+.hero-wordmark .star{ font-size:1.05em; position:relative; top:.05em; }
+
+/* RTL (arabo) – allenta line-height e riallinea le stelle */
+html[dir=rtl] [data-wordmark]{ line-height:1.35; letter-spacing:.02em }
+html[dir=rtl] .hero-wordmark{ line-height:1.25; }
+html[dir=rtl] .hero-wordmark .star{ top:.12em; margin-inline:.25em }
+
+/* === Wordmark styles === */
+.wordmark{
+  font-weight:700; letter-spacing:.04em;
+  background:linear-gradient(90deg,#fff,#e5e5e5);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.wordmark .dash{opacity:.75; margin:0 .15em}
+.wordmark .star{color:#f6c945; text-shadow:0 0 12px rgba(246,201,69,.35); margin:0 .15em}
+.hero-wordmark{ font-size:clamp(28px,6vw,56px); letter-spacing:.06em; }
+.hero-wordmark .star{ font-size:1.05em; position:relative; top:.05em; }
+
+/* RTL (arabo) – allenta line-height e riallinea le stelle */
+html[dir=rtl] [data-wordmark]{ line-height:1.35; letter-spacing:.02em }
+html[dir=rtl] .hero-wordmark{ line-height:1.25; }
+html[dir=rtl] .hero-wordmark .star{ top:.12em; margin-inline:.25em }

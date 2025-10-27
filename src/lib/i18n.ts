@@ -1,5 +1,5 @@
 export type Locale = 'es' | 'en' | 'fr'
-export const LOCALES: Locale[] = ['es','en','fr','it','de','pt']
+export const LOCALES: Locale[] = ['es','en','fr','it','de','pt','ar']
 
 const dict = {
   es: {

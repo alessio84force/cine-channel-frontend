@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation';
 
-const pathnameLocale = (p:string)=>{const seg=(p||'/es').split('/')[1];return ['es','en','fr','it','de','pt'].includes(seg)?seg:'es'};
+const pathnameLocale = (p:string)=>{const seg=(p||'/es').split('/')[1];return ['es','en','fr','it','de','pt','ar'].includes(seg)?seg:'es'};
 export default function CookieBanner() {
   const [show, setShow] = useState(false);
   useEffect(() => {

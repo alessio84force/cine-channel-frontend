@@ -24,12 +24,62 @@
     "avatarUrl": ""
   },
   {
+    "viewCount": 0,
+    "subscriberCount": 0,
     "id": "0c2c3fc6-7534-484b-bcb9-c404f8eb7c23",
     "slug": "debug-channel-153241",
     "name": "Debug Channel 153241",
     "description": "prueba",
     "language": "es",
-    "createdAt": "2025-10-20T15:32:41.655Z",
+    "createdAt": "2025-10-20T15:32:41.655Z"
+  },
+  {
+    "viewCount": 0,
+    "subscriberCount": 0,
+    "id": "35e5b3e0-7b3b-4b6d-9f93-09f977e23430",
+    "slug": "alex",
+    "name": "alex",
+    "description": "",
+    "language": "es",
+    "createdAt": "2025-10-25T00:40:09.554Z"
+  },
+  {
+    "viewCount": 0,
+    "subscriberCount": 0,
+    "id": "0351dcdc-756e-4d6e-9775-9cf6a41761d3",
+    "slug": "alexius",
+    "name": "alexius",
+    "description": "",
+    "language": "es",
+    "createdAt": "2025-10-26T00:28:16.703Z"
+  },
+  {
+    "viewCount": 0,
+    "subscriberCount": 0,
+    "id": "c5407dca-8c93-44ea-a999-0a9d12058bb9",
+    "slug": "alexius1",
+    "name": "alexius1",
+    "description": "",
+    "language": "es",
+    "createdAt": "2025-10-26T00:38:35.423Z"
+  },
+  {
+    "viewCount": 0,
+    "subscriberCount": 0,
+    "id": "ed5b57fa-3dfe-44ff-9cc3-e7c724721a21",
+    "slug": "alexius2",
+    "name": "alexius2",
+    "description": "",
+    "language": "es",
+    "createdAt": "2025-10-26T00:40:25.455Z"
+  },
+  {
+    "id": "1d575a98-8777-42eb-b508-c8cc04a6eb59",
+    "slug": "alexius3",
+    "name": "alexius3",
+    "description": "",
+    "language": "es",
+    "createdAt": "2025-10-26T21:44:58.601Z",
     "viewCount": 0,
     "subscriberCount": 0
   }

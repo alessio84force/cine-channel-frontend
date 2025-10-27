@@ -59,3 +59,5 @@ node_modules/
 
 # Files di sistema
 .DS_Store
+
+/generated/prisma

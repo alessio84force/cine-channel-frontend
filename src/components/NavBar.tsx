@@ -1,41 +1,37 @@
-"use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import LanguageSwitcher from "./LanguageSwitcher";
-import LogoHome from "@/components/LogoHome";
+import Wordmark from "@/components/Wordmark";
 import { UI, type L } from "@/lib/ui";
 
-const LOCALES = new Set<L>(["es","en","fr","it","de","pt"]);
-const getLocale = (pathname: string): L => {
-  const seg = (pathname || "/es").split("/")[1] as L;
-  return (LOCALES.has(seg) ? seg : "es") as L;
-};
-
-export default function NavBar() {
-  const pathname = usePathname() || "/es";
-  const locale = getLocale(pathname);
-  const t = UI[locale] || UI.es;
+export default function NavBar({ locale }: { locale: L }) {
+  const t = UI[locale] ?? UI.es;
+  const langs: L[] = ["es","en","fr","it","de","pt","ar"];
+  const signin =
+    t.nav?.signin ?? { es:"Iniciar sesión", en:"Sign in", fr:"Se connecter",
+      it:"Accedi", de:"Anmelden", pt:"Entrar", ar:"تسجيل الدخول" }[locale];
 
   return (
-    <header className="sticky top-0 z-40 bg-neutral-950/80 backdrop-blur border-b border-white/10">
-      <div className="mx-auto max-w-7xl flex items-center justify-between px-4 h-14">
-        {/* Logo Home */}
-        <Link href={`/${locale}`} aria-label="Home" className="flex items-center gap-2">
-          <LogoHome className="h-8 w-auto" />
-        </Link>
-
-        {/* Menu destro */}
-        <nav className="flex items-center gap-3">
-          <Link href={`/${locale}/explore`} className="opacity-90 hover:opacity-100">
+    <header className="sticky top-0 z-30 border-b border-white/10 bg-neutral-950/70 backdrop-blur">
+      <div className="mx-auto max-w-6xl px-4 py-3 flex items-center gap-4">
+        <Wordmark locale={locale} href={`/${locale}`} />
+        <nav className="ml-auto flex items-center gap-3">
+          <Link href={`/${locale}/explore`} className="px-3 py-1.5 rounded hover:bg-white/10">
             {t.nav?.explore ?? "Explore"}
           </Link>
-          <Link
-            href={`/${locale}/creator/onboarding`}
-            className="rounded bg-white text-neutral-900 px-3 py-1.5 hover:opacity-90"
-          >
+          <Link href={`/${locale}/creator/onboarding`} className="px-3 py-1.5 rounded bg-white text-black hover:opacity-90">
             {t.nav?.create ?? "Create channel"}
           </Link>
-          <LanguageSwitcher />
+          <div className="h-5 w-px bg-white/20 mx-1" />
+          <div className="flex items-center gap-1">
+            {langs.map(lc => (
+              <Link key={lc} href={`/${lc}`}
+                className={"px-2 py-1 rounded text-xs "+(lc===locale?"bg-white text-black":"hover:bg-white/10 text-white/80")}>
+                {lc.toUpperCase()}
+              </Link>
+            ))}
+          </div>
+          <Link href={`/signin?callbackUrl=/${locale}`} className="px-3 py-1.5 rounded border border-white/20 hover:bg-white/10">
+            {signin}
+          </Link>
         </nav>
       </div>
     </header>

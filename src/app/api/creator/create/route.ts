@@ -1,3 +1,4 @@
+function suggestSlug(base:string){ const n=Math.floor(100+Math.random()*900); return `${base}-${n}`; }
 export const runtime = 'nodejs'
 
 import { NextResponse } from 'next/server'

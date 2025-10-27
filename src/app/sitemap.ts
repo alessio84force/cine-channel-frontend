@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-const locales = ['es','en','fr','it','de','pt'] as const;
+const locales = ['es','en','fr','it','de','pt','ar'] as const;
 const base = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 export default function sitemap(): MetadataRoute.Sitemap {

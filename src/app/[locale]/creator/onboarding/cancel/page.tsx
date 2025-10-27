@@ -1,11 +1,13 @@
-import Link from 'next/link'
-export const dynamic = 'force-dynamic'
-export default async function CancelOnboarding() {
+import Link from "next/link";
+import { UI, type L } from "@/lib/ui";
+
+export default async function Cancel({ params }: { params: Promise<{ locale: L }> }) {
+  const { locale } = await params;
+  const t = UI[locale].onboarding;
   return (
-    <main style={{padding:24}}>
-      <h1>Onboarding cancellato</h1>
-      <p>Operazione annullata. Puoi riprovare quando vuoi.</p>
-      <p><Link href="../">Torna all'onboarding</Link></p>
+    <main className="max-w-3xl mx-auto px-6 py-16">
+      <h1 className="text-3xl font-bold mb-3">{t.cancel}</h1>
+      <Link className="underline" href={`/${locale}/creator/onboarding`}>Back</Link>
     </main>
-  )
+  );
 }

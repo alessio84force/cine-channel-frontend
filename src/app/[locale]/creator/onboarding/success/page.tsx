@@ -1,11 +1,13 @@
-import Link from 'next/link'
-export const dynamic = 'force-dynamic'
-export default async function SuccessOnboarding() {
+import Link from "next/link";
+import { UI, type L } from "@/lib/ui";
+
+export default async function Success({ params }: { params: Promise<{ locale: L }> }) {
+  const { locale } = await params;
+  const t = UI[locale].onboarding;
   return (
-    <main style={{padding:24}}>
-      <h1>Onboarding completato ✅</h1>
-      <p>Complimenti! Il tuo account è pronto.</p>
-      <p><Link href="../../creator">Vai alla dashboard creator</Link></p>
+    <main className="max-w-3xl mx-auto px-6 py-16">
+      <h1 className="text-3xl font-bold mb-3">{t.success}</h1>
+      <Link className="underline" href={`/${locale}/explore`}>OK</Link>
     </main>
-  )
+  );
 }

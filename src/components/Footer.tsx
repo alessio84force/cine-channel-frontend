@@ -1,27 +1,43 @@
-"use client";
 import Link from "next/link";
 import { UI, type L } from "@/lib/ui";
 
-const LOCALES = new Set<L>(["es","en","fr","it","de","pt"]);
-const getLocale = (pathname: string): L => {
-  const seg = (pathname.split("/")[1] || "es") as L;
-  return (LOCALES.has(seg) ? seg : "es") as L;
-};
-const withLocale = (loc: L, sub: string) => `/${loc}${sub.startsWith('/')?sub:'/'+sub}`;
-
-export default function Footer() {
-  const pathname = typeof window !== "undefined" ? window.location.pathname : "/es";
-  const locale = getLocale(pathname);
-  const t = UI[locale];
+export default function Footer({ locale }: { locale: L }) {
+  const t = UI[locale] ?? UI.es;
+  const year = new Date().getFullYear();
+  const rights =
+    t.footer?.rights ??
+    ({
+      es: "Todos los derechos reservados.",
+      en: "All rights reserved.",
+      fr: "Tous droits réservés.",
+      it: "Tutti i diritti riservati.",
+      de: "Alle Rechte vorbehalten.",
+      pt: "Todos os direitos reservados.",
+      ar: "جميع الحقوق محفوظة.",
+    } as Record<L, string>)[locale];
 
   return (
-    <footer className="mt-16 border-t border-white/10 py-8 text-sm text-white/60">
-      <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row md:items-center gap-4 md:gap-0 md:justify-between">
-        <div>© {UI[locale].brand} — {t.footer.rights}</div>
-        <nav className="flex gap-4">
-          <Link href={withLocale(locale, '/legal/privacy')}>{t.footer.privacy}</Link>
-          <Link href={withLocale(locale, '/legal/terms')}>{t.footer.terms}</Link>
-          <Link href={withLocale(locale, '/contact')}>{t.footer.contact}</Link>
+    <footer className="mt-16 border-t border-white/10">
+      <div className="mx-auto max-w-6xl px-4 py-8 grid gap-4 sm:grid-cols-2">
+        <div className="text-sm text-white/70">
+          <strong>{t.brand ?? "CINE-CHANNEL"}</strong> · © {year} · {rights}
+        </div>
+        <nav className="text-sm justify-self-start sm:justify-self-end flex gap-4">
+          <Link href={`/${locale}/legal/privacy`} className="hover:underline">
+            {t.footer?.privacy ?? "Privacy"}
+          </Link>
+          <Link href={`/${locale}/legal/terms`} className="hover:underline">
+            {t.footer?.terms ?? "Terms"}
+          </Link>
+          <Link href={`/${locale}/legal/cookies`} className="hover:underline">
+            {t.footer?.cookies ?? "Cookies"}
+          </Link>
+          <Link href={`/${locale}/legal/notice`} className="hover:underline">
+            {t.footer?.notice ?? "Legal"}
+          </Link>
+          <Link href={`/${locale}/contact`} className="hover:underline">
+            {t.footer?.contact ?? "Contact"}
+          </Link>
         </nav>
       </div>
     </footer>
