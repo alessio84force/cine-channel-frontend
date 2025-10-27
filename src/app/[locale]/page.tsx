@@ -12,7 +12,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
   return (
     <main>
   <h1 className="mb-4">
-  <Wordmark locale={locale} withStars className="w-[560px] h-auto mx-auto"  withStars/>
+  <Wordmark locale={locale} withStars className="w-[480px] h-auto mx-auto"  withStars/>
 </h1>
       <HeroVideo />
       <section className="max-w-6xl mx-auto px-6 pb-12 pt-8">
