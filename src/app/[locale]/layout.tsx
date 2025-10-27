@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Wordmark from "@/components/Wordmark";
 import "../globals.css";
 import type { L } from "@/lib/ui";
