@@ -1,45 +1,63 @@
-"use client";
-import Link from "next/link";
-import { UI, type L } from "@/lib/ui";
+import React from "react";
 
-type Props = { locale: L; href?: string; withStars?: boolean; className?: string };
+type Props = {
+  className?: string;
+  withStars?: boolean;
+  title?: string;
+};
 
-export default function Wordmark({ locale, href, withStars=false, className="" }: Props) {
-  const t = UI[locale] ?? UI.es;
-  const brand = t.brand ?? "CINE-CHANNEL";
-  const [left, right] = brand.split("-");
+export default function Wordmark({ className = "", withStars = true, title = "Cine Channel" }: Props) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 1200 220"
+      role="img"
+      aria-label={title}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <linearGradient id="wm-gold" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#ffd36e"/>
+          <stop offset="55%" stopColor="#f0b63a"/>
+          <stop offset="100%" stopColor="#a37c1a"/>
+        </linearGradient>
 
-  const logo = (
-    <span className={`inline-flex items-center gap-2 select-none ${className}`}>
-      {/* Mark compact (play-in-a-square) */}
-      <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" className="shrink-0">
-        <rect width="24" height="24" rx="5" className="fill-white/95" />
-        <path d="M10 7l7 5-7 5V7z" className="fill-black" />
-      </svg>
+        <filter id="wm-shadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="2" stdDeviation="2" floodOpacity="0.25"/>
+        </filter>
+      </defs>
 
-      {/* Wordmark */}
-      <span
-        data-wordmark
-        className={withStars ? "wordmark hero-wordmark" : "wordmark"}
-      >
-        <span className="wm-left">{left ?? "CINE"}</span>
-        {withStars ? (
-          <>
-            <span className="star">★</span>
-            <span className="dash">-</span>
-            <span className="star">★</span>
-          </>
-        ) : (
-          <span className="dash">-</span>
-        )}
-        <span className="wm-right">{right ?? "CHANNEL"}</span>
-      </span>
-    </span>
-  );
+      {/* Stella sinistra opzionale */}
+      {withStars && (
+        <g transform="translate(24, 24)" filter="url(#wm-shadow)">
+          <path
+            d="M50 2 L61 38 L98 38 L68 59 L79 95 L50 74 L21 95 L32 59 L2 38 L39 38 Z"
+            fill="url(#wm-gold)"
+            stroke="#1b1b1b"
+            strokeWidth="2"
+            paintOrder="stroke"
+          />
+        </g>
+      )}
 
-  return href ? (
-    <Link href={href} className="inline-flex items-center">{logo}</Link>
-  ) : (
-    logo
+      {/* Testo UNICO del wordmark: niente duplicati */}
+      <g transform="translate( withStars ? 140 : 40, 150)">
+        <text
+          x="0"
+          y="0"
+          fontFamily="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto"
+          fontWeight="700"
+          fontSize="118"
+          letterSpacing="6"
+          fill="url(#wm-gold)"
+          stroke="#1b1b1b"
+          strokeWidth="2"
+          paintOrder="stroke"
+          filter="url(#wm-shadow)"
+        >
+          CINE-CHANNEL
+        </text>
+      </g>
+    </svg>
   );
 }
