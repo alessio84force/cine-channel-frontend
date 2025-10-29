@@ -7,7 +7,7 @@ export default function NavBar({ locale = "es" }: { locale?: string }) {
       <div className="mx-auto max-w-6xl px-4 h-16 flex items-center gap-4">
         {/* Sinistra: Logo/Home (più grande) */}
         <Link href={`/${locale}`} aria-label="Home" className="shrink-0">
-          <Wordmark withStars className="w-[120px] md:w-[144px]" />
+          <Wordmark withStars className="w-[156px] md:w-[180px]" />
         </Link>
 
         {/* Centro: nav con bottoni veri */}

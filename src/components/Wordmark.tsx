@@ -1,14 +1,12 @@
-import clsx from "clsx";
-
 type Props = { withStars?: boolean; className?: string };
 
-export default function Wordmark({ withStars = false, className }: Props) {
+export default function Wordmark({ withStars = false, className = "" }: Props) {
   return (
     <svg
       viewBox="0 0 1600 240"
       role="img"
       aria-label="CINE-CHANNEL"
-      className={clsx("isolate mix-blend-normal h-auto", className)}
+      className={`isolate mix-blend-normal h-auto ${className}`}
       xmlns="http://www.w3.org/2000/svg"
       style={{ filter: "none", opacity: 1, transform: "translateZ(0)" }}
     >

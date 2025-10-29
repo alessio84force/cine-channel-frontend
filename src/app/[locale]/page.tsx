@@ -10,9 +10,9 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-black/20" />
         <div className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center gap-3 px-6 text-center">
           <div className="w-full flex justify-center">
-            <Wordmark withStars className="w-[820px] md:w-[960px] h-auto drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]" />
+            <Wordmark withStars className="w-[720px] md:w-[880px] h-auto drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]" />
           </div>
-          <div className="text-center text-base md:text-lg leading-snug">
+          <div className="text-center text-lg md:text-2xl leading-snug">
             <span className="gold-text gold-rise">
               La plataforma para gamers, cine y esport con experiencia premium
             </span>
