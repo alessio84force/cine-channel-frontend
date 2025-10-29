@@ -4,7 +4,6 @@ export default function Wordmark({ withStars = false, className = "" }: Props) {
   return (
     <svg
       viewBox="0 0 1600 240"
-      preserveAspectRatio="xMidYMid meet"
       role="img"
       aria-label="CINE-CHANNEL"
       className={`isolate mix-blend-normal h-auto ${className}`}
@@ -45,7 +44,6 @@ export default function Wordmark({ withStars = false, className = "" }: Props) {
         </symbol>
       </defs>
 
-      {/* TESTO */}
       <g>
         <text x="800" y="150" textAnchor="middle" fontFamily="Cinzel, 'Trajan Pro', serif" fontWeight="800" fontSize="132" fill="#000" opacity="0.30">CINE-CHANNEL</text>
         <text x="800" y="148" textAnchor="middle" fontFamily="Cinzel, 'Trajan Pro', serif" fontWeight="800" fontSize="132" fill="none" stroke="#3f2a06" strokeWidth="6" strokeLinejoin="round">CINE-CHANNEL</text>
@@ -53,16 +51,16 @@ export default function Wordmark({ withStars = false, className = "" }: Props) {
         <text x="800" y="148" textAnchor="middle" fontFamily="Cinzel, 'Trajan Pro', serif" fontWeight="800" fontSize="132" fill="url(#specular)" mask="url(#softHighlight)">CINE-CHANNEL</text>
       </g>
 
-      {/* STELLE SOLO AGLI ESTREMI (posizione assoluta, nessuna trasformazione ereditabile) */}
       {withStars && (
         <>
-          {/* Sinistra: x=20, y=25 (star 190px di larghezza => resta dentro al viewBox) */}
-          <use href="#cineStar" x="20" y="25" width="190" height="190" fill="url(#gold-3d)" filter="url(#bevel)" />
-          <use href="#cineStar" x="20" y="25" width="190" height="190" fill="none" stroke="#3f2a06" strokeWidth="3" />
-
-          {/* Destra: 1600 - 190 - 20 = 1390 */}
-          <use href="#cineStar" x="1390" y="25" width="190" height="190" fill="url(#gold-3d)" filter="url(#bevel)" />
-          <use href="#cineStar" x="1390" y="25" width="190" height="190" fill="none" stroke="#3f2a06" strokeWidth="3" />
+          <g transform="translate(80,25)">
+            <use href="#cineStar" fill="url(#gold-3d)" filter="url(#bevel)" />
+            <use href="#cineStar" fill="none" stroke="#3f2a06" strokeWidth="3" />
+          </g>
+          <g transform="translate(1520,25) scale(-1,1)">
+            <use href="#cineStar" fill="url(#gold-3d)" filter="url(#bevel)" />
+            <use href="#cineStar" fill="none" stroke="#3f2a06" strokeWidth="3" />
+          </g>
         </>
       )}
     </svg>
