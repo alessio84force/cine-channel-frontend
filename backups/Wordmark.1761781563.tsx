@@ -57,12 +57,12 @@ export default function Wordmark({ withStars = false, className = "" }: Props) {
       {withStars && (
         <>
           {/* Sinistra: x=20, y=25 (star 190px di larghezza => resta dentro al viewBox) */}
-          <use href="#cineStar" x="20" y="12" width="190" height="190" fill="url(#gold-3d)" filter="url(#bevel)" />
-          <use href="#cineStar" x="20" y="12" width="190" height="190" fill="none" stroke="#3f2a06" strokeWidth="3" />
+          <use href="#cineStar" x="20" y="25" width="190" height="190" fill="url(#gold-3d)" filter="url(#bevel)" />
+          <use href="#cineStar" x="20" y="25" width="190" height="190" fill="none" stroke="#3f2a06" strokeWidth="3" />
 
           {/* Destra: 1600 - 190 - 20 = 1390 */}
-          <use href="#cineStar" x="1390" y="12" width="190" height="190" fill="url(#gold-3d)" filter="url(#bevel)" />
-          <use href="#cineStar" x="1390" y="12" width="190" height="190" fill="none" stroke="#3f2a06" strokeWidth="3" />
+          <use href="#cineStar" x="1390" y="25" width="190" height="190" fill="url(#gold-3d)" filter="url(#bevel)" />
+          <use href="#cineStar" x="1390" y="25" width="190" height="190" fill="none" stroke="#3f2a06" strokeWidth="3" />
         </>
       )}
     </svg>
