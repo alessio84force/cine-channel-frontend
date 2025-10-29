@@ -1,9 +1,6 @@
 import clsx from "clsx";
 
-type Props = {
-  withStars?: boolean;
-  className?: string;
-};
+type Props = { withStars?: boolean; className?: string };
 
 export default function Wordmark({ withStars = false, className }: Props) {
   return (
@@ -27,14 +24,7 @@ export default function Wordmark({ withStars = false, className }: Props) {
         </linearGradient>
         <filter id="bevel" x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur in="SourceAlpha" stdDeviation="0.6" result="blur" />
-          <feSpecularLighting
-            in="blur"
-            surfaceScale="3"
-            specularConstant="0.9"
-            specularExponent="22"
-            lightingColor="#ffffff"
-            result="spec"
-          >
+          <feSpecularLighting in="blur" surfaceScale="3" specularConstant="0.9" specularExponent="22" lightingColor="#ffffff" result="spec">
             <fePointLight x="-200" y="-240" z="260" />
           </feSpecularLighting>
           <feComposite in="spec" in2="SourceAlpha" operator="in" result="specOut" />
@@ -56,62 +46,15 @@ export default function Wordmark({ withStars = false, className }: Props) {
         </symbol>
       </defs>
 
-      {/* Testo centrale */}
+      {/* Testo */}
       <g>
-        <text
-          x="800"
-          y="150"
-          textAnchor="middle"
-          fontFamily="Cinzel, 'Trajan Pro', serif"
-          fontWeight="800"
-          fontSize="132"
-          fill="#000"
-          opacity="0.30"
-        >
-          CINE-CHANNEL
-        </text>
-        <text
-          x="800"
-          y="148"
-          textAnchor="middle"
-          fontFamily="Cinzel, 'Trajan Pro', serif"
-          fontWeight="800"
-          fontSize="132"
-          fill="none"
-          stroke="#3f2a06"
-          strokeWidth="6"
-          strokeLinejoin="round"
-        >
-          CINE-CHANNEL
-        </text>
-        <text
-          x="800"
-          y="148"
-          textAnchor="middle"
-          fontFamily="Cinzel, 'Trajan Pro', serif"
-          fontWeight="800"
-          fontSize="132"
-          fill="url(#gold-3d)"
-          filter="url(#bevel)"
-          letterSpacing="6"
-        >
-          CINE-CHANNEL
-        </text>
-        <text
-          x="800"
-          y="148"
-          textAnchor="middle"
-          fontFamily="Cinzel, 'Trajan Pro', serif"
-          fontWeight="800"
-          fontSize="132"
-          fill="url(#specular)"
-          mask="url(#softHighlight)"
-        >
-          CINE-CHANNEL
-        </text>
+        <text x="800" y="150" textAnchor="middle" fontFamily="Cinzel, 'Trajan Pro', serif" fontWeight="800" fontSize="132" fill="#000" opacity="0.30">CINE-CHANNEL</text>
+        <text x="800" y="148" textAnchor="middle" fontFamily="Cinzel, 'Trajan Pro', serif" fontWeight="800" fontSize="132" fill="none" stroke="#3f2a06" strokeWidth="6" strokeLinejoin="round">CINE-CHANNEL</text>
+        <text x="800" y="148" textAnchor="middle" fontFamily="Cinzel, 'Trajan Pro', serif" fontWeight="800" fontSize="132" fill="url(#gold-3d)" filter="url(#bevel)" letterSpacing="6">CINE-CHANNEL</text>
+        <text x="800" y="148" textAnchor="middle" fontFamily="Cinzel, 'Trajan Pro', serif" fontWeight="800" fontSize="132" fill="url(#specular)" mask="url(#softHighlight)">CINE-CHANNEL</text>
       </g>
 
-      {/* Stelle agli estremi (sinistra e destra) */}
+      {/* Stelle SOLO agli estremi */}
       {withStars && (
         <>
           <g transform="translate(80,25)">
