@@ -13,9 +13,8 @@ export default function HomePage() {
             <Wordmark withStars className="w-[720px] md:w-[880px] h-auto drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]" />
           </div>
           <div className="text-center text-lg md:text-2xl leading-snug">
-            <span className="gold-text gold-rise">
-              La plataforma para gamers, cine y esport con experiencia premium
-            </span>
+            <span className="gold-text gold-rise">La plataforma para gamers, streamers, videobloggers e cineastas</span>
+            <div className="mt-1 text-white/90">Vive una experiencia premium</div>
           </div>
         </div>
       </section>

@@ -37,7 +37,8 @@ export default function HeroVideo() {
           ))}
         
       <div className="mt-4 text-center text-xl md:text-2xl leading-tight">
-        <span className="gold-text gold-rise"><span className="gold-text gold-rise">La plataforma para gamers, cine y esport con experiencia premium</span>
+        <span className="gold-text gold-rise">La plataforma para gamers, streamers, videobloggers e cineastas</span>
+            <div className="mt-1 text-white/90">Vive una experiencia premium</div>
       </span></div>
     </div>
       </div>
