@@ -1,88 +1,128 @@
-import React from "react";
+import clsx from "clsx";
 
 type Props = {
-  className?: string;
   withStars?: boolean;
-  title?: string;
+  className?: string;
 };
 
-export default function Wordmark({
-  className = "",
-  withStars = true,
-  title = "CINE-CHANNEL",
-}: Props) {
+export default function Wordmark({ withStars = false, className }: Props) {
   return (
     <svg
       viewBox="0 0 1600 240"
       role="img"
-      aria-label={title}
-      className={`isolate mix-blend-normal ${className}`}
+      aria-label="CINE-CHANNEL"
+      className={clsx("isolate mix-blend-normal h-auto", className)}
       xmlns="http://www.w3.org/2000/svg"
-     style={{filter:'none',opacity:1,transform:'translateZ(0)'}}>
+      style={{ filter: "none", opacity: 1, transform: "translateZ(0)" }}
+    >
       <defs>
         <linearGradient id="gold-3d" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"  stopColor="#fff6db"/>
-          <stop offset="14%" stopColor="#f6da7b"/>
-          <stop offset="32%" stopColor="#d4af37"/>
-          <stop offset="55%" stopColor="#8c6a10"/>
-          <stop offset="72%" stopColor="#d4af37"/>
-          <stop offset="88%" stopColor="#f3cf6b"/>
-          <stop offset="100%" stopColor="#a97c15"/>
+          <stop offset="0%" stopColor="#fff6db" />
+          <stop offset="14%" stopColor="#f6da7b" />
+          <stop offset="32%" stopColor="#d4af37" />
+          <stop offset="55%" stopColor="#8c6a10" />
+          <stop offset="72%" stopColor="#d4af37" />
+          <stop offset="88%" stopColor="#f3cf6b" />
+          <stop offset="100%" stopColor="#a97c15" />
         </linearGradient>
-
         <filter id="bevel" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="0.6" result="blur"/>
-          <feSpecularLighting in="blur" surfaceScale="3" specularConstant="0.9" specularExponent="22" lightingColor="#ffffff" result="spec">
-            <fePointLight x="-200" y="-240" z="260"/>
+          <feGaussianBlur in="SourceAlpha" stdDeviation="0.6" result="blur" />
+          <feSpecularLighting
+            in="blur"
+            surfaceScale="3"
+            specularConstant="0.9"
+            specularExponent="22"
+            lightingColor="#ffffff"
+            result="spec"
+          >
+            <fePointLight x="-200" y="-240" z="260" />
           </feSpecularLighting>
-          <feComposite in="spec" in2="SourceAlpha" operator="in" result="specOut"/>
+          <feComposite in="spec" in2="SourceAlpha" operator="in" result="specOut" />
           <feMerge>
-            <feMergeNode in="specOut"/>
-            <feMergeNode in="SourceGraphic"/>
+            <feMergeNode in="specOut" />
+            <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
-
         <linearGradient id="specular" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#ffffff" stopOpacity="0"/>
-          <stop offset="52%" stopColor="#ffffff" stopOpacity="0.50"/>
-          <stop offset="100%" stopColor="#ffffff" stopOpacity="0"/>
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
+          <stop offset="52%" stopColor="#ffffff" stopOpacity="0.50" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
         </linearGradient>
-        <mask id="softHighlight"><rect width="1600" height="240" fill="url(#specular)"/></mask>
-
+        <mask id="softHighlight">
+          <rect width="1600" height="240" fill="url(#specular)" />
+        </mask>
         <symbol id="cineStar" viewBox="0 0 190 190">
-          <path d="M95 10 L113 70 L175 70 L125 105 L143 165 L95 130 L47 165 L65 105 L15 70 L77 70 Z"/>
+          <path d="M95 10 L113 70 L175 70 L125 105 L143 165 L95 130 L47 165 L65 105 L15 70 L77 70 Z" />
         </symbol>
       </defs>
 
-      {withStars && (
-        <g transform="translate(80,25)">
-          <use href="#cineStar" fill="url(#gold-3d)" filter="url(#bevel)"/>
-          <use href="#cineStar" fill="none" stroke="#3f2a06" strokeWidth="3"/>
-        </g>
-      )}
-
+      {/* Testo centrale */}
       <g>
-        <text x="800" y="150" textAnchor="middle" fontFamily="Cinzel, 'Trajan Pro', serif"
-              fontWeight="800" fontSize="132" fill="#000" opacity="0.30">CINE-CHANNEL</text>
-        <text x="800" y="148" textAnchor="middle" fontFamily="Cinzel, 'Trajan Pro', serif"
-              fontWeight="800" fontSize="132" fill="none" stroke="#3f2a06" strokeWidth="6" strokeLinejoin="round">
+        <text
+          x="800"
+          y="150"
+          textAnchor="middle"
+          fontFamily="Cinzel, 'Trajan Pro', serif"
+          fontWeight="800"
+          fontSize="132"
+          fill="#000"
+          opacity="0.30"
+        >
           CINE-CHANNEL
         </text>
-        <text x="800" y="148" textAnchor="middle" fontFamily="Cinzel, 'Trajan Pro', serif"
-              fontWeight="800" fontSize="132" fill="url(#gold-3d)" filter="url(#bevel)" letterSpacing="6">
+        <text
+          x="800"
+          y="148"
+          textAnchor="middle"
+          fontFamily="Cinzel, 'Trajan Pro', serif"
+          fontWeight="800"
+          fontSize="132"
+          fill="none"
+          stroke="#3f2a06"
+          strokeWidth="6"
+          strokeLinejoin="round"
+        >
           CINE-CHANNEL
         </text>
-        <text x="800" y="148" textAnchor="middle" fontFamily="Cinzel, 'Trajan Pro', serif"
-              fontWeight="800" fontSize="132" fill="url(#specular)" mask="url(#softHighlight)">
+        <text
+          x="800"
+          y="148"
+          textAnchor="middle"
+          fontFamily="Cinzel, 'Trajan Pro', serif"
+          fontWeight="800"
+          fontSize="132"
+          fill="url(#gold-3d)"
+          filter="url(#bevel)"
+          letterSpacing="6"
+        >
+          CINE-CHANNEL
+        </text>
+        <text
+          x="800"
+          y="148"
+          textAnchor="middle"
+          fontFamily="Cinzel, 'Trajan Pro', serif"
+          fontWeight="800"
+          fontSize="132"
+          fill="url(#specular)"
+          mask="url(#softHighlight)"
+        >
           CINE-CHANNEL
         </text>
       </g>
 
+      {/* Stelle agli estremi (sinistra e destra) */}
       {withStars && (
-        <g transform="translate(1520,25) scale(-1,1)">
-          <use href="#cineStar" fill="url(#gold-3d)" filter="url(#bevel)"/>
-          <use href="#cineStar" fill="none" stroke="#3f2a06" strokeWidth="3"/>
-        </g>
+        <>
+          <g transform="translate(80,25)">
+            <use href="#cineStar" fill="url(#gold-3d)" filter="url(#bevel)" />
+            <use href="#cineStar" fill="none" stroke="#3f2a06" strokeWidth="3" />
+          </g>
+          <g transform="translate(1520,25) scale(-1,1)">
+            <use href="#cineStar" fill="url(#gold-3d)" filter="url(#bevel)" />
+            <use href="#cineStar" fill="none" stroke="#3f2a06" strokeWidth="3" />
+          </g>
+        </>
       )}
     </svg>
   );

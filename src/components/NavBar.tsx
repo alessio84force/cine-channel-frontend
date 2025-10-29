@@ -1,38 +1,49 @@
 import Link from "next/link";
 import Wordmark from "@/components/Wordmark";
-import { UI, type L } from "@/lib/ui";
 
-export default function NavBar({ locale }: { locale: L }) {
-  const t = UI[locale] ?? UI.es;
-  const langs: L[] = ["es","en","fr","it","de","pt","ar"];
-  const signin =
-    t.nav?.signin ?? { es:"Iniciar sesión", en:"Sign in", fr:"Se connecter",
-      it:"Accedi", de:"Anmelden", pt:"Entrar", ar:"تسجيل الدخول" }[locale];
-
+export default function NavBar({ locale = "es" }: { locale?: string }) {
   return (
-    <header className="text-2xl md:text-3xl align-middle">
-      <div className="text-2xl md:text-3xl align-middle">
-        <a href={`/${locale}`} className="text-2xl md:text-3xl align-middle" aria-label="Home"><Wordmark withStars  withStars  className="w-[96px] md:w-[120px] h-auto align-middle" /></a>
-        <nav className="text-2xl md:text-3xl align-middle">
-          <Link href={`/${locale}/explore`} className="text-2xl md:text-3xl align-middle">
-            {t.nav?.explore ?? "Explore"}
+    <header className="border-b border-white/10">
+      <div className="mx-auto max-w-6xl px-4 h-16 flex items-center gap-4">
+        {/* Sinistra: Logo/Home (più grande) */}
+        <Link href={`/${locale}`} aria-label="Home" className="shrink-0">
+          <Wordmark withStars className="w-[120px] md:w-[144px]" />
+        </Link>
+
+        {/* Centro: nav con bottoni veri */}
+        <nav className="mx-auto flex items-center gap-3">
+          <Link
+            href={`/${locale}/explore`}
+            className="inline-flex items-center rounded-xl px-4 py-2 bg-white text-neutral-900 font-medium hover:opacity-90"
+          >
+            Explorar
           </Link>
-          <Link href={`/${locale}/creator/onboarding`} className="text-2xl md:text-3xl align-middle">
-            {t.nav?.create ?? "Create channel"}
-          </Link>
-          <div className="text-2xl md:text-3xl align-middle" />
-          <div className="text-2xl md:text-3xl align-middle">
-            {langs.map(lc => (
-              <Link key={lc} href={`/${lc}`}
-                className={"px-2 py-1 rounded text-xs "+(lc===locale?"bg-white text-black":"hover:bg-white/10 text-white/80")}>
-                {lc.toUpperCase()}
-              </Link>
-            ))}
-          </div>
-          <Link href={`/signin?callbackUrl=/${locale}`} className="text-2xl md:text-3xl align-middle">
-            {signin}
+          <Link
+            href={`/${locale}/creator/onboarding`}
+            className="inline-flex items-center rounded-xl px-4 py-2 bg-white text-neutral-900 font-medium hover:opacity-90"
+          >
+            Crear canal
           </Link>
         </nav>
+
+        {/* Destra: lingue + login */}
+        <div className="ml-auto flex items-center gap-2 text-xs">
+          <Link href="/es" className="px-2 py-1 rounded bg-white text-black">ES</Link>
+          <Link href="/en" className="px-2 py-1 rounded hover:bg-white/10 text-white/80">EN</Link>
+          <Link href="/fr" className="px-2 py-1 rounded hover:bg-white/10 text-white/80">FR</Link>
+          <Link href="/it" className="px-2 py-1 rounded hover:bg-white/10 text-white/80">IT</Link>
+          <Link href="/de" className="px-2 py-1 rounded hover:bg-white/10 text-white/80">DE</Link>
+          <Link href="/pt" className="px-2 py-1 rounded hover:bg-white/10 text-white/80">PT</Link>
+
+          <div className="w-px h-4 bg-white/15 mx-1" />
+
+          <Link
+            href={`/${locale === "es" ? "es" : locale }/signin?callbackUrl=/${locale}`}
+            className="text-sm hover:underline"
+          >
+            Iniciar sesión
+          </Link>
+        </div>
       </div>
     </header>
   );
