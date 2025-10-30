@@ -22,8 +22,8 @@ export default async function HomePage({
             <Wordmark withStars className="w-[700px] md:w-[860px] h-auto" />
           </div>
           <div className="text-center leading-snug">
-            <span className="gold-flow gold-flow-slow block text-lg md:text-2xl">{t.hero.headline1}</span>
-            <span className="mt-1 gold-flow block text-sm md:text-base">{t.hero.headline2}</span>
+            <span className="gold-flow gold-flow-slow block text-lg md:text-2xl">{H.headline_top}</span>
+            <span className="mt-1 gold-flow block text-sm md:text-base">{H.headline_premium}</span>
           </div>
         </div>
       </section>
