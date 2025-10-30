@@ -23,7 +23,7 @@ export default async function HomePage({
           </div>
           <div className="text-center leading-snug">
             <span className="gold-text gold-rise block text-lg md:text-2xl">{t.hero.headline1}</span>
-            <span className="mt-1 gold-text gold-glow block text-sm md:text-base">{t.hero.headline2}</span>
+            <span className="mt-1 gold-flow block text-sm md:text-base">{t.hero.headline2}</span>
           </div>
         </div>
       </section>

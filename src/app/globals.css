@@ -396,3 +396,28 @@ html[dir=rtl] [data-wordmark]{ line-height:1.35; letter-spacing:.02em }
       0 0 10px rgba(212, 175, 55, .35);
   }
 }
+
+/* --- Highlight interno che sale dal basso verso l'alto --- */
+.gold-flow{
+  background:
+    linear-gradient(
+      0deg,
+      rgba(169,124,21,0.10) 0%,
+      #f6da7b 38%,
+      #fff6db 53%,
+      #d4af37 68%,
+      rgba(169,124,21,0.10) 100%
+    );
+  background-size: 100% 300%;
+  background-position: 50% 120%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: goldSweep 2.8s ease-in-out infinite;
+}
+
+@keyframes goldSweep{
+  0%   { background-position: 50% 120%; }
+  50%  { background-position: 50% -20%; }
+  100% { background-position: 50% 120%; }
+}
