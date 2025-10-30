@@ -421,3 +421,8 @@ html[dir=rtl] [data-wordmark]{ line-height:1.35; letter-spacing:.02em }
   50%  { background-position: 50% -20%; }
   100% { background-position: 50% 120%; }
 }
+
+/* Variante lenta per la riga superiore */
+.gold-flow-slow{
+  animation-duration: 5.8s; /* più lento della default (2.8s) */
+}
