@@ -47,7 +47,6 @@ export default function Wordmark({ withStars = false, className = "" }: Props) {
 
       {/* TESTO */}
       <g>
-        <text x="800" y="150" textAnchor="middle" fontFamily="Cinzel, 'Trajan Pro', serif" fontWeight="800" fontSize="132" fill="#000" opacity="0.30">CINE-CHANNEL</text>
         <text x="800" y="148" textAnchor="middle" fontFamily="Cinzel, 'Trajan Pro', serif" fontWeight="800" fontSize="132" fill="none" stroke="#3f2a06" strokeWidth="6" strokeLinejoin="round">CINE-CHANNEL</text>
         <text x="800" y="148" textAnchor="middle" fontFamily="Cinzel, 'Trajan Pro', serif" fontWeight="800" fontSize="132" fill="url(#gold-3d)" filter="url(#bevel)" letterSpacing="6">CINE-CHANNEL</text>
         <text x="800" y="148" textAnchor="middle" fontFamily="Cinzel, 'Trajan Pro', serif" fontWeight="800" fontSize="132" fill="url(#specular)" mask="url(#softHighlight)">CINE-CHANNEL</text>

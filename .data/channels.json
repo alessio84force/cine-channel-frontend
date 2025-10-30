@@ -74,12 +74,22 @@
     "createdAt": "2025-10-26T00:40:25.455Z"
   },
   {
+    "viewCount": 0,
+    "subscriberCount": 0,
     "id": "1d575a98-8777-42eb-b508-c8cc04a6eb59",
     "slug": "alexius3",
     "name": "alexius3",
     "description": "",
     "language": "es",
-    "createdAt": "2025-10-26T21:44:58.601Z",
+    "createdAt": "2025-10-26T21:44:58.601Z"
+  },
+  {
+    "id": "268084c6-c541-4ff3-90af-89d8d298cde7",
+    "slug": "alexius5",
+    "name": "alexius5",
+    "description": "",
+    "language": "es",
+    "createdAt": "2025-10-30T00:46:52.876Z",
     "viewCount": 0,
     "subscriberCount": 0
   }
