@@ -5,6 +5,10 @@ import { UI, type L } from "@/lib/ui";
 export default async function ExplorePage({ params }: { params: Promise<{ locale: L }> }) {
   const { locale } = await params;
   const t = dict[locale] || dict.es;
+  const A = (dict[locale] as any)?.actions || (dict.es as any)?.actions || {
+    viewChannel: locale === "es" ? "Ver canal" : "View channel",
+    subscribe:  locale === "es" ? "Suscribirse" : "Subscribe"
+  };
 
   // Placeholder semplice: sostituisci con i tuoi dati reali se presenti
   const channels = Array.from({ length: 8 }).map((_, i) => ({ id: i, name: `Channel ${i + 1}` }));
@@ -19,8 +23,8 @@ export default async function ExplorePage({ params }: { params: Promise<{ locale
             <div className="h-24 bg-white/10 rounded-lg" />
             <div className="text-sm font-medium">{c.name}</div>
             <div className="mt-auto flex gap-2">
-              <button className="px-3 py-2 bg-white text-neutral-900 rounded">{t.actions.viewChannel}</button>
-              <button className="px-3 py-2 border border-white/20 rounded">{t.actions.subscribe}</button>
+              <button className="px-3 py-2 bg-white text-neutral-900 rounded">{A.viewChannel}</button>
+              <button className="px-3 py-2 border border-white/20 rounded">{A.subscribe}</button>
             </div>
           </div>
         ))}
