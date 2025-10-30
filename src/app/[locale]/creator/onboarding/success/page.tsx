@@ -3,7 +3,7 @@ import { UI, type L } from "@/lib/ui";
 
 export default async function Success({ params }: { params: Promise<{ locale: L }> }) {
   const { locale } = await params;
-  const t = UI[locale].onboarding;
+  const t = U.onboarding;
   return (
     <main className="max-w-3xl mx-auto px-6 py-16">
       <h1 className="text-3xl font-bold mb-3">{t.success}</h1>

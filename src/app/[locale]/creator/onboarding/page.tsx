@@ -250,11 +250,11 @@ setMsg(t.success);
 
         {/* Connessioni */}
         <aside className={card}>
-          <h2 className="font-semibold mb-3">{UI[locale].onboarding.myConnections}</h2>
+          <h2 className="font-semibold mb-3">{U.onboarding.myConnections}</h2>
           <div className="grid gap-3">
-            <button className={btnPrimary} onClick={connectStripe} disabled={busy}>{UI[locale].onboarding.connectStripe}</button>
-            <button className={btnGhost} onClick={dashboardStripe} disabled={busy}>{UI[locale].onboarding.dashboardStripe}</button>
-            <button className={btnGhost} onClick={disconnectStripe} disabled={busy}>{UI[locale].onboarding.disconnectStripe}</button>
+            <button className={btnPrimary} onClick={connectStripe} disabled={busy}>{U.onboarding.connectStripe}</button>
+            <button className={btnGhost} onClick={dashboardStripe} disabled={busy}>{U.onboarding.dashboardStripe}</button>
+            <button className={btnGhost} onClick={disconnectStripe} disabled={busy}>{U.onboarding.disconnectStripe}</button>
           </div>
         </aside>
       </div>
