@@ -19,13 +19,13 @@ export default function NavBar({ locale = "es" as Locale }: { locale?: Locale })
             href={`/${locale}/explore`}
             className="inline-flex items-center rounded-xl px-4 py-2 bg-white text-neutral-900 font-medium hover:opacity-90"
           >
-            {t.nav.explore}
+            {t.navbar.explore}
           </Link>
           <Link
             href={`/${locale}/creator/onboarding`}
             className="inline-flex items-center rounded-xl px-4 py-2 bg-white text-neutral-900 font-medium hover:opacity-90"
           >
-            {t.nav.create}
+            {t.navbar.create}
           </Link>
         </nav>
 

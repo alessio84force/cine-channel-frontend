@@ -38,7 +38,7 @@ export default async function HomePage({
             className="rounded-xl bg-white text-neutral-900 px-4 py-2 font-medium hover:opacity-90"
             href={`/${lang}/creator/onboarding`}
           >
-            {t.nav.create}
+            {t.navbar.create}
           </Link>
         </div>
 
