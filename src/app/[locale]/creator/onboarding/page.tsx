@@ -23,8 +23,9 @@ function slugify(input: string): string {
 export default function OnboardingPage() {
   const params = useParams<{ locale?: string }>();
   const locale = (params?.locale as L) || "es";
-  const t = UI[locale].onboarding;
-  const categories = UI[locale].categories;
+  const U = (UI[locale] || UI.es);
+  const t = U.onboarding;
+  const categories = (U.categories || []);
   const router = useRouter();
 
   const [name, setName] = useState("");
