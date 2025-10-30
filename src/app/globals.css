@@ -365,3 +365,34 @@ html[dir=rtl] [data-wordmark]{ line-height:1.35; letter-spacing:.02em }
   50%  { background-position: 50% 0%; }
   100% { background-position: 50% 100%; }
 }
+
+/* --- Glow dorato per la tagline --- */
+.gold-glow{
+  /* leggera brillantezza costante */
+  text-shadow:
+    0 0 2px rgba(255, 245, 200, .6),
+    0 0 6px rgba(243, 207, 107, .55),
+    0 0 14px rgba(212, 175, 55, .45);
+  animation: goldPulse 2.6s ease-in-out infinite;
+}
+
+@keyframes goldPulse{
+  0%{
+    text-shadow:
+      0 0 1px rgba(255, 245, 200, .5),
+      0 0 5px rgba(243, 207, 107, .45),
+      0 0 10px rgba(212, 175, 55, .35);
+  }
+  50%{
+    text-shadow:
+      0 0 2px rgba(255, 245, 200, .85),
+      0 0 10px rgba(243, 207, 107, .85),
+      0 0 22px rgba(212, 175, 55, .75);
+  }
+  100%{
+    text-shadow:
+      0 0 1px rgba(255, 245, 200, .5),
+      0 0 5px rgba(243, 207, 107, .45),
+      0 0 10px rgba(212, 175, 55, .35);
+  }
+}
