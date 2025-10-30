@@ -10,8 +10,8 @@ export default async function ExplorePage({ params }: { params: Promise<{ locale
 
   return (
     <main className="max-w-6xl mx-auto px-6 py-12">
-      <h1 className="text-2xl font-bold mb-6">{t.home.trendingTitle}</h1>
-      <p className="text-white/60 mb-8">{t.home.trendingSubtitle}</p>
+      <h1 className="text-2xl font-bold mb-6">{t.trending.title}</h1>
+      <p className="text-white/60 mb-8">{t.trending.desc}</p>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         {channels.map((c) => (
           <div key={c.id} className="bg-white/5 rounded-xl p-4 flex flex-col gap-3">
