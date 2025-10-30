@@ -1,9 +1,10 @@
+import { dict, type Locale } from "@/i18n/dict";
 import React from "react";
 import { UI, type L } from "@/lib/ui";
 
 export default async function ExplorePage({ params }: { params: Promise<{ locale: L }> }) {
   const { locale } = await params;
-  const t = UI[locale];
+  const t = dict[locale] || dict.es;
 
   // Placeholder semplice: sostituisci con i tuoi dati reali se presenti
   const channels = Array.from({ length: 8 }).map((_, i) => ({ id: i, name: `Channel ${i + 1}` }));
