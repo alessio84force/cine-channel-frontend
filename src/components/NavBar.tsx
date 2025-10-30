@@ -52,7 +52,7 @@ export default function NavBar({ locale = "es" as Locale }: { locale?: Locale })
             href={`/${locale}/signin?callbackUrl=/${locale}`}
             className="text-sm hover:underline"
           >
-            {t.nav.login}
+            {t.navbar.login}
           </Link>
         </div>
       </div>
