@@ -19,7 +19,7 @@ export default async function HomePage({
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-black/20" />
         <div className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center gap-3 px-6 text-center">
           <div className="w-full flex justify-center">
-            <Wordmark withStars className="w-[760px] md:w-[900px] h-auto" />
+            <Wordmark withStars className="w-[700px] md:w-[860px] h-auto" />
           </div>
           <div className="text-center leading-snug">
             <span className="gold-flow gold-flow-slow block text-lg md:text-2xl">{t.hero.headline1}</span>

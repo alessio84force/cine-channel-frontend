@@ -10,7 +10,7 @@ export default function NavBar({ locale = "es" as Locale }: { locale?: Locale })
       <div className="mx-auto max-w-6xl px-4 h-16 flex items-center gap-4">
         {/* Sinistra: Logo/Home (più grande) */}
         <Link href={`/${locale}`} aria-label="Home" className="shrink-0">
-          <Wordmark withStars className="w-[136px] md:w-[160px] h-auto align-middle" />
+          <Wordmark withStars className="w-[132px] md:w-[156px] h-auto align-middle" />
         </Link>
 
         {/* Centro: nav con bottoni veri */}
