@@ -152,7 +152,7 @@ export default function ChannelSettingsClient({ locale, slug }: { locale: string
         {err && <span className="text-red-400 text-sm">{err}</span>}
 
         <div className="flex-1" />
-        <a href={`/${locale}/channel/${slug}`} className="rounded-full px-4 py-2 bg-white/5 ring-1 ring-white/10 hover:bg-white/10">{UI[locale].viewChannel}</a>
+        <a href={`/${locale}/channel/${slug}`} className="rounded-full px-4 py-2 bg-white/5 ring-1 ring-white/10 hover:bg-white/10">{U.viewChannel}</a>
       </div>
     </main>
   );
