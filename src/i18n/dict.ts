@@ -95,17 +95,17 @@ export const dict: Record<Locale, {
       comingSoon: 'قريبًا',
     },
   },
-  ,ru: {
+  ru: {
     navbar:{explore:"Исследовать", create:"Создать канал"},
     hero:{headline_top:"Платформа для геймеров, стримеров, видеоблогеров и кинематографистов", headline_premium:"Ощутите премиум-опыт"},
     trending:{title:"В тренде", desc:"Исследуйте, что выделяется сейчас. Когда вы создадите канал, здесь появятся ваши изображения и видео.", cta:"Создать канал", soon:"Скоро"}
   }
-  ,zh: {
+  zh: {
     navbar:{explore:"探索", create:"创建频道"},
     hero:{headline_top:"为玩家、主播、视频博主和电影创作者打造的平台", headline_premium:"畅享高级体验"},
     trending:{title:"热门内容", desc:"探索当前热点。创建频道后，你的图片和视频会显示在这里。", cta:"创建频道", soon:"敬请期待"}
   }
-  ,ko: {
+  ko: {
     navbar:{explore:"탐색", create:"채널 만들기"},
     hero:{headline_top:"게이머, 스트리머, 비디오 블로거, 영화 창작자를 위한 플랫폼", headline_premium:"프리미엄 경험을 누려보세요"},
     trending:{title:"트렌딩 콘텐츠", desc:"지금 주목받는 것을 살펴보세요. 채널을 만들면 여기에 이미지와 동영상이 표시됩니다.", cta:"채널 만들기", soon:"곧 공개"}
