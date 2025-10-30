@@ -1,21 +1,25 @@
-import "./../globals.css";
+import "../globals.css";
 import type { ReactNode } from "react";
 import NavBar from "@/components/NavBar";
-import type { Locale } from "@/i18n/dict";
+import Footer from "@/components/Footer";
+import { LOCALES, type Locale } from "@/i18n/dict";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: {
   children: ReactNode;
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 }) {
-  const locale = params?.locale || "es";
+  const { locale } = await params;
+  const lang = (LOCALES.includes(locale) ? locale : "es") as Locale;
+
   return (
-    <html lang={locale}>
+    <html lang={lang}>
       <body className="min-h-screen bg-neutral-950 text-white antialiased">
-        <NavBar locale={locale} />
-        <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
+        <NavBar locale={lang} />
+        {children}
+        <Footer locale={lang} />
       </body>
     </html>
   );

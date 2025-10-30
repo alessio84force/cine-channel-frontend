@@ -1,11 +1,16 @@
 import Link from "next/link";
 import Wordmark from "@/components/Wordmark";
 import HeroCarousel from "@/components/HeroCarousel";
-import { dict, type Locale } from "@/i18n/dict";
+import { dict, LOCALES, type Locale } from "@/i18n/dict";
 
-export default function HomePage({ params }: { params: { locale: Locale } }) {
-  const locale = (params?.locale || "es") as Locale;
-  const t = dict[locale] || dict.es;
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  const lang = (LOCALES.includes(locale) ? locale : "es") as Locale;
+  const t = dict[lang] || dict.es;
 
   return (
     <main>
@@ -31,7 +36,7 @@ export default function HomePage({ params }: { params: { locale: Locale } }) {
           </div>
           <Link
             className="rounded-xl bg-white text-neutral-900 px-4 py-2 font-medium hover:opacity-90"
-            href={`/${locale}/creator/onboarding`}
+            href={`/${lang}/creator/onboarding`}
           >
             {t.nav.create}
           </Link>
