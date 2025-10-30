@@ -1,8 +1,11 @@
-import Link from "next/link";
 import Wordmark from "@/components/Wordmark";
 import HeroCarousel from "@/components/HeroCarousel";
+import { dict, type Locale } from "@/i18n/dict";
 
-export default function HomePage() {
+export default function HomePage({ params }: { params: { locale: Locale } }) {
+  const locale = (params?.locale || "es") as Locale;
+  const t = dict[locale] || dict.es;
+
   return (
     <main>
       <section className="relative isolate h-[70vh] md:h-[80vh] overflow-hidden">
@@ -10,11 +13,11 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-black/20" />
         <div className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center gap-3 px-6 text-center">
           <div className="w-full flex justify-center">
-            <Wordmark withStars className="w-[720px] md:w-[880px] h-auto drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]" />
+            <Wordmark withStars className="w-[760px] md:w-[900px] h-auto drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]" />
           </div>
-          <div className="text-center text-lg md:text-2xl leading-snug">
-            <span className="gold-text gold-rise">La plataforma para gamers, streamers, videobloggers e cineastas</span>
-            <div className="mt-1 text-white/90">Vive una experiencia premium</div>
+          <div className="text-center leading-snug">
+            <span className="gold-text gold-rise block text-lg md:text-2xl">{t.hero.headline1}</span>
+            <span className="mt-1 text-white/90 block text-sm md:text-base">{t.hero.headline2}</span>
           </div>
         </div>
       </section>
@@ -27,12 +30,13 @@ export default function HomePage() {
               Explora lo que está destacando ahora. Cuando crees tu canal, aquí aparecerán tus imágenes y vídeos.
             </p>
           </div>
-          <Link
+          <a
             className="rounded-xl bg-white text-neutral-900 px-4 py-2 font-medium hover:opacity-90"
-            href="/es/creator/onboarding"
+            href={`/${locale}/creator/onboarding`}
           >
+            {/* Puoi anche localizzare questo in futuro */}
             Crear canal
-          </Link>
+          </a>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

@@ -1,22 +1,21 @@
-import Wordmark from "@/components/Wordmark";
-import "../globals.css";
-import type { L } from "@/lib/ui";
+import "./../globals.css";
+import type { ReactNode } from "react";
 import NavBar from "@/components/NavBar";
-import Footer from "@/components/Footer";
+import type { Locale } from "@/i18n/dict";
 
-export const dynamic = "force-static";
-
-export default async function RootLayout({ children, params }:{
-  children: React.ReactNode;
-  params: Promise<{ locale: L }>;
+export default function RootLayout({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: { locale: Locale };
 }) {
-  const { locale } = await params;
+  const locale = params?.locale || "es";
   return (
-    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} suppressHydrationWarning>
+    <html lang={locale}>
       <body className="min-h-screen bg-neutral-950 text-white antialiased">
         <NavBar locale={locale} />
         <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
-        <Footer locale={locale} />
       </body>
     </html>
   );
