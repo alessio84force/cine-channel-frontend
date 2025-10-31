@@ -10,7 +10,13 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   const lang = (LOCALES.includes(locale) ? locale : "es") as Locale;
-  const t = dict[lang] || dict.es;
+  
+    const t = dict[lang] || dict.es;
+  const hero = (dict[lang] as any)?.hero || (dict.es as any).hero;
+  const HEADLINE_TOP = hero?.headline_top ?? hero?.headline1 ?? "";
+  const HEADLINE_PREMIUM = hero?.headline_premium ?? hero?.headline2 ?? "";
+
+  
 
   return (
     <main>
@@ -22,8 +28,8 @@ export default async function HomePage({
             <Wordmark withStars className="w-[700px] md:w-[860px] h-auto" />
           </div>
           <div className="text-center leading-snug">
-            <span className="gold-flow gold-flow-slow block text-lg md:text-2xl">{H.headline_top}</span>
-            <span className="mt-1 gold-flow block text-sm md:text-base">{H.headline_premium}</span>
+            <span className="gold-flow gold-flow-slow block text-lg md:text-2xl">{HEADLINE_TOP}</span>
+            <span className="mt-1 gold-flow block text-sm md:text-base">{HEADLINE_PREMIUM}</span>
           </div>
         </div>
       </section>
