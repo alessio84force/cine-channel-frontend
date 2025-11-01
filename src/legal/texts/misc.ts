@@ -1,122 +1,104 @@
-export const JOBS_2025: Record<string,string> = {
+export const JOBS_2025: Record<string,string> = JOBS_2025 || {}; // safe re-declare if already present (TS will tree-shake)
+
+export const PRESS_2025: Record<string,string> = {
   es: `
-    <h1>Empleo</h1>
-    <p>En CINE-CHANNEL buscamos talento para construir la plataforma de vídeo del futuro.</p>
-    <h2>Puestos abiertos</h2>
+    <h2>Nota de prensa / Sala de prensa</h2>
+    <p>Para entrevistas, material gráfico, cifras y solicitudes, escribe a <a href="mailto:press@cine-channel.com">press@cine-channel.com</a>.</p>
+    <h3>Kit de prensa</h3>
     <ul>
-      <li>Frontend Engineer (Remoto UE)</li>
-      <li>Backend Engineer Node.js (Remoto UE)</li>
-      <li>Partnerships Manager (Madrid/Remoto)</li>
+      <li>Logotipos y guías de uso</li>
+      <li>Capturas de pantalla y mockups</li>
+      <li>Ficha de empresa y cifras clave (2025)</li>
     </ul>
-    <h2>Cómo aplicar</h2>
-    <p>Envía tu CV y portfolio a jobs@cine-channel.com indicando el puesto en el asunto.</p>
   `,
   en: `
-    <h1>Careers</h1>
-    <p>We’re hiring to build the next-gen video platform.</p>
-    <h2>Open roles</h2>
+    <h2>Press / Newsroom</h2>
+    <p>For interviews, assets and data requests, contact <a href="mailto:press@cine-channel.com">press@cine-channel.com</a>.</p>
+    <h3>Press kit</h3>
     <ul>
-      <li>Frontend Engineer (Remote EU)</li>
-      <li>Backend Engineer Node.js (Remote EU)</li>
-      <li>Partnerships Manager (Madrid/Remote)</li>
+      <li>Logos and brand guidelines</li>
+      <li>Screenshots and mockups</li>
+      <li>Company factsheet (2025)</li>
     </ul>
-    <h2>How to apply</h2>
-    <p>Email your resume and portfolio to jobs@cine-channel.com with the role in the subject.</p>
   `,
   it: `
-    <h1>Lavoro</h1>
-    <p>In CINE-CHANNEL assumiamo per costruire la piattaforma video del futuro.</p>
-    <h2>Posizioni aperte</h2>
+    <h2>Stampa / Newsroom</h2>
+    <p>Per interviste, materiali e richieste dati: <a href="mailto:press@cine-channel.com">press@cine-channel.com</a>.</p>
+    <h3>Press kit</h3>
     <ul>
-      <li>Frontend Engineer (Remote UE)</li>
-      <li>Backend Engineer Node.js (Remote UE)</li>
-      <li>Partnerships Manager (Madrid/Remote)</li>
+      <li>Loghi e linee guida</li>
+      <li>Screenshots e mockup</li>
+      <li>Scheda aziendale (2025)</li>
     </ul>
-    <h2>Come candidarsi</h2>
-    <p>Invia CV e portfolio a jobs@cine-channel.com indicando la posizione nell’oggetto.</p>
   `,
   fr: `
-    <h1>Emplois</h1>
-    <p>Nous recrutons pour bâtir la plateforme vidéo de demain.</p>
-    <h2>Postes ouverts</h2>
+    <h2>Presse / Espace médias</h2>
+    <p>Pour interviews, visuels et données : <a href="mailto:press@cine-channel.com">press@cine-channel.com</a>.</p>
+    <h3>Dossier de presse</h3>
     <ul>
-      <li>Frontend Engineer (Télétravail UE)</li>
-      <li>Backend Engineer Node.js (Télétravail UE)</li>
-      <li>Partnerships Manager (Madrid/Télétravail)</li>
+      <li>Logos et guidelines</li>
+      <li>Captures et maquettes</li>
+      <li>Fiche entreprise (2025)</li>
     </ul>
-    <h2>Postuler</h2>
-    <p>Envoyez CV et portfolio à jobs@cine-channel.com avec le poste en objet.</p>
   `,
   de: `
-    <h1>Jobs</h1>
-    <p>Wir stellen ein, um die Video-Plattform der Zukunft zu bauen.</p>
-    <h2>Offene Stellen</h2>
+    <h2>Presse / Newsroom</h2>
+    <p>Für Interviews, Assets und Daten: <a href="mailto:press@cine-channel.com">press@cine-channel.com</a>.</p>
+    <h3>Pressekit</h3>
     <ul>
-      <li>Frontend Engineer (Remote EU)</li>
-      <li>Backend Engineer Node.js (Remote EU)</li>
-      <li>Partnerships Manager (Madrid/Remote)</li>
+      <li>Logos & Brand-Guidelines</li>
+      <li>Screenshots & Mockups</li>
+      <li>Unternehmensdatenblatt (2025)</li>
     </ul>
-    <h2>Bewerbung</h2>
-    <p>Senden Sie Lebenslauf und Portfolio an jobs@cine-channel.com mit der Stelle im Betreff.</p>
   `,
   pt: `
-    <h1>Emprego</h1>
-    <p>Estamos a contratar para construir a plataforma de vídeo do futuro.</p>
-    <h2>Vagas abertas</h2>
+    <h2>Imprensa / Sala de imprensa</h2>
+    <p>Para entrevistas, assets e dados: <a href="mailto:press@cine-channel.com">press@cine-channel.com</a>.</p>
+    <h3>Press kit</h3>
     <ul>
-      <li>Frontend Engineer (Remoto UE)</li>
-      <li>Backend Engineer Node.js (Remoto UE)</li>
-      <li>Partnerships Manager (Madrid/Remoto)</li>
+      <li>Logótipos e guidelines</li>
+      <li>Capturas e mockups</li>
+      <li>Ficha da empresa (2025)</li>
     </ul>
-    <h2>Como candidatar-se</h2>
-    <p>Envie CV e portefólio para jobs@cine-channel.com com a vaga no assunto.</p>
   `,
   ar: `
-    <h1>وظائف</h1>
-    <p>نبحث عن مواهب لبناء منصة الفيديو للمستقبل.</p>
-    <h2>وظائف شاغرة</h2>
+    <h2>الصحافة / غرفة الأخبار</h2>
+    <p>للمقابلات والمواد والبيانات: <a href="mailto:press@cine-channel.com">press@cine-channel.com</a>.</p>
+    <h3>حزمة الصحافة</h3>
     <ul>
-      <li>مهندس واجهات أمامية (عن بُعد داخل الاتحاد الأوروبي)</li>
-      <li>مهندس خلفية Node.js (عن بُعد داخل الاتحاد الأوروبي)</li>
-      <li>مدير الشراكات (مدريد/عن بُعد)</li>
+      <li>الشعارات وإرشادات الهوية</li>
+      <li>لقطات الشاشة والنماذج</li>
+      <li>بطاقة معلومات الشركة (2025)</li>
     </ul>
-    <h2>طريقة التقديم</h2>
-    <p>أرسل سيرتك الذاتية ومحفظتك إلى jobs@cine-channel.com مع ذكر الوظيفة في العنوان.</p>
   `,
   ru: `
-    <h1>Вакансии</h1>
-    <p>Мы расширяем команду, чтобы строить видеоплатформу будущего.</p>
-    <h2>Открытые позиции</h2>
+    <h2>Пресса / Пресс-центр</h2>
+    <p>Для интервью, материалов и данных: <a href="mailto:press@cine-channel.com">press@cine-channel.com</a>.</p>
+    <h3>Пресс-кит</h3>
     <ul>
-      <li>Frontend Engineer (удаленно, ЕС)</li>
-      <li>Backend Engineer Node.js (удаленно, ЕС)</li>
-      <li>Partnerships Manager (Мадрид/удаленно)</li>
+      <li>Логотипы и гайдлайны</li>
+      <li>Скриншоты и макеты</li>
+      <li>Справка о компании (2025)</li>
     </ul>
-    <h2>Как откликнуться</h2>
-    <p>Присылайте резюме и портфолио на jobs@cine-channel.com с указанием позиции в теме письма.</p>
   `,
   zh: `
-    <h1>招聘</h1>
-    <p>我们正在招聘，共同打造下一代视频平台。</p>
-    <h2>开放岗位</h2>
+    <h2>媒体 / 新闻中心</h2>
+    <p>采访、素材与数据请求请联系：<a href="mailto:press@cine-channel.com">press@cine-channel.com</a>。</p>
+    <h3>媒体资料包</h3>
     <ul>
-      <li>前端工程师（欧盟远程）</li>
-      <li>后端工程师 Node.js（欧盟远程）</li>
-      <li>合作伙伴经理（马德里/远程）</li>
+      <li>标志与品牌规范</li>
+      <li>截图与模型图</li>
+      <li>公司资料（2025）</li>
     </ul>
-    <h2>申请方式</h2>
-    <p>请将简历和作品集发送至 jobs@cine-channel.com，并在主题中注明岗位。</p>
   `,
   ko: `
-    <h1>채용</h1>
-    <p>다음 세대 영상 플랫폼을 함께 만들 인재를 찾습니다.</p>
-    <h2>모집 중인 포지션</h2>
+    <h2>프레스 / 뉴스룸</h2>
+    <p>인터뷰, 자료 및 데이터 문의: <a href="mailto:press@cine-channel.com">press@cine-channel.com</a></p>
+    <h3>프레스 키트</h3>
     <ul>
-      <li>프론트엔드 엔지니어 (EU 원격)</li>
-      <li>백엔드 엔지니어 Node.js (EU 원격)</li>
-      <li>파트너십 매니저 (마드리드/원격)</li>
+      <li>로고 및 브랜드 가이드</li>
+      <li>스크린샷 및 목업</li>
+      <li>회사 팩트시트 (2025)</li>
     </ul>
-    <h2>지원 방법</h2>
-    <p>이력서와 포트폴리오를 jobs@cine-channel.com 으로 보내 주세요. 메일 제목에 지원 포지션을 적어 주세요.</p>
   `,
 };
