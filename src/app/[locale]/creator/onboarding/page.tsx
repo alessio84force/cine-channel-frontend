@@ -7,7 +7,9 @@ export default function OnboardingPage(){
   const lang = (locale || "es") as L;
   const router = useRouter();
   
-  useEffect(() => {
+  
+  const [ok, setOk] = useState<null | boolean>(null);
+useEffect(() => {
     if (ok === false) {
       // removed bad redirect
     }
