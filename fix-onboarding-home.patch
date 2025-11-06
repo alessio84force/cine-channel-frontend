@@ -1,0 +1,49 @@
+From a576e461ba4f8af45ea50b57a4a71809b6fec1c7 Mon Sep 17 00:00:00 2001
+From: alessio84force <alessio84force@gmail.com>
+Date: Thu, 6 Nov 2025 01:12:21 +0000
+Subject: [PATCH] fix(onboarding): deduplica import React + redirect in
+ useEffect; guard di loading fix(home): HEADLINE_TOP/PREMIUM con fallback
+ hero.{headline_top,headline_premium}->{headline1,headline2} chore: normalizza
+ spread incollati dalla chat
+
+---
+ src/app/[locale]/creator/onboarding/page.tsx | 4 +++-
+ src/app/[locale]/page.tsx                    | 4 ++++
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/src/app/[locale]/creator/onboarding/page.tsx b/src/app/[locale]/creator/onboarding/page.tsx
+index b1f444f..64b708c 100644
+--- a/src/app/[locale]/creator/onboarding/page.tsx
++++ b/src/app/[locale]/creator/onboarding/page.tsx
+@@ -7,7 +7,9 @@ export default function OnboardingPage(){
+   const lang = (locale || "es") as L;
+   const router = useRouter();
+   
+-  useEffect(() => {
++  
++  const [ok, setOk] = useState<null | boolean>(null);
++useEffect(() => {
+     if (ok === false) {
+       // removed bad redirect
+     }
+diff --git a/src/app/[locale]/page.tsx b/src/app/[locale]/page.tsx
+index 2b13ce6..677b525 100644
+--- a/src/app/[locale]/page.tsx
++++ b/src/app/[locale]/page.tsx
+@@ -12,9 +12,13 @@ export default async function HomePage({
+   const lang = (LOCALES.includes(locale) ? locale : "es") as Locale;
+   
+     const t = dict[lang] || dict.es;
++  
+   const hero = (dict[lang] as any)?.hero || (dict.es as any).hero;
+   const HEADLINE_TOP = hero?.headline_top ?? hero?.headline1 ?? "";
+   const HEADLINE_PREMIUM = hero?.headline_premium ?? hero?.headline2 ?? "";
++const hero = (dict[lang] as any)?.hero || (dict.es as any).hero;
++  const HEADLINE_TOP = hero?.headline_top ?? hero?.headline1 ?? "";
++  const HEADLINE_PREMIUM = hero?.headline_premium ?? hero?.headline2 ?? "";
+ 
+   
+ 
+-- 
+2.50.1
+

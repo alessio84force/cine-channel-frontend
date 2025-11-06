@@ -12,16 +12,9 @@ export default async function HomePage({
   const lang = (LOCALES.includes(locale) ? locale : "es") as Locale;
   
     const t = dict[lang] || dict.es;
-  
   const hero = (dict[lang] as any)?.hero || (dict.es as any).hero;
   const HEADLINE_TOP = hero?.headline_top ?? hero?.headline1 ?? "";
   const HEADLINE_PREMIUM = hero?.headline_premium ?? hero?.headline2 ?? "";
-const hero = (dict[lang] as any)?.hero || (dict.es as any).hero;
-  const HEADLINE_TOP = hero?.headline_top ?? hero?.headline1 ?? "";
-  const HEADLINE_PREMIUM = hero?.headline_premium ?? hero?.headline2 ?? "";
-
-  
-
   return (
     <main>
       <section className="relative isolate h-[70vh] md:h-[80vh] overflow-hidden">
