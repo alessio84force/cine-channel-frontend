@@ -7,6 +7,7 @@ export default function OnboardingPage(){
   const lang = (locale || "es") as L;
   const router = useRouter();
   const [ok, setOk] = useState<null | boolean>(null);
+  useEffect(() => { (async () => { try { const r = await fetch("/api/session", { cache: "no-store" }); const j = await r.json(); setOk(!!j?.user); } catch { setOk(false); } })(); }, []);
 useEffect(()=>{ (async()=>{
     try{ const r = await fetch("/api/session",{cache:"no-store"}); const j=await r.json(); setOk(!!j?.user); }
     catch{ setOk(false); }
