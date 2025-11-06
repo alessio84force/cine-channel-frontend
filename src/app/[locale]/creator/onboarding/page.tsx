@@ -6,12 +6,8 @@ export default function OnboardingPage(){
   const { locale } = useParams<{ locale: L }>();
   const lang = (locale || "es") as L;
   const router = useRouter();
-useEffect(() => {
-    if (ok === false) {
-      // removed bad redirect
-    }
-  }, [ok, router, lang]);
-  useEffect(()=>{ (async()=>{
+  const [ok, setOk] = useState<null | boolean>(null);
+useEffect(()=>{ (async()=>{
     try{ const r = await fetch("/api/session",{cache:"no-store"}); const j=await r.json(); setOk(!!j?.user); }
     catch{ setOk(false); }
   })(); },[]);
