@@ -1,0 +1,203 @@
+From ba0bf6305f2450eb54a28ae4d6ac2ce8703d03bf Mon Sep 17 00:00:00 2001
+From: alessio84force <alessio84force@gmail.com>
+Date: Thu, 6 Nov 2025 01:33:33 +0000
+Subject: [PATCH] fix(onboarding): rimuovi effect con deps [ok,...] fuori
+ ordine; inserisci stato prima; reintrodotto redirect+session effect; guard di
+ loading
+
+---
+ fix-onboarding-ok-not-defined.patch          | 162 +++++++++++++++++++
+ src/app/[locale]/creator/onboarding/page.tsx |   8 +-
+ 2 files changed, 164 insertions(+), 6 deletions(-)
+ create mode 100644 fix-onboarding-ok-not-defined.patch
+
+diff --git a/fix-onboarding-ok-not-defined.patch b/fix-onboarding-ok-not-defined.patch
+new file mode 100644
+index 0000000..3521b53
+--- /dev/null
++++ b/fix-onboarding-ok-not-defined.patch
+@@ -0,0 +1,162 @@
++From 011011516ec8e4bb84dddaf3de873bad5e77ad15 Mon Sep 17 00:00:00 2001
++From: alessio84force <alessio84force@gmail.com>
++Date: Thu, 6 Nov 2025 01:21:43 +0000
++Subject: [PATCH] fix(onboarding): definisci stato prima degli effetti; rimuovi
++ redirect/effects duplicati; evita 'ok is not defined'
++
++---
++ fix-onboarding-dedupe-ok.patch | 142 +++++++++++++++++++++++++++++++++
++ 1 file changed, 142 insertions(+)
++ create mode 100644 fix-onboarding-dedupe-ok.patch
++
++diff --git a/fix-onboarding-dedupe-ok.patch b/fix-onboarding-dedupe-ok.patch
++new file mode 100644
++index 0000000..3cc11a5
++--- /dev/null
+++++ b/fix-onboarding-dedupe-ok.patch
++@@ -0,0 +1,142 @@
+++From 0a49c394d274bb69e4c2cce69c872167da44532c Mon Sep 17 00:00:00 2001
+++From: alessio84force <alessio84force@gmail.com>
+++Date: Thu, 6 Nov 2025 01:17:48 +0000
+++Subject: [PATCH] fix(onboarding): dedup stato ok ed effetti; unico blocco
+++ sessione+redirect e guard di loading
+++
+++---
+++ fix-dedupe-headlines.patch                   | 91 ++++++++++++++++++++
+++ src/app/[locale]/creator/onboarding/page.tsx | 10 +--
+++ 2 files changed, 92 insertions(+), 9 deletions(-)
+++ create mode 100644 fix-dedupe-headlines.patch
+++
+++diff --git a/fix-dedupe-headlines.patch b/fix-dedupe-headlines.patch
+++new file mode 100644
+++index 0000000..af00587
+++--- /dev/null
++++++ b/fix-dedupe-headlines.patch
+++@@ -0,0 +1,91 @@
++++From 8ce3a56753331cf54f82f6ab5d3ad4fb801d54aa Mon Sep 17 00:00:00 2001
++++From: alessio84force <alessio84force@gmail.com>
++++Date: Thu, 6 Nov 2025 01:14:22 +0000
++++Subject: [PATCH] fix(home): dedup const HEADLINE_TOP/PREMIUM e hero;
++++ inserimento unico con fallback robusti
++++
++++---
++++ fix-onboarding-home.patch | 49 +++++++++++++++++++++++++++++++++++++++
++++ src/app/[locale]/page.tsx |  7 ------
++++ 2 files changed, 49 insertions(+), 7 deletions(-)
++++ create mode 100644 fix-onboarding-home.patch
++++
++++diff --git a/fix-onboarding-home.patch b/fix-onboarding-home.patch
++++new file mode 100644
++++index 0000000..9c54a45
++++--- /dev/null
+++++++ b/fix-onboarding-home.patch
++++@@ -0,0 +1,49 @@
+++++From a576e461ba4f8af45ea50b57a4a71809b6fec1c7 Mon Sep 17 00:00:00 2001
+++++From: alessio84force <alessio84force@gmail.com>
+++++Date: Thu, 6 Nov 2025 01:12:21 +0000
+++++Subject: [PATCH] fix(onboarding): deduplica import React + redirect in
+++++ useEffect; guard di loading fix(home): HEADLINE_TOP/PREMIUM con fallback
+++++ hero.{headline_top,headline_premium}->{headline1,headline2} chore: normalizza
+++++ spread incollati dalla chat
+++++
+++++---
+++++ src/app/[locale]/creator/onboarding/page.tsx | 4 +++-
+++++ src/app/[locale]/page.tsx                    | 4 ++++
+++++ 2 files changed, 7 insertions(+), 1 deletion(-)
+++++
+++++diff --git a/src/app/[locale]/creator/onboarding/page.tsx b/src/app/[locale]/creator/onboarding/page.tsx
+++++index b1f444f..64b708c 100644
+++++--- a/src/app/[locale]/creator/onboarding/page.tsx
++++++++ b/src/app/[locale]/creator/onboarding/page.tsx
+++++@@ -7,7 +7,9 @@ export default function OnboardingPage(){
+++++   const lang = (locale || "es") as L;
+++++   const router = useRouter();
+++++   
+++++-  useEffect(() => {
++++++  
++++++  const [ok, setOk] = useState<null | boolean>(null);
++++++useEffect(() => {
+++++     if (ok === false) {
+++++       // removed bad redirect
+++++     }
+++++diff --git a/src/app/[locale]/page.tsx b/src/app/[locale]/page.tsx
+++++index 2b13ce6..677b525 100644
+++++--- a/src/app/[locale]/page.tsx
++++++++ b/src/app/[locale]/page.tsx
+++++@@ -12,9 +12,13 @@ export default async function HomePage({
+++++   const lang = (LOCALES.includes(locale) ? locale : "es") as Locale;
+++++   
+++++     const t = dict[lang] || dict.es;
++++++  
+++++   const hero = (dict[lang] as any)?.hero || (dict.es as any).hero;
+++++   const HEADLINE_TOP = hero?.headline_top ?? hero?.headline1 ?? "";
+++++   const HEADLINE_PREMIUM = hero?.headline_premium ?? hero?.headline2 ?? "";
++++++const hero = (dict[lang] as any)?.hero || (dict.es as any).hero;
++++++  const HEADLINE_TOP = hero?.headline_top ?? hero?.headline1 ?? "";
++++++  const HEADLINE_PREMIUM = hero?.headline_premium ?? hero?.headline2 ?? "";
+++++ 
+++++   
+++++ 
+++++-- 
+++++2.50.1
+++++
++++diff --git a/src/app/[locale]/page.tsx b/src/app/[locale]/page.tsx
++++index 677b525..8f19f03 100644
++++--- a/src/app/[locale]/page.tsx
+++++++ b/src/app/[locale]/page.tsx
++++@@ -12,16 +12,9 @@ export default async function HomePage({
++++   const lang = (LOCALES.includes(locale) ? locale : "es") as Locale;
++++   
++++     const t = dict[lang] || dict.es;
++++-  
++++   const hero = (dict[lang] as any)?.hero || (dict.es as any).hero;
++++   const HEADLINE_TOP = hero?.headline_top ?? hero?.headline1 ?? "";
++++   const HEADLINE_PREMIUM = hero?.headline_premium ?? hero?.headline2 ?? "";
++++-const hero = (dict[lang] as any)?.hero || (dict.es as any).hero;
++++-  const HEADLINE_TOP = hero?.headline_top ?? hero?.headline1 ?? "";
++++-  const HEADLINE_PREMIUM = hero?.headline_premium ?? hero?.headline2 ?? "";
++++-
++++-  
++++-
++++   return (
++++     <main>
++++       <section className="relative isolate h-[70vh] md:h-[80vh] overflow-hidden">
++++-- 
++++2.50.1
++++
+++diff --git a/src/app/[locale]/creator/onboarding/page.tsx b/src/app/[locale]/creator/onboarding/page.tsx
+++index 64b708c..3310d2c 100644
+++--- a/src/app/[locale]/creator/onboarding/page.tsx
++++++ b/src/app/[locale]/creator/onboarding/page.tsx
+++@@ -6,24 +6,16 @@ export default function OnboardingPage(){
+++   const { locale } = useParams<{ locale: L }>();
+++   const lang = (locale || "es") as L;
+++   const router = useRouter();
+++-  
+++-  
+++-  const [ok, setOk] = useState<null | boolean>(null);
+++ useEffect(() => {
+++     if (ok === false) {
+++       // removed bad redirect
+++     }
+++   }, [ok, router, lang]);
+++-
+++-const [ok,setOk] = useState<null|boolean>(null);
+++   useEffect(()=>{ (async()=>{
+++     try{ const r = await fetch("/api/session",{cache:"no-store"}); const j=await r.json(); setOk(!!j?.user); }
+++     catch{ setOk(false); }
+++   })(); },[]);
+++-  if(ok===false){ router.replace(`/${lang}/signin?callbackUrl=/${lang}/creator/onboarding`); }
+++-  if (ok === null) { return (<main className="max-w-2xl mx-auto px-6 py-10"><p className="text-white/60">Loading...</p></main>); }
+++-
+++-  return (
++++  if(ok===false){ router.replace(`/${lang}/signin?callbackUrl=/${lang}/creator/onboarding`); }return (
+++     <main className="max-w-2xl mx-auto px-6 py-10">
+++       <h1 className="text-2xl font-bold mb-4">Crear canal — Onboarding</h1>
+++       <p className="text-white/70">Si sei loggato correttamente vedrai qui il modulo dati/fatturazione.</p>
+++-- 
+++2.50.1
+++
++-- 
++2.50.1
++
+diff --git a/src/app/[locale]/creator/onboarding/page.tsx b/src/app/[locale]/creator/onboarding/page.tsx
+index 3310d2c..c944365 100644
+--- a/src/app/[locale]/creator/onboarding/page.tsx
++++ b/src/app/[locale]/creator/onboarding/page.tsx
+@@ -6,12 +6,8 @@ export default function OnboardingPage(){
+   const { locale } = useParams<{ locale: L }>();
+   const lang = (locale || "es") as L;
+   const router = useRouter();
+-useEffect(() => {
+-    if (ok === false) {
+-      // removed bad redirect
+-    }
+-  }, [ok, router, lang]);
+-  useEffect(()=>{ (async()=>{
++  const [ok, setOk] = useState<null | boolean>(null);
++useEffect(()=>{ (async()=>{
+     try{ const r = await fetch("/api/session",{cache:"no-store"}); const j=await r.json(); setOk(!!j?.user); }
+     catch{ setOk(false); }
+   })(); },[]);
+-- 
+2.50.1
+
