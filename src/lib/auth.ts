@@ -1,25 +1,14 @@
-import NextAuth, { type NextAuthOptions } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
 
-export const authOptions: NextAuthOptions = {
-  session: { strategy: "jwt" },
-  providers: [
-    Credentials({
-      name: "Credentials",
-      credentials: {
-        email: { label: "Email", type: "text" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        // ⚠️ DEV ONLY: accetta qualunque email/password non vuota.
-        const email = credentials?.email?.trim();
-        const password = credentials?.password?.trim();
-        if (!email || !password) return null;
-        return { id: email, name: email.split("@")[0] || "user", email };
-      },
-    }),
-  ],
-  pages: {
-    signIn: "/api/auth/signin", // usa il form di default di NextAuth
-  },
-};
+type DemoUser = { email: string; name: string; passwordHash: string };
+
+export const DEMO_USERS: DemoUser[] = [
+  { email: "demo@cine-channel.test", name: "Demo User", passwordHash: "$2b$10$GFm/Jos/hmfSvJaKjcWt8eYpuE2.7G8yNAG4gomVGLxic2jW5ALTm" }
+];
+
+export async function verifyUser(email: string, password: string) {
+  const u = DEMO_USERS.find(x => x.email.toLowerCase() === email.toLowerCase());
+  if (!u) return null;
+  const ok = await bcrypt.compare(password, u.passwordHash);
+  return ok ? { email: u.email, name: u.name } : null;
+}
