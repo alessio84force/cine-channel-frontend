@@ -1,8 +1,11 @@
 import { redirect } from "next/navigation";
 
-type Params = { locale?: string };
-
-export default function Page({ params }: { params: Params }) {
-  const lang = (params?.locale || "es") as string;
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale?: string }>;
+}) {
+  const { locale } = await params;            // ✅ evitare "sync dynamic APIs"
+  const lang = locale ?? "es";
   redirect(`/${lang}/signin?callbackUrl=/${lang}/creator/onboarding`);
 }
