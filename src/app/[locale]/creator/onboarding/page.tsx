@@ -6,24 +6,16 @@ export default function OnboardingPage(){
   const { locale } = useParams<{ locale: L }>();
   const lang = (locale || "es") as L;
   const router = useRouter();
-  
-  
-  const [ok, setOk] = useState<null | boolean>(null);
 useEffect(() => {
     if (ok === false) {
       // removed bad redirect
     }
   }, [ok, router, lang]);
-
-const [ok,setOk] = useState<null|boolean>(null);
   useEffect(()=>{ (async()=>{
     try{ const r = await fetch("/api/session",{cache:"no-store"}); const j=await r.json(); setOk(!!j?.user); }
     catch{ setOk(false); }
   })(); },[]);
-  if(ok===false){ router.replace(`/${lang}/signin?callbackUrl=/${lang}/creator/onboarding`); }
-  if (ok === null) { return (<main className="max-w-2xl mx-auto px-6 py-10"><p className="text-white/60">Loading...</p></main>); }
-
-  return (
+  if(ok===false){ router.replace(`/${lang}/signin?callbackUrl=/${lang}/creator/onboarding`); }return (
     <main className="max-w-2xl mx-auto px-6 py-10">
       <h1 className="text-2xl font-bold mb-4">Crear canal — Onboarding</h1>
       <p className="text-white/70">Si sei loggato correttamente vedrai qui il modulo dati/fatturazione.</p>
